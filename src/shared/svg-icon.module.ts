@@ -12,30 +12,17 @@ export class SvgIconModule {
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer
   ) {
-    this.registerIcon('home');
-    this.registerIcon('questionnaires');
+    this.registerIcon('api-keys');
+    this.registerIcon('assistants');
+    this.registerIcon('files');
+    this.registerIcon('fine-tuning');
+    this.registerIcon('playground');
     this.registerIcon('settings');
-    this.registerIcon('upload');
-    this.registerIcon('loading');
-    this.registerIcon('check-circle');
-    this.registerIcon('upload-hover');
-    this.registerIcon('global');
-    this.registerIcon('resources');
-    this.registerIcon('document');
-    this.registerIcon('download');
-    this.registerIcon('edit');
-    this.registerIcon('delete');
-    this.registerIcon('magic');
-    this.registerIcon('extra');
-    this.registerIcon('error-circle');
-    this.registerIcon('info-circle');
-    this.registerIcon('success-circle');
-    this.registerIcon('warning-circle');
-    this.registerIcon('edit-link');
-    this.registerIcon('fast');
-    this.registerIcon('calendar');
-    this.registerIcon('table');
-    this.registerIcon('file');
+    this.registerIcon('usage');
+    this.registerIcon('documentation');
+    this.registerIcon('help');
+    this.registerIcon('all-products');
+
   }
 
   private registerIcon(iconName: string) {
