@@ -1,16 +1,14 @@
 <div
-  class="w-[calc(3.5rem+1px)] hover:w-52 transition-all h-full border-r border-gray-200 fixed left-0 top-0 px-3 py-4 flex flex-col justify-between">
+  (mouseenter)="mouseEnter()"
+  (mouseleave)="mouseLeave()"
+  class="w-[calc(3.5rem+1px)] hover:w-52 transition-all h-full border-r border-gray-200 fixed left-0 top-0 px-3 py-4 flex group flex-col justify-between text-sm">
   <div class="flex flex-col gap-6">
-    <a class="w-8 flex items-center justify-center" routerLink="/"><img alt="logo" height="24"
-                                                                        ngSrc="assets/img/logo.svg" width="24"></a>
+    <a class="w-8 flex items-center justify-center" routerLink="/">
+      <img alt="logo" height="24" ngSrc="assets/img/logo.svg" width="24">
+    </a>
     <div class="flex flex-col gap-1 w-full">
       @for (navigation of mainNavigations;track navigation) {
-        <a [routerLink]="['/',navigation.route]"
-           class="flex items-center w-full overflow-hidden gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-700 rounded-lg whitespace-nowrap"
-           routerLinkActive="bg-green-100 text-green-700 hover:bg-green-100 hover:text-green-700">
-          <mat-icon [svgIcon]="navigation.icon" class="customIconSize"/>
-          {{ navigation.name }}
-        </a>
+        <app-router-button [navigation]="navigation" [isHovering]="isHovering()"/>
       }
     </div>
   </div>
@@ -18,16 +16,15 @@
     <div class="flex flex-col gap-1 w-full">
       @for (navigation of secondNavigations;track navigation) {
         @if (navigation.route) {
-          <a [routerLink]="['/',navigation.route]"
+          <a [routerLink]="navigation.route"
              class="flex items-center w-full overflow-hidden gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-700 rounded-lg whitespace-nowrap"
-             routerLinkActive="bg-green-100 text-green-700 hover:bg-green-100 hover:text-green-700">
+             routerLinkActive="bg-green-100 text-green-700 hover:bg-green-100 hover:text-green-700 font-semibold">
             <mat-icon [svgIcon]="navigation.icon" class="customIconSize"/>
             {{ navigation.name }}
           </a>
         } @else {
           <div (click)="navigation?.run()"
-               class="flex items-center w-full overflow-hidden gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-700 rounded-lg whitespace-nowrap"
-               routerLinkActive="bg-green-100 text-green-700 hover:bg-green-100 hover:text-green-700">
+               class="flex items-center w-full overflow-hidden gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-700 rounded-lg whitespace-nowrap">
             <mat-icon [svgIcon]="navigation.icon" class="customIconSize"/>
             {{ navigation.name }}
           </div>

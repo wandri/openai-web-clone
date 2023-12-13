@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";
 import {MatIconModule} from "@angular/material/icon";
+import {RouterButtonComponent} from "./router-button/router-button.component";
 
 @Component({
   selector: 'app-sidenav',
@@ -10,56 +11,90 @@ import {MatIconModule} from "@angular/material/icon";
     RouterLink,
     NgOptimizedImage,
     MatIconModule,
-    RouterLinkActive
+    RouterLinkActive,
+    RouterButtonComponent
   ],
   templateUrl: './sidenav.component.html',
-  styles: [':host {@apply flex flex-col h-full w-full;}', '.customIconSize {@apply w-5 h-5 min-w-[1.25rem]; }'],
+  styles: [':host {@apply flex flex-col h-full w-full;}',],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidenavComponent {
-  readonly mainNavigations: { icon: string, name: string, route: string }[] = [
+  readonly isHovering = signal<boolean>(false);
+  readonly mainNavigations: {
+    icon?: string,
+    name: string,
+    route: string[],
+    isSubRoute?: boolean,
+    hasSubRoutes?: boolean
+  }[] = [
     {
       icon: 'playground',
       name: 'Playground',
-      route: 'playground',
+      route: ['/', 'playground'],
     },
     {
       icon: 'assistants',
       name: 'Assistants',
-      route: 'assistants',
+      route: ['/', 'assistants',]
     },
     {
       icon: 'fine-tuning',
       name: 'Fine-tuning',
-      route: 'finetune',
+      route: ['/', 'finetune',]
     },
     {
       icon: 'api-keys',
       name: 'API keys',
-      route: 'api-keys'
+      route: ['/', 'api-keys']
     },
     {
       icon: 'files',
       name: 'Files',
-      route: 'Files',
+      route: ['/', 'files',]
     },
     {
       icon: 'usage',
       name: 'Usage',
-      route: 'usage'
+      route: ['/', 'usage']
     },
     {
       icon: 'settings',
       name: 'Settings',
-      route: 'account'
+      route: ['/', 'account'],
+      hasSubRoutes: true,
+    },
+    {
+      name: 'Organization',
+      route: ['/', 'account', 'organization'],
+      isSubRoute: true,
+    },
+    {
+      name: 'Team',
+      route: ['/', 'account', 'team'],
+      isSubRoute: true,
+    },
+    {
+      name: 'Limits',
+      route: ['/', 'account', 'limits'],
+      isSubRoute: true,
+    },
+    {
+      name: 'Billings',
+      route: ['/', 'account', 'billings'],
+      isSubRoute: true,
+    },
+    {
+      name: 'Profile',
+      route: ['/', 'account', 'profile'],
+      isSubRoute: true,
     },
   ];
 
-  readonly secondNavigations: { icon: string, name: string, route?: string, run?: () => void }[] = [
+  readonly secondNavigations: { icon: string, name: string, route?: string[], run?: () => void }[] = [
     {
       icon: 'documentation',
       name: 'Documentation',
-      route: 'docs',
+      route: ['/', 'docs'],
     },
     {
       icon: 'help',
@@ -74,4 +109,16 @@ export class SidenavComponent {
       },
     },
   ]
+
+  mouseEnter(): void {
+    setTimeout(() => {
+      this.isHovering.set(true);
+    })
+  }
+
+  mouseLeave(): void {
+    setTimeout(() => {
+      this.isHovering.set(false);
+    })
+  }
 }

@@ -39,7 +39,38 @@ export const routes: Routes = [
   {
     path: 'account',
     loadComponent: () => import('./pages/account/account.component').then(mod => mod.AccountComponent),
-    title: () => Promise.resolve('Account')
+    title: () => Promise.resolve('Account'),
+    children: [
+      {
+        path: '',
+        redirectTo: 'organization', pathMatch: 'full'
+      },
+      {
+        path: 'organization',
+        loadComponent: () => import('./pages/account/organization/organization.component').then(mod => mod.OrganizationComponent),
+        title: () => Promise.resolve('organization')
+      },
+      {
+        path: 'team',
+        loadComponent: () => import('./pages/account/team/team.component').then(mod => mod.TeamComponent),
+        title: () => Promise.resolve('Team')
+      },
+      {
+        path: 'limits',
+        loadComponent: () => import('./pages/account/limits/limits.component').then(mod => mod.LimitsComponent),
+        title: () => Promise.resolve('Limits')
+      },
+      {
+        path: 'billings',
+        loadComponent: () => import('./pages/account/billings/billings.component').then(mod => mod.BillingsComponent),
+        title: () => Promise.resolve('Billings')
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./pages/account/profile/profile.component').then(mod => mod.ProfileComponent),
+        title: () => Promise.resolve('Profile')
+      },
+    ]
   },
   {
     path: 'docs',
