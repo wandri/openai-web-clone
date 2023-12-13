@@ -3,6 +3,7 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";
 import {MatIconModule} from "@angular/material/icon";
 import {RouterButtonComponent} from "./router-button/router-button.component";
+import {Navigation} from "./navigation.type";
 
 @Component({
   selector: 'app-sidenav',
@@ -20,13 +21,7 @@ import {RouterButtonComponent} from "./router-button/router-button.component";
 })
 export class SidenavComponent {
   readonly isHovering = signal<boolean>(false);
-  readonly mainNavigations: {
-    icon?: string,
-    name: string,
-    route: string[],
-    isSubRoute?: boolean,
-    hasSubRoutes?: boolean
-  }[] = [
+  readonly mainNavigations: Navigation[] = [
     {
       icon: 'playground',
       name: 'Playground',
@@ -90,7 +85,7 @@ export class SidenavComponent {
     },
   ];
 
-  readonly secondNavigations: { icon: string, name: string, route?: string[], run?: () => void }[] = [
+  readonly secondNavigations: Navigation[] = [
     {
       icon: 'documentation',
       name: 'Documentation',

@@ -1,12 +1,26 @@
-<a #rla="routerLinkActive"
-   [class.active]="rla.isActive && !((!!navigation.hasSubRoutes && isHovering) || (!!navigation.isSubRoute && !isHovering))" [routerLink]="navigation.route"
-   class="flex items-center overflow-hidden w-full gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-800 rounded-lg whitespace-nowrap"
-   routerLinkActive
->
-  @if (navigation.icon) {
-    <mat-icon [svgIcon]="navigation.icon" class="customIconSize"/>
-  } @else {
-    <div class="w-5 min-w-[1.25rem]"></div>
-  }
-  {{ navigation.name }}
-</a>
+@if (navigation.route) {
+  <a #rla="routerLinkActive"
+     [class.active]="rla.isActive && !((!!navigation.hasSubRoutes && isHovering) || (!!navigation.isSubRoute && !isHovering))"
+     [routerLink]="navigation.route"
+     class="flex items-center overflow-hidden w-full gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-800 rounded-lg whitespace-nowrap"
+     routerLinkActive
+  >
+    @if (navigation.icon) {
+      <mat-icon [svgIcon]="navigation?.icon ?? ''" class="customIconSize"/>
+    } @else {
+      <div class="w-5 min-w-[1.25rem]"></div>
+    }
+    {{ navigation.name }}
+  </a>
+} @else if (navigation.run) {
+  <div (click)="navigation.run()"
+       class="flex items-center overflow-hidden w-full gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-200 hover:text-gray-800 rounded-lg whitespace-nowrap"
+  >
+    @if (navigation.icon) {
+      <mat-icon [svgIcon]="navigation?.icon ?? ''" class="customIconSize"/>
+    } @else {
+      <div class="w-5 min-w-[1.25rem]"></div>
+    }
+    {{ navigation.name }}
+  </div>
+}

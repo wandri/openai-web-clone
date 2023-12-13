@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 
+import {Navigation} from "../navigation.type";
+
 @Component({
   selector: 'app-router-button',
   standalone: true,
@@ -15,12 +17,6 @@ import {MatIconModule} from "@angular/material/icon";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RouterButtonComponent {
-  @Input({required: true}) navigation!: {
-    icon?: string,
-    name: string,
-    route: string[],
-    isSubRoute?: boolean,
-    hasSubRoutes?: boolean
-  };
+  @Input({required: true}) navigation!: Navigation;
   @Input({required: true}) isHovering: boolean = false
 }
