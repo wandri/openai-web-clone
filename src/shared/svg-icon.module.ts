@@ -33,7 +33,7 @@ export class SvgIconModule {
 
   private registerIcon(iconName: string) {
     const formattedName = iconName.trim();
-    const path = `../assets/img/svg/${formattedName}.svg`;
+    const path = `./../assets/img/svg/${formattedName}.svg`;
     this.iconRegistry.addSvgIcon(
       formattedName,
       this.sanitizer.bypassSecurityTrustResourceUrl(path)
