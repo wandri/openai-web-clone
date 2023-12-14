@@ -2,6 +2,11 @@ import {Routes} from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'playground',
+    pathMatch: 'full'
+  },
+  {
     path: 'playground',
     loadComponent: () => import('./pages/playground/playground.component').then(mod => mod.PlaygroundComponent),
     title: () => Promise.resolve('Playground')
