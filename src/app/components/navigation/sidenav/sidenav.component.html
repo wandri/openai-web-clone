@@ -1,10 +1,10 @@
 <div
   (mouseenter)="mouseEnter()"
   (mouseleave)="mouseLeave()"
-  class="z-10 w-[calc(3.5rem+1px)] hover:w-52 hover:shadow-lg transition-all h-full border-r border-gray-200 fixed left-0 top-0 px-3 py-4 flex group flex-col justify-between text-sm">
+  class="z-10 w-[calc(3.5rem+1px)] bg-white hover:w-52 hover:shadow-lg transition-all h-full border-r border-gray-200 fixed left-0 top-0 px-3 py-4 flex group flex-col justify-between text-sm">
   <div class="flex flex-col gap-6">
     <a class="w-8 flex items-center justify-center" routerLink="/">
-      <img alt="logo" height="24" ngSrc="assets/img/logo.svg" width="24">
+      <img alt="logo" height="24" ngSrc="assets/img/logo.svg" priority="1" width="24">
     </a>
     <div class="flex flex-col gap-1 w-full">
       @for (navigation of mainNavigations;track navigation) {
@@ -20,7 +20,7 @@
     </div>
     <div class="flex flex-col pt-4 mt-1 border-t">
       <div class="px-1.5 w-full cursor-pointer">
-        <img alt="default_user" height="18" ngSrc="assets/img/default-user.png" width="18">
+        <img alt="default_user" height="18" ngSrc="assets/img/default-user.png" priority="1" width="18">
       </div>
     </div>
   </div>
