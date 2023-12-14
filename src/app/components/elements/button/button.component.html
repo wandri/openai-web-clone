@@ -1,0 +1,21 @@
+<button
+  [class.active:bg-gray-300]="color === 'neutral' && disabled === false"
+  [class.active:bg-green-900]="color === 'primary' && disabled === false"
+  [class.bg-gray-100]="color === 'neutral' && disabled === false"
+  [class.bg-gray-50]="disabled !== false"
+  [class.bg-green-700]="color === 'primary' && disabled === false"
+  [class.focus:shadow-green]="color === 'primary' && disabled === false"
+  [class.hover:bg-gray-200]="color === 'neutral' && disabled === false"
+  [class.hover:bg-green-800]="color === 'primary' && disabled === false"
+  [class.text-base]="size === 'md'"
+  [class.text-gray-400]="disabled !== false"
+  [class.text-gray-900]="color === 'neutral' && disabled === false"
+  [class.text-sm]="size === 'sm'"
+  [class.text-white]="color === 'primary' && disabled === false"
+  [disabled]="disabled !== false"
+  class="py-1.5 px-3 rounded-lg font-medium transition-colors">
+  <span
+    [class.h-5]="size === 'sm'"
+    [class.h-6]="size === 'md'"
+    class="flex items-center whitespace-nowrap w-100 mb-px gap-1"><ng-content/></span>
+</button>

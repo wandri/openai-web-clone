@@ -21,7 +21,13 @@ export class SvgIconModule {
     this.registerIcon('usage');
     this.registerIcon('documentation');
     this.registerIcon('help');
+    this.registerIcon('run');
+    this.registerIcon('link');
     this.registerIcon('all-products');
+    this.registerIcon('robot');
+    this.registerIcon('clean');
+    this.registerIcon('logs');
+    this.registerIcon('attach-file');
 
   }
 

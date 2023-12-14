@@ -16,7 +16,7 @@ import {Navigation} from "./navigation.type";
     RouterButtonComponent
   ],
   templateUrl: './sidenav.component.html',
-  styles: [':host {@apply flex flex-col h-full w-full;}',],
+  styles: [':host {@apply flex flex-col h-full}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidenavComponent {

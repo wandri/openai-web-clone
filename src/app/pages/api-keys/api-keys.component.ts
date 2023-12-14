@@ -5,7 +5,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './api-keys.component.html',
-  styles: ``,
+  styles: [':host {@apply flex flex-col w-full h-full}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApiKeysComponent {
