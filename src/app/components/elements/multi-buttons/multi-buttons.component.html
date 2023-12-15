@@ -1,0 +1,24 @@
+<div class='h-9 flex items-center overflow-hidden'>
+  @for (button of buttons;track button;let last=$last;let first=$first;let index=$index) {
+    <button
+      [class.text-base]="size === 'md'"
+      [class.text-sm]="size === 'sm'"
+      [class.text-green-700]="button !== buttons[activeIndex()]"
+      [class.text-white]="button == buttons[activeIndex()]"
+      [class.bg-green-700]="button == buttons[activeIndex()]"
+      [class.hover:bg-green-800]="button == buttons[activeIndex()]"
+      [class.active:bg-green-900]="button == buttons[activeIndex()]"
+      [class.hover:bg-green-100]="button !== buttons[activeIndex()]"
+      [class.active:bg-green-200]="button !== buttons[activeIndex()]"
+      [class.border-l]="first"
+      [class.rounded-l-lg]="first"
+      [class.rounded-r-lg]="last"
+      (click)="changeIndex(index)"
+      class="py-1.5 px-3 font-medium transition-colors border-t border-r border-b border-green-700">
+  <span
+    [class.h-5]="size === 'sm'"
+    [class.h-6]="size === 'md'"
+    class="flex items-center whitespace-nowrap w-100 mb-px gap-1">{{ button.text }}</span>
+    </button>
+  }
+</div>

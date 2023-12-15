@@ -1,3 +1,37 @@
-<app-header title="Fine-tuning">
-
-</app-header>
+<app-header-with-sub-header title="Fine-tuning">
+  <div class="flex justify-between items-center w-full">
+    <app-multi-buttons [buttons]="buttons"/>
+    <div class="flex items-center gap-2">
+      <app-button color="neutral" size="sm">
+        Learn more
+      </app-button>
+      <app-button color="primary" size="sm">
+        <mat-icon class="scale-75" fontIcon="add"/>
+        Create
+      </app-button>
+    </div>
+  </div>
+</app-header-with-sub-header>
+<div class="flex flex-col gap-2 w-full grow">
+  @if (isLoading()) {
+    <div class="flex flex-col gap-4 w-full h-full text-gray-400 justify-center items-center">
+      <app-spinner/>
+      <div class="italic">Loading...</div>
+    </div>
+  } @else {
+    <div class="flex flex-col gap-4 w-full h-full text-gray-400 justify-center items-center">
+      <div class="italic">
+        <div class="text-center">No fine-tuning jobs found.</div>
+        <div class="text-center">You can create a fine-tuning job below or using the OpenAI API.</div>
+      </div>
+      <div class="flex items-center gap-2 justify-center">
+        <app-button color="neutral" size="md">
+          Learn more
+        </app-button>
+        <app-button color="primary" size="md">
+          Create new
+        </app-button>
+      </div>
+    </div>
+  }
+</div>

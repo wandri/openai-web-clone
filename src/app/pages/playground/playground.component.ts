@@ -32,7 +32,7 @@ export class PlaygroundComponent {
   leftContainerSize = signal<number>(30);
   rightContainerSize = computed(() => 100 - this.leftContainerSize())
 
-  isLoading = toSignal(of(false).pipe(
+  readonly isLoading = toSignal(of(false).pipe(
     delay(2_000),
     startWith(true)
   ))

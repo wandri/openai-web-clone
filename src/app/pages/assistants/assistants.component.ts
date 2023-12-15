@@ -20,7 +20,7 @@ import {SkeletonLoaderComponent} from "../../components/elements/skeleton-loader
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssistantsComponent {
-  isLoading = toSignal(of(false).pipe(
+  readonly isLoading = toSignal(of(false).pipe(
     delay(2_000),
     startWith(true)
   ))
