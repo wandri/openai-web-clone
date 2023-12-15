@@ -21,7 +21,7 @@ import {SkeletonLoaderComponent} from "../../components/elements/skeleton-loader
 })
 export class AssistantsComponent {
   readonly isLoading = toSignal(of(false).pipe(
-    delay(2_000),
+    delay(1_000),
     startWith(true)
   ))
 }
