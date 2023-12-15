@@ -4,6 +4,10 @@ import {ButtonComponent} from "../../components/elements/button/button.component
 import {NgClass} from "@angular/common";
 import {CdkDrag} from "@angular/cdk/drag-drop";
 import {TextAreaComponent} from "../../components/elements/input/text-area/text-area.component";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {delay, of, startWith} from "rxjs";
+import {SkeletonLoaderComponent} from "../../components/elements/skeleton-loader/skeleton-loader.component";
+import {HeaderComponent} from "../../components/elements/header/header.component";
 
 @Component({
   selector: 'app-playground',
@@ -13,7 +17,9 @@ import {TextAreaComponent} from "../../components/elements/input/text-area/text-
     ButtonComponent,
     NgClass,
     CdkDrag,
-    TextAreaComponent
+    TextAreaComponent,
+    SkeletonLoaderComponent,
+    HeaderComponent
   ],
   templateUrl: './playground.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],
@@ -25,6 +31,11 @@ export class PlaygroundComponent {
   isResizing = signal<boolean>(false);
   leftContainerSize = signal<number>(30);
   rightContainerSize = computed(() => 100 - this.leftContainerSize())
+
+  isLoading = toSignal(of(false).pipe(
+    delay(2_000),
+    startWith(true)
+  ))
 
   resize($event: MouseEvent): void {
     if (this.isResizing()) {

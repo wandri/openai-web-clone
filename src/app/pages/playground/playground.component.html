@@ -1,43 +1,45 @@
-<div class="flex items-center justify-between px-6 py-3 border-b border-gray-200">
-  <div class="flex items-center gap-2">
-    <h1 class="text-2xl font-bold">Playground</h1>
-  </div>
-  <div class="flex items-center gap-2">
-    <a class="text-sm font-medium flex items-center leading-6 cursor-pointer text-green-700 hover:text-green-800">Learn
-      about the
-      Assistants API
-      <mat-icon class="scale-[60%]" svgIcon="link"/>
-    </a>
-  </div>
-</div>
+<app-header title="Playground">
+  <a class="text-sm font-medium flex items-center leading-6 cursor-pointer text-green-700 hover:text-green-800">
+    Learn about the Assistants API
+    <mat-icon class="scale-[60%]" svgIcon="link"/>
+  </a>
+</app-header>
 <div #thread (mousemove)="resize($event)" (mouseup)="finishResizing()" [class.cursor-ew-resize]="this.isResizing()"
      class="flex grow w-full text-gray-900">
   <div [style.flex-grow]="leftContainerSize()"
        class="flex flex-col h-full items-center justify-center shrink gap-4 overflow-hidden basis-0"
   >
-    <div class="bg-gray-100 text-gray-600 h-10 w-10 flex items-center justify-center rounded-lg">
-      <mat-icon svgIcon="robot"/>
-    </div>
-    <div class="flex flex-col gap-1 items-center">
-      <div class="h-5 font-medium">Create an assistant</div>
-      <div class="text-sm h-5 flex items-start gap-1">
-        <span>to get started with</span>
-        <a class="h-5 font-medium flex items-start cursor-pointer text-green-700 hover:text-green-800">
-          the Assistants API
-          <mat-icon class="scale-[60%]" svgIcon="link"/>
-        </a>
+    @if (isLoading()) {
+      <div class="flex flex-col gap-5 w-full h-full py-2.5 px-6">
+        <app-skeleton-loader class="w-full h-8"/>
+        <app-skeleton-loader class="w-full grow"/>
+        <app-skeleton-loader class="w-full h-8"/>
+        <app-skeleton-loader class="w-full grow"/>
       </div>
-    </div>
-    <app-button color="primary" size="md">
-      <mat-icon class="scale-75" fontIcon="add"/>
-      Create
-    </app-button>
-
+    } @else {
+      <div class="bg-gray-100 text-gray-600 h-10 w-10 flex items-center justify-center rounded-lg">
+        <mat-icon svgIcon="robot"/>
+      </div>
+      <div class="flex flex-col gap-1.5 items-center">
+        <div class="h-5 font-medium">Create an assistant</div>
+        <div class="text-sm h-5 flex items-start gap-1">
+          <span>to get started with</span>
+          <a class="h-5 font-medium flex items-end cursor-pointer text-green-700 hover:text-green-800">
+            the Assistants API
+            <mat-icon class="scale-[60%]" svgIcon="link"/>
+          </a>
+        </div>
+      </div>
+      <app-button color="primary" size="md">
+        <mat-icon class="scale-75" fontIcon="add"/>
+        Create
+      </app-button>
+    }
   </div>
   <div (mousedown)="initResizing()"
        class="flex cursor-ew-resize w-5 h-full overflow-hidden touch-none select-none z-10 group"
   >
-    <div class="w-px h-full bg-gray-200 group-hover:bg-gray-300"></div>
+    <div class="w-[0.5px] h-full bg-gray-200 group-hover:bg-gray-300"></div>
   </div>
   <div [style.flex-grow]="rightContainerSize()"
        class="flex flex-col shrink gap-4 basis-0 -ml-5 h-full">

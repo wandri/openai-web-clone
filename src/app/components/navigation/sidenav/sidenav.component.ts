@@ -21,6 +21,7 @@ import {Navigation} from "./navigation.type";
 })
 export class SidenavComponent {
   readonly isHovering = signal<boolean>(false);
+  readonly isRouterButtonClicked = signal<boolean>(false);
   readonly mainNavigations: Navigation[] = [
     {
       icon: 'playground',
@@ -107,6 +108,7 @@ export class SidenavComponent {
 
   mouseEnter(): void {
     setTimeout(() => {
+      this.isRouterButtonClicked.set(false);
       this.isHovering.set(true);
     })
   }
@@ -115,5 +117,9 @@ export class SidenavComponent {
     setTimeout(() => {
       this.isHovering.set(false);
     })
+  }
+
+  clickOnRouterButton(): void {
+    this.isRouterButtonClicked.set(true)
   }
 }
