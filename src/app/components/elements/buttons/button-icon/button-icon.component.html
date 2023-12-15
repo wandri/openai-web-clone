@@ -1,0 +1,13 @@
+<button
+  [class.active:bg-gray-200]="disabled === false"
+  [class.hover:bg-gray-100]="disabled === false"
+  [class.text-gray-400]="disabled !== false"
+  [class.text-gray-900]="disabled === false"
+  [disabled]="disabled !== false"
+  class="rounded-lg font-medium transition-colors h-6 w-8 flex items-center justify-center">
+  @if (svgIcon) {
+    <mat-icon [svgIcon]="svgIcon" class="scale-75"/>
+  } @else if (fontIcon) {
+    <mat-icon [fontIcon]="fontIcon" class="scale-75"/>
+  }
+</button>

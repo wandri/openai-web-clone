@@ -27,6 +27,9 @@ export class SvgIconModule {
     this.registerIcon('robot');
     this.registerIcon('clean');
     this.registerIcon('logs');
+    this.registerIcon('edit-square');
+    this.registerIcon('dropdown');
+    this.registerIcon('bin');
     this.registerIcon('attach-file');
 
   }

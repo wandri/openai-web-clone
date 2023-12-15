@@ -1,12 +1,14 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, signal} from '@angular/core';
-import {FormControl, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit, signal} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from "@angular/forms";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {noop, tap} from "rxjs";
 
 @Component({
   selector: 'app-text-area',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './text-area.component.html',
   styles: [':host {@apply flex overflow-auto text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,11 +20,8 @@ import {noop, tap} from "rxjs";
     }
   ]
 })
-export class TextAreaComponent {
-  @Input() label?: string = '';
+export class TextAreaComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder: string = '';
-  @Input() description?: string = '';
-  @Input() required = false;
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''
   );

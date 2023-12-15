@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {HeaderComponent} from "../../../components/elements/header/header.component";
+import {HeaderComponent} from "../../../components/elements/headers/header/header.component";
 
 @Component({
   selector: 'app-team',

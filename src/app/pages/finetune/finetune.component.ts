@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MultiButtonsComponent} from "../../components/elements/multi-buttons/multi-buttons.component";
+import {MultiButtonsComponent} from "../../components/elements/buttons/multi-buttons/multi-buttons.component";
 import {
   HeaderWithSubHeaderComponent
-} from "../../components/elements/header-with-sub-header/header-with-sub-header.component";
-import {ButtonComponent} from "../../components/elements/button/button.component";
+} from "../../components/elements/headers/header-with-sub-header/header-with-sub-header.component";
+import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
 import {MatIconModule} from "@angular/material/icon";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
-import {SpinnerComponent} from "../../components/elements/spinner/spinner.component";
+import {SpinnerComponent} from "../../components/elements/loaders/spinner/spinner.component";
 
 @Component({
   selector: 'app-finetune',

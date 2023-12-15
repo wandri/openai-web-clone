@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {HeaderComponent} from "../../components/elements/header/header.component";
+import {HeaderComponent} from "../../components/elements/headers/header/header.component";
 import {MatIconModule} from "@angular/material/icon";
-import {ButtonComponent} from "../../components/elements/button/button.component";
+import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
-import {SkeletonLoaderComponent} from "../../components/elements/skeleton-loader/skeleton-loader.component";
+import {SkeletonLoaderComponent} from "../../components/elements/loaders/skeleton-loader/skeleton-loader.component";
 
 @Component({
   selector: 'app-assistants',

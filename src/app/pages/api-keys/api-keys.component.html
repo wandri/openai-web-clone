@@ -1,3 +1,66 @@
-<app-header title="API keys">
+<app-header title="API keys"/>
+<div class="flex flex-col max-w-screen-md p-6 gap-8">
+  <div class="flex flex-col gap-4">
+    <p>
+      Your secret API keys are listed below. Please note that we do not display your secret API keys again after you
+      generate them.
+    </p>
+    <p>
+      Do not share your API key with others, or expose it in the browser or other client-side code. In order to protect
+      the security of your account, OpenAI may also automatically disable any API key that we've found has leaked
+      publicly.
+    </p>
+    <cdk-table [dataSource]="datasource" class="border-collapse">
+      <ng-container cdkColumnDef="name">
+        <cdk-header-cell *cdkHeaderCellDef class="flex-1 pr-2 py-1.5"> NAME</cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element" class="flex-1 py-2 pr-2"> {{ element.name }}</cdk-cell>
+      </ng-container>
 
-</app-header>
+      <ng-container cdkColumnDef="key">
+        <cdk-header-cell *cdkHeaderCellDef class="flex-1 px-2 py-1.5"> KEY</cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element" class="flex-1 p-2"> {{ element.key }}</cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="createdAt">
+        <cdk-header-cell *cdkHeaderCellDef class="flex-1 px-2 py-1.5"> CREATED</cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element" class="flex-1 p-2"> {{ element.createdAt | date:'mediumDate' }}</cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="lastUsedAt">
+        <cdk-header-cell *cdkHeaderCellDef class="flex-1 px-2 py-1.5"> LAST USED</cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element" class="flex-1 p-2"> {{ element.lastUsedAt | date:'mediumDate' }}</cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="action">
+        <cdk-header-cell *cdkHeaderCellDef class="flex-1 pl-2 py-1.5"></cdk-header-cell>
+        <cdk-cell *cdkCellDef="let element" class="flex-1 py-2 pl-2 flex gap-2">
+          <app-button-icon svgIcon="edit-square"/>
+          <app-button-icon disabled svgIcon="bin"/>
+        </cdk-cell>
+      </ng-container>
+
+      <cdk-header-row *cdkHeaderRowDef="displayedColumns"
+                      class="flex text-xs whitespace-nowrap font-bold border-b"></cdk-header-row>
+      <cdk-row *cdkRowDef="let row; columns: displayedColumns;" class="flex text-gray-600"></cdk-row>
+    </cdk-table>
+    <app-button color="neutral" size="sm">
+      <mat-icon class="scale-75" fontIcon="add"/>
+      Create new secret key
+    </app-button>
+  </div>
+  <div class="flex flex-col gap-4">
+    <h3 class="font-bold text-xl">Default organization</h3>
+    <div>If you belong to multiple organizations, this setting controls which organization is used by default when
+      making requests with the API keys above.
+    </div>
+    <div>
+      <app-select-dropdown class="w-52"/>
+    </div>
+    <div class="text-xs">Note: You can also specify which organization to use for each API request. See
+      <a class="font-medium cursor-pointer text-green-600 hover:text-green-700">
+        Authentication
+      </a>
+      to learn more.
+    </div>
+  </div>
+</div>

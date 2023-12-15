@@ -1,13 +1,13 @@
 import {ChangeDetectionStrategy, Component, computed, ElementRef, signal, ViewChild} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
-import {ButtonComponent} from "../../components/elements/button/button.component";
+import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
 import {NgClass} from "@angular/common";
 import {CdkDrag} from "@angular/cdk/drag-drop";
-import {TextAreaComponent} from "../../components/elements/input/text-area/text-area.component";
+import {TextAreaComponent} from "../../components/elements/inputs/text-area/text-area.component";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
-import {SkeletonLoaderComponent} from "../../components/elements/skeleton-loader/skeleton-loader.component";
-import {HeaderComponent} from "../../components/elements/header/header.component";
+import {SkeletonLoaderComponent} from "../../components/elements/loaders/skeleton-loader/skeleton-loader.component";
+import {HeaderComponent} from "../../components/elements/headers/header/header.component";
 
 @Component({
   selector: 'app-playground',
