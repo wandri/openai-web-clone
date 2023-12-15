@@ -82,4 +82,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/docs/docs.component').then(mod => mod.DocsComponent),
     title: () => Promise.resolve('Docs')
   },
+  {
+    path: '**',
+    redirectTo: 'playground',
+    pathMatch: 'full'
+  },
 ];
