@@ -37,7 +37,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Copy index.html to 404.html
-        run: cp dist/index.html dist/404.html  # Copying index.html to 404.html for redirections
+        run: cp dist/openai-web-clone/browser/index.html dist/openai-web-clone/browser/404.html  # Copying index.html to 404.html for redirections
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload dist artifact
