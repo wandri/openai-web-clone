@@ -31,6 +31,8 @@ export class SvgIconModule {
     this.registerIcon('dropdown');
     this.registerIcon('bin');
     this.registerIcon('attach-file');
+    this.registerIcon('chevron-right');
+    this.registerIcon('chevron-left');
 
   }
 

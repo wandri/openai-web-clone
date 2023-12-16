@@ -1,90 +1,94 @@
-.skeleton-loader {
-  @apply rounded-lg w-full overflow-hidden relative h-full inline-block;
-  box-sizing: border-box;
+:host {
+  display: block;
 
-  background: rgb(239, 241, 246) no-repeat;
-  will-change: transform;
-
-  &:after,
-  &:before {
+  .skeleton-loader {
+    @apply rounded-lg w-full overflow-hidden relative h-full inline-block;
     box-sizing: border-box;
-  }
 
-  &.progress {
+    background: rgb(239, 241, 246) no-repeat;
+    will-change: transform;
+
     &:after,
     &:before {
       box-sizing: border-box;
     }
 
-    transform: translate3d(0, 0, 0);
+    &.progress {
+      &:after,
+      &:before {
+        box-sizing: border-box;
+      }
 
-    &:before {
-      animation: progress 2s ease-in-out infinite;
-      background-size: 200px 100%;
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      width: 200px;
+      transform: translate3d(0, 0, 0);
+
+      &:before {
+        animation: progress 2s ease-in-out infinite;
+        background-size: 200px 100%;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 100%;
+        content: '';
+      }
+    }
+
+    &.progress {
+      &:before {
+        background-image: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0.6),
+            rgba(255, 255, 255, 0)
+        );
+      }
+    }
+
+    &.progress-dark {
+      &:before {
+        background-image: linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 0, 0, 0.2),
+            transparent
+        );
+      }
+    }
+
+    //For custom-content mark height to 100% and remove the background
+    &.custom-content {
       height: 100%;
-      content: '';
+      background: none;
+    }
+
+    // Removing animation if user enabled the `Reduce Motion` option
+    // via operational system and/or browser
+    // More details about `prefers-reduced-motion` in https://web.dev/prefers-reduced-motion/
+    @media (prefers-reduced-motion: reduce) {
+      &.progress::before {
+        animation: none;
+      }
+
+      &.progress::before, {
+        background-image: none;
+      }
+    }
+
+    @media screen and (min-device-width: 1200px) {
+      // Removing selection and cursor since the content is loading
+      // This is a even better way to create awareness to consumers that the content is loading
+      user-select: none;
+      cursor: wait;
     }
   }
 
-  &.progress {
-    &:before {
-      background-image: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0),
-          rgba(255, 255, 255, 0.6),
-          rgba(255, 255, 255, 0)
-      );
+  @keyframes progress {
+    0% {
+      transform: translate3d(-200px, 0, 0);
     }
-  }
-
-  &.progress-dark {
-    &:before {
-      background-image: linear-gradient(
-          90deg,
-          transparent,
-          rgba(0, 0, 0, 0.2),
-          transparent
-      );
+    100% {
+      transform: translate3d(calc(200px + 100vw), 0, 0);
     }
-  }
-
-  //For custom-content mark height to 100% and remove the background
-  &.custom-content {
-    height: 100%;
-    background: none;
-  }
-
-  // Removing animation if user enabled the `Reduce Motion` option
-  // via operational system and/or browser
-  // More details about `prefers-reduced-motion` in https://web.dev/prefers-reduced-motion/
-  @media (prefers-reduced-motion: reduce) {
-    &.progress::before {
-      animation: none;
-    }
-
-    &.progress::before, {
-      background-image: none;
-    }
-  }
-
-  @media screen and (min-device-width: 1200px) {
-    // Removing selection and cursor since the content is loading
-    // This is a even better way to create awareness to consumers that the content is loading
-    user-select: none;
-    cursor: wait;
-  }
-}
-
-@keyframes progress {
-  0% {
-    transform: translate3d(-200px, 0, 0);
-  }
-  100% {
-    transform: translate3d(calc(200px + 100vw), 0, 0);
   }
 }

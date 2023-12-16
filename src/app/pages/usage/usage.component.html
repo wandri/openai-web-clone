@@ -1,3 +1,65 @@
-<app-header title="Usage">
-
-</app-header>
+<app-header-with-sub-header title="Usage">
+  <div class="flex items-center justify-between w-full">
+    <div class="flex items-center gap-2">
+      <app-multi-buttons [buttons]="costActivityButtons" color="primary"/>
+    </div>
+    <div class="flex items-center gap-2">
+      <app-button-navigation [chosenIndex]="chosenMonthIndex()" [list]="months" size="sm"/>
+      <app-button color="primary" size="sm">
+        Export
+      </app-button>
+    </div>
+  </div>
+</app-header-with-sub-header>
+<div class="flex gap-14 px-6">
+  <div class="w-[calc(70%-3.5rem)] pt-6 flex flex-col gap-14">
+    @if (!isLoading()) {
+      <div class="flex flex-col gap-4">
+        <div class="flex gap-2 text-xl">
+          <div class="font-bold">Daily Costs</div>
+          <div class="text-gray-600">$0.00</div>
+        </div>
+        <div class="h-[275px] w-full"></div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex gap-2 text-sm">
+          <div class="font-bold">GPT-4 Turbo</div>
+          <div class="text-gray-600">$1.02</div>
+        </div>
+        <div class="h-[275px] w-full"></div>
+      </div>
+    } @else {
+      <app-skeleton-loader class="w-full h-[275px]"/>
+    }
+  </div>
+  <div class="min-w-[350px] w-1/3 pt-8 gap-14 flex flex-col">
+    <div class="h-[180px] flex gap-5 items-center">
+      @if (isLoading()) {
+        <app-skeleton-loader class="w-[200px] h-[100px]"/>
+      } @else {
+        <div class="flex flex-col gap-4">
+          <div class="flex gap-1.5 text-sm">
+            <span class="font-bold">Monthly Bill</span>
+            <span>Dec 1 - 31</span>
+          </div>
+          <div class="w-[130px] h-[130px]">
+            <!--TODO Graph-->
+          </div>
+        </div>
+        <div class="pt-6 flex flex-col gap-4">
+          <div class="text-xl">$1.02</div>
+          <div class="text-sm">/ $120.00 limit</div>
+          <app-button size="sm" color="primary">Increase limit</app-button>
+        </div>
+      }
+    </div>
+    <div class="flex flex-col gap-4 text-sm">
+      @if (isLoading()) {
+        <app-skeleton-loader class="w-full"/>
+      } @else {
+        <div><span class="font-medium">Credit Grants</span> USD</div>
+        <div>No credit grants found.</div>
+      }
+    </div>
+  </div>
+</div>
