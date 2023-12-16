@@ -10,39 +10,59 @@
       the security of your account, OpenAI may also automatically disable any API key that we've found has leaked
       publicly.
     </p>
-    <cdk-table [dataSource]="datasource" class="border-collapse">
+    <table [dataSource]="datasource()" cdk-table class="border-collapse">
       <ng-container cdkColumnDef="name">
-        <cdk-header-cell *cdkHeaderCellDef class="flex-1 pr-2 py-1.5"> NAME</cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element" class="flex-1 py-2 pr-2"> {{ element.name }}</cdk-cell>
+        <th *cdkHeaderCellDef cdk-header-cell class="flex-1 pr-2 py-1.5  flex justify-start"> NAME</th>
+        <td *cdkCellDef="let element" cdk-cell class="flex-1 py-2 pr-2  flex justify-start"> {{ element.name }}</td>
       </ng-container>
 
       <ng-container cdkColumnDef="key">
-        <cdk-header-cell *cdkHeaderCellDef class="flex-1 px-2 py-1.5"> KEY</cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element" class="flex-1 p-2"> {{ element.key }}</cdk-cell>
+        <th *cdkHeaderCellDef cdk-header-cell class="flex-1 px-2 py-1.5  flex justify-start"> KEY</th>
+        <td *cdkCellDef="let element" cdk-cell class="flex-1 p-2  flex justify-start"> {{ element.key }}</td>
       </ng-container>
 
       <ng-container cdkColumnDef="createdAt">
-        <cdk-header-cell *cdkHeaderCellDef class="flex-1 px-2 py-1.5"> CREATED</cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element" class="flex-1 p-2"> {{ element.createdAt | date:'mediumDate' }}</cdk-cell>
+        <th *cdkHeaderCellDef cdk-header-cell class="flex-1 px-2 py-1.5  flex justify-start"> CREATED</th>
+        <td *cdkCellDef="let element" cdk-cell
+            class="flex-1 p-2  flex justify-start"> {{ element.createdAt | date:'mediumDate' }}
+        </td>
       </ng-container>
 
       <ng-container cdkColumnDef="lastUsedAt">
-        <cdk-header-cell *cdkHeaderCellDef class="flex-1 px-2 py-1.5"> LAST USED</cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element" class="flex-1 p-2"> {{ element.lastUsedAt | date:'mediumDate' }}</cdk-cell>
+        <th *cdkHeaderCellDef cdk-header-cell class="flex-1 px-2 py-1.5  flex justify-start"> LAST USED</th>
+        <td *cdkCellDef="let element" cdk-cell
+            class="flex-1 p-2  flex justify-start"> {{ element.lastUsedAt | date:'mediumDate' }}
+        </td>
       </ng-container>
 
       <ng-container cdkColumnDef="action">
-        <cdk-header-cell *cdkHeaderCellDef class="flex-1 pl-2 py-1.5"></cdk-header-cell>
-        <cdk-cell *cdkCellDef="let element" class="flex-1 py-2 pl-2 flex gap-2">
+        <th *cdkHeaderCellDef cdk-header-cell class="flex-1 pl-2 py-1.5  flex justify-start"></th>
+        <td *cdkCellDef="let element" cdk-cell class="flex-1 py-2 pl-2 flex gap-2 justify-start">
           <app-button-icon svgIcon="edit-square"/>
           <app-button-icon disabled svgIcon="bin"/>
-        </cdk-cell>
+        </td>
       </ng-container>
 
-      <cdk-header-row *cdkHeaderRowDef="displayedColumns"
-                      class="flex text-xs whitespace-nowrap font-bold border-b"></cdk-header-row>
-      <cdk-row *cdkRowDef="let row; columns: displayedColumns;" class="flex text-gray-600"></cdk-row>
-    </cdk-table>
+      <tr *cdkHeaderRowDef="displayedColumns" cdk-header-row
+          class="flex text-xs whitespace-nowrap font-bold border-b"></tr>
+      <tr *cdkRowDef="let row; columns: displayedColumns;" cdk-row class="flex text-gray-600"></tr>
+      <tr *cdkNoDataRow class="flex text-gray-600">
+        @if (isLoading()) {
+          @for (column of displayedColumns;track column;let first = $first;let last=$last) {
+            @if (!last) {
+              <td class="flex-1 py-2"
+                  [class.px-2]="!first"
+                  [class.pr-2]="first">
+                <app-skeleton-loader class="w-full"/>
+              </td>
+            } @else {
+              <td class="flex-1"></td>
+            }
+          }
+        }
+      </tr>
+    </table>
+
     <app-button color="neutral" size="sm">
       <mat-icon class="scale-75" fontIcon="add"/>
       Create new secret key

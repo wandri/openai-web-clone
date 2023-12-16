@@ -1,3 +1,23 @@
-<app-header title="Files">
-
-</app-header>
+<app-header-with-sub-header title="Files">
+  <div class="flex items-center justify-between w-full">
+    <div class="flex items-center gap-2">
+      <app-multi-buttons [buttons]="fileSortOptions" color="primary"/>
+      <app-multi-buttons [buttons]="directionSortOptions" color="neutral"/>
+    </div>
+    <div class="flex items-center gap-2">
+      <app-button color="neutral" size="sm">
+        Learn more
+      </app-button>
+      <app-button color="primary" size="sm">
+        Upload
+      </app-button>
+    </div>
+  </div>
+</app-header-with-sub-header>
+<div class="flex flex-col items-center justify-center grow">
+  <div class="flex flex-col gap-1.5 items-center italic text-gray-500">
+    <div class="h-5">No files found.</div>
+    <div>Create a file with the OpenAI API.</div>
+    <app-button color="neutral" size="sm" title="Learn more"/>
+  </div>
+</div>
