@@ -4,7 +4,8 @@
       <app-multi-buttons [buttons]="costActivityButtons" color="primary"/>
     </div>
     <div class="flex items-center gap-2">
-      <app-button-navigation [chosenIndex]="chosenMonthIndex()" [list]="months" size="sm"/>
+      <app-button-navigation (onChangeIndex)="changeMonthIndex($event)" [chosenIndex]="chosenMonthIndex()"
+                             [list]="months" size="sm"/>
       <app-button color="primary" size="sm">
         Export
       </app-button>
@@ -19,7 +20,9 @@
           <div class="font-bold">Daily Costs</div>
           <div class="text-gray-600">$0.00</div>
         </div>
-        <div class="h-[275px] w-full"></div>
+        <div class="h-[275px] w-full">
+          <app-chart-bar-timeline [data]="dailyCostData()"></app-chart-bar-timeline>
+        </div>
       </div>
       <div class="flex flex-col gap-4">
         <div class="flex gap-2 text-sm">

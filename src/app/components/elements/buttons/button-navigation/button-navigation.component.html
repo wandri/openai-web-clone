@@ -4,7 +4,8 @@
   [class.text-gray-900]="disabled === false"
   [class.text-sm]="size === 'sm'"
   class="p-1.5 rounded-lg transition-colors flex items-center border">
-  <button [class.text-gray-400]="chosenIndex==0"
+  <button (click)="changeIndex(-1)"
+          [class.text-gray-400]="chosenIndex==0"
           [disabled]="disabled !== false || chosenIndex==0"
           class="h-5 flex items-center justify-center">
     <mat-icon class="scale-[80%]" svgIcon="chevron-left"/>
@@ -14,7 +15,8 @@
     [class.h-6]="size === 'md'"
     class="flex items-center whitespace-nowrap w-100 mb-px gap-1">
     <span>{{ list[chosenIndex] }}</span></div>
-  <button [class.text-gray-400]="chosenIndex==list.length-1"
+  <button (click)="changeIndex(+1)"
+          [class.text-gray-400]="chosenIndex==list.length-1"
           [disabled]="disabled !== false || chosenIndex==list.length-1"
           class="h-5 flex items-center justify-center">
     <mat-icon class="scale-[80%]" svgIcon="chevron-right"/>
