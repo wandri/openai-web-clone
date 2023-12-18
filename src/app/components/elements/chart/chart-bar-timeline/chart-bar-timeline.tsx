@@ -12,8 +12,8 @@ interface ChartBarTimelineProps {
 
 export const renderCustomYAxis = (data: { x: number, y: number, stroke: string, value: string, payload: any }) => {
   return (
-    <text x={data.x} y={data.y} dx={-6} dy={5} fontSize={10} textAnchor={"end"}>
-      ${data.payload.value}
+    <text x={data.x} y={data.y} dy={5} fontSize={10} textAnchor={"end"}>
+      <tspan>${data.payload.value}</tspan>
     </text>
   );
 }
@@ -65,20 +65,20 @@ const renderTooltip = (tooltip: any) => {
 };
 export const ChartBarTimeline: FunctionComponent<ChartBarTimelineProps> = (props: ChartBarTimelineProps) => {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" className="visible">
       <BarChart
         data={props.data}
         margin={{
           top: 10,
           right: 15,
-          left: 0,
-          bottom: 10
+          left: -40,
+          bottom: 10,
         }}
       >
         <Tooltip content={renderTooltip} cursor={false}/>
         <CartesianGrid vertical={false}/>
         <XAxis dataKey="date" tick={renderCustomXAxis} axisLine={false} interval={5} domain={['dataMin', 'dataMax']}/>
-        <YAxis tick={renderCustomYAxis} axisLine={false} stroke={'none'}/>
+        <YAxis tick={renderCustomYAxis} axisLine={false} stroke={'none'} allowDataOverflow={true}/>
         {models.map((model, i) => (
           <Bar dataKey={model} key={i} stackId="a" fill={props.isOvering ? lightBarColor[model] : barColor[model]}
                activeBar={<Rectangle fill={barColor[model]}/>}/>))}
