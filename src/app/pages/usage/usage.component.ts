@@ -36,7 +36,7 @@ import {getUsageDemo} from "./demo";
 export class UsageComponent {
   readonly isLoading = toSignal(of(false).pipe(
     delay(1_000),
-    startWith(false)
+    startWith(true)
   ))
   readonly costActivityButtons = [{text: 'Cost'}, {text: 'Activity'}];
   readonly months = ['August', 'September', 'October', 'November', 'December'];
