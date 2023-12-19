@@ -29,7 +29,7 @@
           <div class="font-bold">GPT-4 Turbo</div>
           <div class="text-gray-600">$1.02</div>
         </div>
-        <div class="h-[275px] w-full"></div>
+        <app-skeleton-loader class="w-full h-[275px]"/>
       </div>
     } @else {
       <app-skeleton-loader class="w-full h-[275px]"/>
@@ -46,7 +46,7 @@
             <span>Dec 1 - 31</span>
           </div>
           <div class="w-[130px] h-[130px]">
-            <!--TODO Graph-->
+            <app-pie-chart [data]="monthlyBillLimit()"></app-pie-chart>
           </div>
         </div>
         <div class="pt-6 flex flex-col gap-4">

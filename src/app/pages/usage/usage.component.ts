@@ -16,6 +16,7 @@ import {
   LineChartDatum,
 } from "../../components/elements/chart/chart-bar-timeline/chart-bar-timeline.component";
 import {getUsageDemo} from "./demo";
+import {PieChartComponent} from "../../components/elements/chart/pie-chart/pie-chart.component";
 
 @Component({
   selector: 'app-usage',
@@ -27,7 +28,8 @@ import {getUsageDemo} from "./demo";
     MultiButtonsComponent,
     ButtonNavigationComponent,
     SkeletonLoaderComponent,
-    ChartBarTimelineComponent
+    ChartBarTimelineComponent,
+    PieChartComponent
   ],
   templateUrl: './usage.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}', ':host {scrollbar-gutter: stable}'],
@@ -36,7 +38,7 @@ import {getUsageDemo} from "./demo";
 export class UsageComponent {
   readonly isLoading = toSignal(of(false).pipe(
     delay(1_000),
-    startWith(true)
+    startWith(false)
   ))
   readonly costActivityButtons = [{text: 'Cost'}, {text: 'Activity'}];
   readonly months = ['August', 'September', 'October', 'November', 'December'];
@@ -46,6 +48,12 @@ export class UsageComponent {
       return getUsageDemo()
     }
     return [];
+  });
+  monthlyBillLimit = computed<number>(() => {
+    if (this.chosenMonthIndex() > -1) {
+      return Math.random();
+    }
+    return 0;
   });
 
   changeMonthIndex($event: number): void {
