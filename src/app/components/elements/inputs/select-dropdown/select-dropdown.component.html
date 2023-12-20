@@ -1,6 +1,8 @@
 <div [class.border-gray-400]="!isInputEnabled()"
      [class.border-green-700]="isInputEnabled()"
-     class="h-9 flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative"
+     [class.h-8]="size === 'sm'"
+     [class.h-9]="size === 'md'"
+     class="flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative"
 >
   <div class="grid text-sm relative grow">
     <div class="flex overflow-hidden overflow-ellipsis">{{ value }}</div>
@@ -8,7 +10,7 @@
   <input [class.opacity-0]="!isInputEnabled()"
          [formControl]='form'
          [matAutocomplete]="auto"
-         class="w-full pl-3 absolute h-full top-0 left-0 outline-0 group-focus:opacity-0 pr-12"
+         class="w-full pl-3 absolute rounded-lg h-full top-0 left-0 outline-0 group-focus:opacity-0 pr-12"
   >
   <mat-autocomplete #auto="matAutocomplete">
     @for (option of options;track option) {

@@ -34,6 +34,7 @@ export class SelectDropdownComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder: string = '';
   @Input() value: string | null = 'Personal';
   @Input() options: string[] = ['Personal', 'Pro'];
+  @Input() size: 'sm' | 'md' = 'md';
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''
   );

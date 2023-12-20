@@ -4,6 +4,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {MatIconModule} from "@angular/material/icon";
 import {RouterButtonComponent} from "./router-button/router-button.component";
 import {Navigation} from "./navigation.type";
+import {ProfilePictureComponent} from "../../elements/user/profil-picture/profile-picture.component";
 
 @Component({
   selector: 'app-sidenav',
@@ -13,7 +14,8 @@ import {Navigation} from "./navigation.type";
     NgOptimizedImage,
     MatIconModule,
     RouterLinkActive,
-    RouterButtonComponent
+    RouterButtonComponent,
+    ProfilePictureComponent
   ],
   templateUrl: './sidenav.component.html',
   styles: [':host {@apply flex flex-col h-full}'],

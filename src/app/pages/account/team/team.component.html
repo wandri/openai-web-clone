@@ -1,3 +1,22 @@
 <app-header title="Team">
-
+  <app-button color="primary" size="sm">
+    Invite members
+  </app-button>
 </app-header>
+<div class="flex flex-col gap-6 p-6">
+  <div class="flex flex-col gap-4">
+    <div class="flex gap-4">
+      <app-profile-picture class="w-8 h-8"/>
+      <div>
+        <div class="text-sm flex items-center gap-2">John Doe
+          <app-tag size="xs">You</app-tag>
+        </div>
+        <div class="text-xs text-gray-600">{{ 'john.doe@greate_company.com' }}</div>
+      </div>
+    </div>
+    <div class="flex justify-between items-center">
+      <app-select-dropdown [value]="'Owner'" class="w-[150px]" size="sm"/>
+      <app-button color="neutral" size="sm">Leave</app-button>
+    </div>
+  </div>
+</div>
