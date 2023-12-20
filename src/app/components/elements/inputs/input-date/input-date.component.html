@@ -1,0 +1,20 @@
+<app-label
+  [description]="description"
+  [label]="label"
+  [required]="required"
+>
+  <input
+    (click)="picker.open()"
+    [formControl]="form"
+    [matDatepicker]="picker"
+    [placeholder]="placeholder"
+    class="w-44 outline-0 placeholder:text-gray-500 border border-gray-500 rounded p-2 pl-4 hover:border-gray-600 focus:border-blue-500 focus:bg-gray-100"
+    readonly
+  />
+  <app-button-icon
+    (click)="picker.open()"
+    class="absolute left-36 top-2"
+    svgIcon="calendar"
+  ></app-button-icon>
+  <mat-datepicker #picker></mat-datepicker>
+</app-label>

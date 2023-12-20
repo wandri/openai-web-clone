@@ -1,28 +1,36 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit, signal} from '@angular/core';
-import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from "@angular/forms";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {noop, tap} from "rxjs";
+import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
+import {noop, tap} from 'rxjs';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {ButtonIconComponent} from "../../buttons/button-icon/button-icon.component";
 import {LabelComponent} from "../label/label.component";
 
 @Component({
-  selector: 'app-text-area',
+  selector: 'app-input-date',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
-    LabelComponent
+    MatInputModule,
+    MatDatepickerModule,
+    LabelComponent,
+    ButtonIconComponent
   ],
-  templateUrl: './text-area.component.html',
+  templateUrl: './input-date.component.html',
   styles: [':host {@apply flex overflow-auto text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextAreaComponent),
+      useExisting: forwardRef(() => InputDateComponent),
       multi: true
     }
   ]
 })
-export class TextAreaComponent implements ControlValueAccessor, OnInit {
+export class InputDateComponent implements ControlValueAccessor, OnInit {
   @Input() label?: string = '';
   @Input() placeholder: string = '';
   @Input() description?: string = '';
@@ -30,7 +38,6 @@ export class TextAreaComponent implements ControlValueAccessor, OnInit {
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''
   );
-  readonly height = signal<number>(24)
   private destroyRef = inject(DestroyRef);
   private onTouched: (value: string) => void = noop;
   private onChange: (value: string | null) => void = noop;
@@ -62,15 +69,5 @@ export class TextAreaComponent implements ControlValueAccessor, OnInit {
 
   writeValue(value: string | undefined): void {
     this.form.setValue(value ?? '', {emitEvent: false});
-  }
-
-  handleChange(event: Event): void {
-    setTimeout(() => {
-      const textarea: HTMLTextAreaElement = event.target as HTMLTextAreaElement;
-      textarea.style.height = 'auto'; // Reset the height
-      const value = Math.min(textarea.scrollHeight, 200);
-      textarea.style.height = `${value}px`;
-      this.height.set(value);
-    })
   }
 }

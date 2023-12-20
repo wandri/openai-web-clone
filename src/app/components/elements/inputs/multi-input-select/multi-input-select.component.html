@@ -1,0 +1,25 @@
+<div
+  (click)="select.open()"
+  class="flex overflow-hidden h-10 gap-2 cursor-pointer items-center relative max-w-[9rem]"
+>
+  @if (!form.value || form.value.length === 0) {
+    <span>{{ type }}: All</span>
+  }
+  @if (form.value && form.value.length > 0) {
+    <span class="grow overflow-ellipsis overflow-hidden whitespace-nowrap">{{
+        formattedName()
+      }}</span>
+  }
+  <div class="w-6 flex items-center">
+    <mat-icon fontIcon="arrow_drop_down"></mat-icon>
+  </div>
+  <div class="w-96 absolute left-0 top-0">
+    <mat-select #select [formControl]="form" [multiple]="true" class="w-full">
+      @for (option of _options();track option) {
+        <mat-option [value]="option.value"
+        >{{ option.displayValue }}
+        </mat-option>
+      }
+    </mat-select>
+  </div>
+</div>

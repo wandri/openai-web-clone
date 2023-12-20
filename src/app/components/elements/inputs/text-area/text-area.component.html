@@ -1,6 +1,12 @@
+<app-label
+  [description]='description'
+  [label]='label'
+  [required]='required'
+>
 <textarea (input)="handleChange($event)"
           [class.overflow-hidden]="this.height() < 200"
           [formControl]='form'
           [placeholder]="placeholder"
           class="w-full outline-0 resize-none h-6"
           rows="1"></textarea>
+</app-label>
