@@ -11,7 +11,9 @@
       [formControl]='form'
       [placeholder]='placeholder'
       [type]='type'
-      class='h-10 w-full outline-0 placeholder:text-gray-500 border border-gray-500 rounded p-2 hover:border-gray-600 focus:border-blue-500 focus:bg-gray-100'
+      [class.bg-gray-50]="form.disabled"
+      [class.text-gray-400]="form.disabled"
+      class='w-[340px] text-sm py-1.5 px-3 outline-0 placeholder:text-gray-500 border border-gray-300 rounded-lg p-2 focus:shadow-input focus:border-green-700'
     />
     @if (icon) {
       <div class='absolute top-0 left-2 h-full flex items-center'

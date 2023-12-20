@@ -20,7 +20,7 @@ import {LabelComponent} from "../label/label.component";
     ButtonIconComponent
   ],
   templateUrl: './input-date.component.html',
-  styles: [':host {@apply flex overflow-auto text-inherit relative; }'],
+  styles: [':host {@apply flex text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

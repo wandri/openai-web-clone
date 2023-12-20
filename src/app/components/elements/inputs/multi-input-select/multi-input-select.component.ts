@@ -21,7 +21,7 @@ import {MatIconModule} from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatSelectModule, MatIconModule],
   templateUrl: './multi-input-select.component.html',
-  styles: [':host {@apply flex overflow-auto relative px-2 ; }'],
+  styles: [':host {@apply flex relative px-2 ; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

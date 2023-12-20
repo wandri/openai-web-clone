@@ -14,7 +14,7 @@ import {MatInputModule} from '@angular/material/input';
     MatDatepickerModule,
   ],
   templateUrl: './label.component.html',
-  styles: [':host {@apply flex overflow-auto text-inherit relative w-full; }'],
+  styles: [':host {@apply flex text-inherit relative w-full; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {

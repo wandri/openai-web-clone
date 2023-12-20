@@ -1,4 +1,14 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  forwardRef,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {noop, tap} from 'rxjs';
@@ -12,7 +22,7 @@ import {SkeletonLoaderComponent} from "../../loaders/skeleton-loader/skeleton-lo
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, LabelComponent, MatIconModule, SkeletonLoaderComponent],
   templateUrl: './input-text.component.html',
-  styles: [':host {@apply flex overflow-auto text-inherit relative; }'],
+  styles: [':host {@apply flex text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -22,7 +32,7 @@ import {SkeletonLoaderComponent} from "../../loaders/skeleton-loader/skeleton-lo
     }
   ]
 })
-export class InputTextComponent implements ControlValueAccessor, OnInit {
+export class InputTextComponent implements ControlValueAccessor, OnInit, OnChanges {
   @Input() label?: string = '';
   @Input() isLoading: boolean = false;
   @Input() type: 'text' | 'email' = 'text';
@@ -36,6 +46,17 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
   private destroyRef = inject(DestroyRef);
   private onChange: (value: string | null) => void = noop;
 
+  ngOnChanges(changes: SimpleChanges) {
+    const disabled = changes['disabled'];
+    if (disabled) {
+      if (disabled.currentValue) {
+        this.form.enable({emitEvent: false});
+      } else {
+        this.form.disable({emitEvent: false});
+      }
+    }
+  }
+
   onTouched = (_: string | Event) => {
   };
 
@@ -48,6 +69,7 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
       .subscribe();
   }
 
+
   registerOnChange(fn: () => void): void {
     this.onChange = fn;
   }
@@ -56,15 +78,15 @@ export class InputTextComponent implements ControlValueAccessor, OnInit {
     this.onTouched = fn;
   }
 
-  setDisabledState(disabled: boolean): void {
-    if (disabled) {
+  writeValue(value: string | undefined): void {
+    this.form.setValue(value ?? '', {emitEvent: false});
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    if (isDisabled) {
       this.form.disable({emitEvent: false});
     } else {
       this.form.enable({emitEvent: false});
     }
-  }
-
-  writeValue(value: string | undefined): void {
-    this.form.setValue(value ?? '', {emitEvent: false});
   }
 }

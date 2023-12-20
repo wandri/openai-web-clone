@@ -27,7 +27,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     MatAutocompleteModule
   ],
   templateUrl: './select-dropdown.component.html',
-  styles: [':host {@apply flex overflow-auto text-inherit relative; }'],
+  styles: [':host {@apply flex text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectDropdownComponent implements ControlValueAccessor, OnInit {

@@ -1,17 +1,19 @@
 <div class='flex flex-col gap-2 w-full'>
-  @if (label) {
-    <div class='text-sm'>
-      <span class='font-semibold'>{{ label }}</span>
-      @if (required) {
-        <span class='text-red-500'>*</span>
-      }
-    </div>
-  }
-  @if (description) {
-    <div class='text-gray-700 text-sm'>
-      {{ description }}
-    </div>
-  }
+  <label class="flex gap-1 flex-col">
+    @if (label) {
+      <div class='text-sm'>
+        <span class='font-semibold'>{{ label }}</span>
+        @if (required) {
+          <span class='text-red-500'>*</span>
+        }
+      </div>
+    }
+    @if (description) {
+      <div class='text-gray-700 text-xs'>
+        {{ description }}
+      </div>
+    }
+  </label>
   <div class='relative grow flex flex-col'>
     <ng-content></ng-content>
   </div>
