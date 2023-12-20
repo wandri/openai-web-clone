@@ -14,6 +14,7 @@ export class SvgIconModule {
   ) {
     this.registerIcon('api-keys');
     this.registerIcon('assistants');
+    this.registerIcon('information');
     this.registerIcon('files');
     this.registerIcon('fine-tuning');
     this.registerIcon('playground');

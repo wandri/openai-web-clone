@@ -1,3 +1,20 @@
 <app-header title="Limits">
 
 </app-header>
+<div class="flex flex-col gap-4 p-6">
+  <h3 class="font-bold text-xl">Rate limits</h3>
+  <div class="flex flex-col gap-2">
+    <div>
+      API usage is subject to rate limits applied on tokens per minute (TPM), requests per minute or day (RPM/RPD), and
+      other model-specific limits. Your organization's rate limits are listed below.
+    </div>
+    <div>
+      Visit our <a class="text-green-600 font-medium cursor-pointer">rate limits guide</a> to learn more about how rate
+      limits work.
+    </div>
+    <app-notice class="pt-1">
+      <span class="font-bold pr-1">Note:</span> Limits for specific model versions may vary, expand the table to see
+      all models.
+    </app-notice>
+  </div>
+</div>

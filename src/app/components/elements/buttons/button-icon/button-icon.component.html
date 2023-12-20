@@ -6,8 +6,8 @@
   [disabled]="disabled !== false"
   class="rounded-lg font-medium transition-colors h-6 w-8 flex items-center justify-center">
   @if (svgIcon) {
-    <mat-icon [svgIcon]="svgIcon" class="scale-75"/>
+    <app-icon [svgIcon]="svgIcon"/>
   } @else if (fontIcon) {
-    <mat-icon [fontIcon]="fontIcon" class="scale-75"/>
+    <app-icon [fontIcon]="fontIcon"/>
   }
 </button>

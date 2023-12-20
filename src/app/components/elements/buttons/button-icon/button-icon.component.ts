@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {MatIconModule} from "@angular/material/icon";
+import {IconComponent} from "../../icon/icon.component";
 
 @Component({
   selector: 'app-button-icon',
   standalone: true,
   imports: [
-    MatIconModule
+    IconComponent
   ],
   templateUrl: './button-icon.component.html',
   styles: ``,

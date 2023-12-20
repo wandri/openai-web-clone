@@ -4,12 +4,12 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {DatePipe} from "@angular/common";
 import {ButtonIconComponent} from "../../components/elements/buttons/button-icon/button-icon.component";
 import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
-import {MatIconModule} from "@angular/material/icon";
 import {SelectDropdownComponent} from "../../components/elements/inputs/select-dropdown/select-dropdown.component";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {SkeletonLoaderComponent} from "../../components/elements/loaders/skeleton-loader/skeleton-loader.component";
+import {IconComponent} from "../../components/elements/icon/icon.component";
 
 @Component({
   selector: 'app-api-keys',
@@ -20,9 +20,9 @@ import {SkeletonLoaderComponent} from "../../components/elements/loaders/skeleto
     DatePipe,
     ButtonIconComponent,
     ButtonComponent,
-    MatIconModule,
     SelectDropdownComponent,
-    SkeletonLoaderComponent
+    SkeletonLoaderComponent,
+    IconComponent
   ],
   templateUrl: './api-keys.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],

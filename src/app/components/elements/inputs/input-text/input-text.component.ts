@@ -13,14 +13,14 @@ import {CommonModule} from '@angular/common';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {noop, tap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {MatIconModule} from '@angular/material/icon';
 import {LabelComponent} from "../label/label.component";
 import {SkeletonLoaderComponent} from "../../loaders/skeleton-loader/skeleton-loader.component";
+import {IconComponent} from "../../icon/icon.component";
 
 @Component({
   selector: 'app-input-text',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LabelComponent, MatIconModule, SkeletonLoaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, LabelComponent, SkeletonLoaderComponent, IconComponent],
   templateUrl: './input-text.component.html',
   styles: [':host {@apply flex text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -14,12 +14,12 @@ import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModul
 import {noop, tap} from 'rxjs';
 import {takeUntilDestroyed, toSignal} from '@angular/core/rxjs-interop';
 import {MatSelectModule} from '@angular/material/select';
-import {MatIconModule} from '@angular/material/icon';
+import {IconComponent} from "../../icon/icon.component";
 
 @Component({
   selector: 'app-input-multi-select',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatSelectModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSelectModule, IconComponent],
   templateUrl: './multi-input-select.component.html',
   styles: [':host {@apply flex relative px-2 ; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,

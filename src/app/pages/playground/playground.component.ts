@@ -8,6 +8,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
 import {SkeletonLoaderComponent} from "../../components/elements/loaders/skeleton-loader/skeleton-loader.component";
 import {HeaderComponent} from "../../components/elements/headers/header/header.component";
+import {IconComponent} from "../../components/elements/icon/icon.component";
 
 @Component({
   selector: 'app-playground',
@@ -19,7 +20,8 @@ import {HeaderComponent} from "../../components/elements/headers/header/header.c
     CdkDrag,
     TextAreaComponent,
     SkeletonLoaderComponent,
-    HeaderComponent
+    HeaderComponent,
+    IconComponent
   ],
   templateUrl: './playground.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],

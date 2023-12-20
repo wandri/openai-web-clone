@@ -11,20 +11,20 @@ import {
 import {ControlValueAccessor, FormControl, ReactiveFormsModule} from "@angular/forms";
 import {noop, tap} from "rxjs";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {MatIconModule} from "@angular/material/icon";
 import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from "@angular/cdk/menu";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {IconComponent} from "../../icon/icon.component";
 
 @Component({
   selector: 'app-select-dropdown',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatIconModule,
     CdkMenu,
     CdkMenuItem,
     CdkMenuTrigger,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    IconComponent
   ],
   templateUrl: './select-dropdown.component.html',
   styles: [':host {@apply flex text-inherit relative; }'],

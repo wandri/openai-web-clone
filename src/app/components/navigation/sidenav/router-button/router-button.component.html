@@ -6,7 +6,7 @@
      routerLinkActive
   >
     @if (navigation.icon) {
-      <mat-icon [svgIcon]="navigation.icon" class="customIconSize"/>
+      <app-icon [svgIcon]="navigation.icon"/>
     } @else {
       <div class="w-5 min-w-[1.25rem]"></div>
     }
@@ -17,7 +17,7 @@
        class="transition-colors flex items-center overflow-hidden w-full gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-100 hover:text-gray-800 rounded-lg whitespace-nowrap"
   >
     @if (navigation.icon) {
-      <mat-icon [svgIcon]="navigation.icon" class="customIconSize"/>
+      <app-icon [svgIcon]="navigation.icon"/>
     } @else {
       <div class="w-5 min-w-[1.25rem]"></div>
     }

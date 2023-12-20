@@ -4,10 +4,10 @@ import {
   HeaderWithSubHeaderComponent
 } from "../../components/elements/headers/header-with-sub-header/header-with-sub-header.component";
 import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
-import {MatIconModule} from "@angular/material/icon";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
 import {SpinnerComponent} from "../../components/elements/loaders/spinner/spinner.component";
+import {IconComponent} from "../../components/elements/icon/icon.component";
 
 @Component({
   selector: 'app-finetune',
@@ -16,8 +16,8 @@ import {SpinnerComponent} from "../../components/elements/loaders/spinner/spinne
     MultiButtonsComponent,
     HeaderWithSubHeaderComponent,
     ButtonComponent,
-    MatIconModule,
-    SpinnerComponent
+    SpinnerComponent,
+    IconComponent
   ],
   templateUrl: './finetune.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],

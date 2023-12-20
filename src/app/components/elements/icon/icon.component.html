@@ -1,0 +1,7 @@
+<div class="flex items-center">
+  @if (svgIcon) {
+    <mat-icon [svgIcon]="svgIcon" class="icon-base text-inherit"/>
+  } @else if (fontIcon) {
+    <mat-icon [fontIcon]="fontIcon" class="icon-base text-inherit"/>
+  }
+</div>
