@@ -20,6 +20,7 @@ export class SvgIconModule {
     this.registerIcon('playground');
     this.registerIcon('settings');
     this.registerIcon('usage');
+    this.registerIcon('add');
     this.registerIcon('documentation');
     this.registerIcon('help');
     this.registerIcon('run');

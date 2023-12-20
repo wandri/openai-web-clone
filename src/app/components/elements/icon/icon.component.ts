@@ -7,7 +7,7 @@ import {MatIconModule} from "@angular/material/icon";
   imports: [
     MatIconModule
   ],
-  styles: ['mat-icon.icon-base {@apply h-5 w-5;}'],
+  styles: [':host {@apply flex items-center}', 'mat-icon.icon-base {@apply h-5 w-5 text-sm;}'],
   templateUrl: './icon.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
