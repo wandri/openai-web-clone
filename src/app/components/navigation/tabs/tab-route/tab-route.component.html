@@ -1,0 +1,14 @@
+<div class='flex border-b border-gray-200 gap-5 w-full text-sm px-6 text-gray-600'>
+  @for (selection of selections;track selection) {
+    <div class='pt-2 pb-3 hover:border-b hover:border-gray-400 cursor-pointer transition-colors'
+         [routerLink]='selection.route'
+         routerLinkActive
+         #rla='routerLinkActive'
+         [class.border-b]='rla.isActive'
+         [class.text-gray-900]='rla.isActive'
+         [class.border-gray-900]='rla.isActive'
+         [class.font-bold]='rla.isActive'
+    >{{ selection.name }}
+    </div>
+  }
+</div>

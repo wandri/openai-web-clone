@@ -25,6 +25,8 @@ export class SvgIconModule {
     this.registerIcon('help');
     this.registerIcon('run');
     this.registerIcon('link');
+    this.registerIcon('document');
+    this.registerIcon('credit-card');
     this.registerIcon('all-products');
     this.registerIcon('robot');
     this.registerIcon('clean');

@@ -1,0 +1,16 @@
+<button
+  [class.active:bg-green-200]="disabled === false"
+  [class.bg-gray-50]="disabled !== false"
+  [class.focus:shadow-green]="disabled === false"
+  [class.hover:bg-green-100]="disabled === false"
+  [class.text-base]="size === 'md'"
+  [class.text-gray-400]="disabled !== false"
+  [class.text-green-700]="disabled === false"
+  [class.text-sm]="size === 'sm'"
+  [disabled]="disabled !== false"
+  class="py-[3px] px-[5px] -ml-[5px] -my-[3px] rounded-lg font-medium transition-colors">
+  <span
+    [class.h-5]="size === 'sm'"
+    [class.h-6]="size === 'md'"
+    class="flex items-center whitespace-nowrap w-100 mb-px gap-1"><ng-content/></span>
+</button>

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {IconComponent} from "../icon/icon.component";
 
@@ -14,4 +14,5 @@ import {IconComponent} from "../icon/icon.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NoticeComponent {
+  @Input() svgIcon: string = "information";
 }

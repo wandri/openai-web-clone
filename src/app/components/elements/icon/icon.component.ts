@@ -15,4 +15,5 @@ import {MatIconModule} from "@angular/material/icon";
 export class IconComponent {
   @Input() svgIcon?: string;
   @Input() fontIcon?: string;
+  @Input() size?: 'sm' | 'base' = 'sm';
 }

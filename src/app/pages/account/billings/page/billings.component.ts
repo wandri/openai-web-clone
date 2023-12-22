@@ -14,5 +14,10 @@ import {RouterOutlet} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BillingsComponent {
-
+  readonly tabs: { name: string; route: string[] }[] = [
+    {name: 'Overview', route: ['/', 'account', 'billings', 'overview']},
+    {name: 'Payment methods', route: ['/', 'account', 'billings', 'payment-methods']},
+    {name: 'Billing history', route: ['/', 'account', 'billings', 'history']},
+    {name: 'Preferences', route: ['/', 'account', 'billings', 'preferences']},
+  ]
 }
