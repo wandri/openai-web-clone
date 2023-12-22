@@ -67,8 +67,34 @@ export const routes: Routes = [
       },
       {
         path: 'billings',
-        loadComponent: () => import('./pages/account/billings/billings.component').then(mod => mod.BillingsComponent),
-        title: () => Promise.resolve('Billings')
+        loadComponent: () => import('./pages/account/billings/page/billings.component').then(mod => mod.BillingsComponent),
+        title: () => Promise.resolve('Billings'),
+        children: [
+          {
+            path: '',
+            redirectTo: 'overview', pathMatch: 'full'
+          },
+          {
+            path: 'overview',
+            loadComponent: () => import('./pages/account/billings/billings-overview/billings-overview.component').then(mod => mod.BillingsOverviewComponent),
+            title: () => Promise.resolve('Billings - overview'),
+          },
+          {
+            path: 'payment-methods',
+            loadComponent: () => import('./pages/account/billings/billings-payment-methods/billings-payment-methods.component').then(mod => mod.BillingsPaymentMethodsComponent),
+            title: () => Promise.resolve('Billings - payment methods'),
+          },
+          {
+            path: 'history',
+            loadComponent: () => import('./pages/account/billings/billings-history/billings-history.component').then(mod => mod.BillingsHistoryComponent),
+            title: () => Promise.resolve('Billings - history'),
+          },
+          {
+            path: 'preferences',
+            loadComponent: () => import('./pages/account/billings/billings-preferences/billings-preferences.component').then(mod => mod.BillingsPreferencesComponent),
+            title: () => Promise.resolve('Billings - preferences'),
+          },
+        ]
       },
       {
         path: 'profile',
