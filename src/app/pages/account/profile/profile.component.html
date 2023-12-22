@@ -1,3 +1,13 @@
 <app-header title="Profile">
 
 </app-header>
+<div class="flex flex-col gap-6 p-6 max-w-screen-md">
+  <div class="flex flex-col gap-4">
+    <app-input-text [formControl]="nameForm" description="The name associated with this account" label="Name"/>
+    <app-input-text [formControl]="emailForm" description="The email address associated with this account"
+                    label="Email address"/>
+    <app-input-text [formControl]="phoneForm" description="The phone number associated with this account"
+                    label="Phone number"/>
+  </div>
+  <app-button color="primary" size="sm">Save</app-button>
+</div>
