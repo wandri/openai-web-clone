@@ -1,4 +1,6 @@
 <button
+  [class.-ml-[5px]]="withMargin"
+  [class.-my-[3px]]="withMargin"
   [class.active:bg-green-200]="disabled === false"
   [class.bg-gray-50]="disabled !== false"
   [class.focus:shadow-green]="disabled === false"
@@ -8,7 +10,7 @@
   [class.text-green-700]="disabled === false"
   [class.text-sm]="size === 'sm'"
   [disabled]="disabled !== false"
-  class="py-[3px] px-[5px] -ml-[5px] -my-[3px] rounded-lg font-medium transition-colors">
+  class="py-[3px] px-[5px] rounded-lg font-medium transition-colors">
   <span
     [class.h-5]="size === 'sm'"
     [class.h-6]="size === 'md'"

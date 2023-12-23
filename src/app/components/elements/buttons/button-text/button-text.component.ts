@@ -11,4 +11,5 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@ang
 export class ButtonTextComponent {
   @Input({required: true}) size: 'md' | 'sm' = 'sm';
   @Input() disabled: boolean | "" = false;
+  @Input() withMargin: boolean | "" = false;
 }

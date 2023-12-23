@@ -1,0 +1,56 @@
+<div class="flex flex-col gap-4 p-6 max-w-screen-md">
+  <p class="text-gray-600">Showing invoices within the past 12 months</p>
+  <div>
+    @if (!isLoading()) {
+      <table [dataSource]="datasource()" cdk-table>
+        <ng-container cdkColumnDef="invoice">
+          <th *cdkHeaderCellDef cdk-header-cell class="pr-2 py-1.5 text-start tracking-widest">INVOICE</th>
+          <td *cdkCellDef="let element" cdk-cell class="py-2 pr-2 "> {{ element.invoice }}</td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="status">
+          <th *cdkHeaderCellDef cdk-header-cell class="px-2 py-1.5 text-start tracking-widest">STATUS</th>
+          <td *cdkCellDef="let element" cdk-cell class="p-2 ">
+            <div>
+              <app-badge size="xs">{{ element.status }}</app-badge>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="amount">
+          <th *cdkHeaderCellDef cdk-header-cell class="px-2 py-1.5 text-start tracking-widest">AMOUNT</th>
+          <td *cdkCellDef="let element" cdk-cell
+              class="p-2 text-right"> ${{ element.amount }}
+          </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="createdAt">
+          <th *cdkHeaderCellDef cdk-header-cell class="px-2 py-1.5 text-start tracking-widest">CREATED</th>
+          <td *cdkCellDef="let element" cdk-cell
+              class="p-2 "> {{ element.createdAt | date:'MMM d, y, h:mm a' }}
+          </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="action">
+          <th *cdkHeaderCellDef cdk-header-cell class="pl-2 py-1.5 text-start tracking-widest"></th>
+          <td *cdkCellDef="let element" cdk-cell class="py-2 pl-2 flex gap-2 justify-start">
+            <div>
+              <app-button-text size="sm">View</app-button-text>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr *cdkHeaderRowDef="displayedColumns" cdk-header-row
+            class="text-xs whitespace-nowrap font-bold border-b"></tr>
+        <tr *cdkRowDef="let row; columns: displayedColumns;" cdk-row class="text-gray-600 border-t"></tr>
+      </table>
+    } @else {
+      <div class="flex flex-col gap-2">
+        <app-skeleton-loader class="w-full h-6"/>
+        <app-skeleton-loader class="w-full h-6"/>
+        <app-skeleton-loader class="w-full h-6"/>
+        <app-skeleton-loader class="w-full h-6"/>
+      </div>
+    }
+  </div>
+</div>

@@ -5,7 +5,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {InputTextComponent} from "../../../components/elements/inputs/input-text/input-text.component";
 import {SelectDropdownComponent} from "../../../components/elements/inputs/select-dropdown/select-dropdown.component";
 import {ProfilePictureComponent} from "../../../components/elements/user/profil-picture/profile-picture.component";
-import {TagComponent} from "../../../components/elements/tag/tag.component";
+import {TagComponent} from "../../../components/elements/badge/tag.component";
 
 @Component({
   selector: 'app-team',
