@@ -5,6 +5,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {RouterButtonComponent} from "./router-button/router-button.component";
 import {Navigation} from "./navigation.type";
 import {ProfilePictureComponent} from "../../elements/user/profil-picture/profile-picture.component";
+import {HighlightDirective} from "../../directive/menu/menu.directive";
 
 @Component({
   selector: 'app-sidenav',
@@ -15,7 +16,8 @@ import {ProfilePictureComponent} from "../../elements/user/profil-picture/profil
     MatIconModule,
     RouterLinkActive,
     RouterButtonComponent,
-    ProfilePictureComponent
+    ProfilePictureComponent,
+    HighlightDirective
   ],
   templateUrl: './sidenav.component.html',
   styles: [':host {@apply flex flex-col h-full}'],

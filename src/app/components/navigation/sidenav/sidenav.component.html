@@ -22,8 +22,30 @@
     </div>
     <div class="flex flex-col pt-4 mt-1 border-t">
       <div class="px-1.5 w-full cursor-pointer flex">
-        <app-profile-picture class="w-[18px] h-[18px]"/>
+        <app-profile-picture [appMenuFor]="userMenu" appMenu class="w-[18px] h-[18px]"/>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #userMenu>
+  <div class="flex flex-col pt-2.5 pb-1 w-full text-sm">
+    <div class="flex flex-col gap-0.5 py-1 px-4 w-full">
+      <div class="text-sm font-bold">John Doe</div>
+      <div class="text-gray-700 text-xs">{{ 'john.doe@corp.com' }}</div>
+    </div>
+    <div class="border-t my-1 w-full"></div>
+    <div class="text-gray-600 flex items-center px-4 py-1.5">
+      <div>Personal</div>
+    </div>
+    <div class="border-t my-1 w-full"></div>
+    <div class="flex flex-col">
+      <div class="text-gray-900 flex items-center px-4 py-1.5 hover:bg-emerald-50 cursor-pointer">Manage
+        cookies
+      </div>
+      <a class="text-gray-900 flex items-center px-4 py-1.5 hover:bg-emerald-50 cursor-pointer">Terms &amp;
+        policies</a>
+      <div class="text-gray-900 flex items-center px-4 py-1.5 hover:bg-emerald-50 cursor-pointer">Log out</div>
+    </div>
+  </div>
+</ng-template>
