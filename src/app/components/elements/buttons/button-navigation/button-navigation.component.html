@@ -1,12 +1,12 @@
 <div
   [class.text-base]="size === 'md'"
-  [class.text-gray-400]="disabled !== false"
-  [class.text-gray-900]="disabled === false"
+  [class.text-gray-400]="disabled"
+  [class.text-gray-900]="!disabled"
   [class.text-sm]="size === 'sm'"
   class="p-1.5 rounded-lg transition-colors flex items-center border">
   <button (click)="changeIndex(-1)"
           [class.text-gray-400]="chosenIndex==0"
-          [disabled]="disabled !== false || chosenIndex==0"
+          [disabled]="disabled || chosenIndex==0"
           class="h-5 flex items-center justify-center">
     <mat-icon class="scale-[80%]" svgIcon="chevron-left"/>
   </button>
@@ -17,7 +17,7 @@
     <span>{{ list[chosenIndex] }}</span></div>
   <button (click)="changeIndex(+1)"
           [class.text-gray-400]="chosenIndex==list.length-1"
-          [disabled]="disabled !== false || chosenIndex==list.length-1"
+          [disabled]="disabled || chosenIndex==list.length-1"
           class="h-5 flex items-center justify-center">
     <mat-icon class="scale-[80%]" svgIcon="chevron-right"/>
   </button>

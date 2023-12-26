@@ -1,9 +1,9 @@
 <button
-  [class.active:bg-gray-200]="disabled === false"
-  [class.hover:bg-gray-100]="disabled === false"
-  [class.text-gray-400]="disabled !== false"
-  [class.text-gray-900]="disabled === false"
-  [disabled]="disabled !== false"
+  [class.active:bg-gray-200]="!disabled"
+  [class.hover:bg-gray-100]="!disabled"
+  [class.text-gray-400]="disabled"
+  [class.text-gray-900]="!disabled"
+  [disabled]="disabled"
   class="rounded-lg font-medium transition-colors h-6 w-8 flex items-center justify-center">
   @if (svgIcon) {
     <app-icon [svgIcon]="svgIcon"/>
