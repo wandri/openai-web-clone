@@ -1,18 +1,24 @@
 <button
   [class.-ml-[5px]]="withMargin"
   [class.-my-[3px]]="withMargin"
-  [class.active:bg-green-200]="disabled === false"
-  [class.bg-gray-50]="disabled !== false"
-  [class.focus:shadow-green]="disabled === false"
-  [class.hover:bg-green-100]="disabled === false"
+  [class.active:bg-green-200]="!disabled"
+  [class.active:shadow-green]="!disabled"
+  [class.bg-gray-50]="disabled"
+  [class.hover:bg-green-100]="!disabled"
   [class.text-base]="size === 'md'"
-  [class.text-gray-400]="disabled !== false"
-  [class.text-green-700]="disabled === false"
+  [class.text-gray-400]="disabled"
+  [class.text-green-700]="!disabled"
   [class.text-sm]="size === 'sm'"
-  [disabled]="disabled !== false"
-  class="py-[3px] px-[5px] rounded-lg font-medium transition-colors">
+  [disabled]="disabled"
+  class="py-[3px] px-[5px] rounded-lg font-medium transition-colors relative">
   <span
     [class.h-5]="size === 'sm'"
     [class.h-6]="size === 'md'"
+    [class.opacity-0]="isLoading"
     class="flex items-center whitespace-nowrap w-100 mb-px gap-1"><ng-content/></span>
+  @if (isLoading) {
+    <span class="absolute left-0 top-0 w-full h-full flex justify-center items-center">
+      <app-spinner size="sm"/>
+    </span>
+  }
 </button>

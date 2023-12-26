@@ -12,8 +12,11 @@
           </div>
         </div>
         <div class="flex gap-2 -mb-1">
-          <app-button-text disabled size="sm">Default</app-button-text>
-          <app-button-text size="sm">Delete</app-button-text>
+          <app-button-text withMargin [disabled]="card.main" size="sm">{{ card.main ? 'Default' : 'Set as default' }}
+          </app-button-text>
+          <app-button-text withMargin size="sm" (click)="deleteCard(card.id)"
+                           [isLoading]="changingCards().includes(card.id)">Delete
+          </app-button-text>
         </div>
       </div>
     } @empty {
@@ -31,4 +34,5 @@
       }
     }
   </div>
+  <app-button color="neutral" size="sm">Add payment method</app-button>
 </div>

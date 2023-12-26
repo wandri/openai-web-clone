@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
+import {toBoolean} from "../../../../../shared/utils";
 
 @Component({
   selector: 'app-button-navigation',
@@ -13,7 +14,7 @@ import {MatIconModule} from "@angular/material/icon";
 })
 export class ButtonNavigationComponent {
   @Input({required: true}) size: 'md' | 'sm' = 'sm';
-  @Input() disabled: boolean | "" = false;
+  @Input({transform: toBoolean}) disabled: boolean = false;
   @Input() list: string[] = [];
   @Input() chosenIndex: number = 0;
   @Output() onChangeIndex = new EventEmitter<number>();

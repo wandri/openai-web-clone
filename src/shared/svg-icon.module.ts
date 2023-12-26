@@ -37,6 +37,7 @@ export class SvgIconModule {
     this.registerIcon('attach-file');
     this.registerIcon('chevron-right');
     this.registerIcon('chevron-left');
+    this.registerIcon('loader');
 
   }
 

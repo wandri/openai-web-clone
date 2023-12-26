@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
+import {toBoolean} from "../../../../../shared/utils";
 
 @Component({
   selector: 'app-button',
@@ -11,5 +12,5 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@ang
 export class ButtonComponent {
   @Input({required: true}) color: 'primary' | 'neutral' = 'neutral';
   @Input({required: true}) size: 'md' | 'sm' = 'sm';
-  @Input() disabled: boolean | "" = false;
+  @Input({transform: toBoolean}) disabled: boolean = false;
 }
