@@ -2,7 +2,6 @@ export type Navigation = {
   icon?: string,
   name: string,
   route?: string[],
-  isSubRoute?: boolean,
-  hasSubRoutes?: boolean,
+  children?: Navigation[],
   run?: () => void
 };

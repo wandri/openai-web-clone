@@ -1,6 +1,6 @@
 @if (navigation.route) {
   <a #rla="routerLinkActive"
-     [class.active]="rla.isActive && !((!!navigation.hasSubRoutes && isHovering) || (!!navigation.isSubRoute && !isHovering))"
+     [class.active]="rla.isActive && isActive"
      [routerLink]="navigation.route"
      class="transition-colors flex items-center overflow-hidden w-full gap-4 cursor-pointer text-gray-500 h-8 p-1.5 hover:bg-gray-100 hover:text-gray-800 rounded-lg whitespace-nowrap"
      routerLinkActive

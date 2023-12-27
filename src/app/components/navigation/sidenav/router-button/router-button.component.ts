@@ -18,5 +18,5 @@ import {IconComponent} from "../../../elements/icon/icon.component";
 })
 export class RouterButtonComponent {
   @Input({required: true}) navigation!: Navigation;
-  @Input({required: true}) isHovering: boolean = false
+  @Input({required: true}) isActive: boolean = false
 }

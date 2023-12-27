@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, computed, signal} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";
 import {MatIconModule} from "@angular/material/icon";
@@ -6,6 +6,8 @@ import {RouterButtonComponent} from "./router-button/router-button.component";
 import {Navigation} from "./navigation.type";
 import {ProfilePictureComponent} from "../../elements/user/profil-picture/profile-picture.component";
 import {HighlightDirective} from "../../directive/menu/menu.directive";
+import {fromEvent, map} from "rxjs";
+import {getDeviceDimension, SIZE} from "./size";
 
 @Component({
   selector: 'app-sidenav',
@@ -23,7 +25,7 @@ import {HighlightDirective} from "../../directive/menu/menu.directive";
   styles: [':host {@apply flex flex-col h-full}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidenavComponent {
+export class SidenavComponent implements AfterViewInit {
   readonly isHovering = signal<boolean>(false);
   readonly isRouterButtonClicked = signal<boolean>(false);
   readonly mainNavigations: Navigation[] = [
@@ -61,35 +63,30 @@ export class SidenavComponent {
       icon: 'settings',
       name: 'Settings',
       route: ['/', 'account'],
-      hasSubRoutes: true,
-    },
-    {
-      name: 'Organization',
-      route: ['/', 'account', 'organization'],
-      isSubRoute: true,
-    },
-    {
-      name: 'Team',
-      route: ['/', 'account', 'team'],
-      isSubRoute: true,
-    },
-    {
-      name: 'Limits',
-      route: ['/', 'account', 'limits'],
-      isSubRoute: true,
-    },
-    {
-      name: 'Billings',
-      route: ['/', 'account', 'billings'],
-      isSubRoute: true,
-    },
-    {
-      name: 'Profile',
-      route: ['/', 'account', 'profile'],
-      isSubRoute: true,
+      children: [
+        {
+          name: 'Organization',
+          route: ['/', 'account', 'organization'],
+        },
+        {
+          name: 'Team',
+          route: ['/', 'account', 'team'],
+        },
+        {
+          name: 'Limits',
+          route: ['/', 'account', 'limits'],
+        },
+        {
+          name: 'Billings',
+          route: ['/', 'account', 'billings'],
+        },
+        {
+          name: 'Profile',
+          route: ['/', 'account', 'profile'],
+        },
+      ],
     },
   ];
-
   readonly secondNavigations: Navigation[] = [
     {
       icon: 'documentation',
@@ -109,6 +106,19 @@ export class SidenavComponent {
       },
     },
   ]
+  private size = signal<SIZE | undefined>(undefined);
+  readonly isSidenavFullyDisplayed = computed(() => (this.isHovering() && !this.isRouterButtonClicked()) || (this.size() === SIZE.XL || this.size() === SIZE.XXL))
+
+  constructor() {
+    fromEvent(window, 'resize').pipe(
+      map(() => getDeviceDimension(window.innerWidth))
+    )
+      .subscribe(dimension => this.size.set(dimension));
+  }
+
+  ngAfterViewInit(): void {
+    this.size.set(getDeviceDimension(window.innerWidth))
+  }
 
   mouseEnter(): void {
     setTimeout(() => {

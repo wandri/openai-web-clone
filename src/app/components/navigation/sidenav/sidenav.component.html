@@ -9,15 +9,23 @@
     </a>
     <div class="flex flex-col gap-1 w-full">
       @for (navigation of mainNavigations;track navigation) {
-        <app-router-button [navigation]="navigation" [isHovering]="isHovering() && !isRouterButtonClicked()"
+        <app-router-button [navigation]="navigation" [isActive]="!navigation.children || !isSidenavFullyDisplayed()"
                            (click)="clickOnRouterButton()"/>
+        @for (child of (navigation.children ?? []);track child) {
+          <app-router-button [navigation]="child" [isActive]="isSidenavFullyDisplayed()"
+                             (click)="clickOnRouterButton()"/>
+        }
       }
     </div>
   </div>
   <div class="flex flex-col">
     <div class="flex flex-col gap-1 w-full">
       @for (navigation of secondNavigations;track navigation) {
-        <app-router-button [navigation]="navigation" [isHovering]="isHovering() && !isRouterButtonClicked()"/>
+        <app-router-button [navigation]="navigation" [isActive]="!navigation.children || !isSidenavFullyDisplayed()"/>
+        @for (child of (navigation.children ?? []);track child) {
+          <app-router-button [navigation]="child" [isActive]="isSidenavFullyDisplayed()"
+                             (click)="clickOnRouterButton()"/>
+        }
       }
     </div>
     <div class="flex flex-col pt-4 mt-1 border-t">
