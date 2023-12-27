@@ -7,7 +7,9 @@ import {MatIconModule} from "@angular/material/icon";
   imports: [
     MatIconModule
   ],
-  styles: [':host {@apply flex items-center}', 'mat-icon.icon-base {@apply h-5 w-5 text-sm;}'],
+  styles: [':host {@apply flex items-center}',
+    'mat-icon.icon-sm {@apply h-5 w-5 text-sm;}',
+    'mat-icon.icon-xs {@apply h-4 w-4 text-xs;}'],
   templateUrl: './icon.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -15,5 +17,5 @@ import {MatIconModule} from "@angular/material/icon";
 export class IconComponent {
   @Input() svgIcon?: string;
   @Input() fontIcon?: string;
-  @Input() size?: 'sm' | 'base' = 'sm';
+  @Input() size?: 'xs' | 'sm' | 'base' = 'sm';
 }

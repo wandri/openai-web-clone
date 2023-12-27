@@ -12,9 +12,10 @@
           </div>
         </div>
         <div class="flex gap-2 -mb-1">
-          <app-button-text withMargin [disabled]="card.main" size="sm">{{ card.main ? 'Default' : 'Set as default' }}
+          <app-button-text color="primary" withMargin [disabled]="card.main"
+                           size="sm">{{ card.main ? 'Default' : 'Set as default' }}
           </app-button-text>
-          <app-button-text withMargin size="sm" (click)="deleteCard(card.id)"
+          <app-button-text color="primary" withMargin size="sm" (click)="deleteCard(card.id)"
                            [isLoading]="changingCards().includes(card.id)">Delete
           </app-button-text>
         </div>

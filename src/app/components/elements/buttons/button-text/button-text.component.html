@@ -1,19 +1,21 @@
 <button
   [class.-ml-[5px]]="withMargin"
   [class.-my-[3px]]="withMargin"
-  [class.active:bg-green-200]="!disabled"
-  [class.active:shadow-green]="!disabled"
+  [class.active:bg-gray-200]="!disabled && color === 'neutral'"
+  [class.active:bg-green-200]="!disabled && color === 'primary'"
+  [class.active:shadow-gray]="!disabled && color === 'neutral'"
+  [class.active:shadow-green]="!disabled && color === 'primary'"
   [class.bg-gray-50]="disabled"
-  [class.hover:bg-green-100]="!disabled"
-  [class.text-base]="size === 'md'"
+  [class.hover:bg-gray-100]="!disabled && color === 'neutral'"
+  [class.hover:bg-green-100]="!disabled && color === 'primary'"
   [class.text-gray-400]="disabled"
-  [class.text-green-700]="!disabled"
-  [class.text-sm]="size === 'sm'"
+  [class.text-gray-600]="!disabled && color === 'neutral'"
+  [class.text-green-700]="!disabled && color === 'primary'"
   [disabled]="disabled"
-  class="py-[3px] px-[5px] rounded-lg font-medium transition-colors relative">
+  class="py-[3px] px-[5px] rounded-lg font-medium transition-colors relative text-sm">
   <span
     [class.h-5]="size === 'sm'"
-    [class.h-6]="size === 'md'"
+    [class.h-7]="size === 'md'"
     [class.opacity-0]="isLoading"
     class="flex items-center whitespace-nowrap w-100 mb-px gap-1"><ng-content/></span>
   @if (isLoading) {

@@ -12,6 +12,8 @@ export class SvgIconModule {
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer
   ) {
+    this.registerIcon('discussion');
+    this.registerIcon('question');
     this.registerIcon('api-keys');
     this.registerIcon('assistants');
     this.registerIcon('information');

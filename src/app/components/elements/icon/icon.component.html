@@ -1,7 +1,8 @@
 <div class="flex items-center">
   @if (svgIcon) {
-    <mat-icon [svgIcon]="svgIcon" [class.icon-base]="size === 'sm'" class="text-inherit"/>
+    <mat-icon [svgIcon]="svgIcon" [class.icon-sm]="size === 'sm'" [class.icon-xs]="size === 'xs'" class="text-inherit"/>
   } @else if (fontIcon) {
-    <mat-icon [fontIcon]="fontIcon" [class.icon-base]="size === 'sm'" class="text-inherit"/>
+    <mat-icon [fontIcon]="fontIcon" [class.icon-sm]="size === 'sm'" [class.icon-xs]="size === 'xs'"
+              class="text-inherit"/>
   }
 </div>

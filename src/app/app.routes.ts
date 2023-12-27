@@ -105,8 +105,24 @@ export const routes: Routes = [
   },
   {
     path: 'docs',
-    loadComponent: () => import('./pages/docs/docs.component').then(mod => mod.DocsComponent),
-    title: () => Promise.resolve('Docs')
+    loadComponent: () => import('./pages/docs/page/docs.component').then(mod => mod.DocsComponent),
+    title: () => Promise.resolve('Docs'),
+    children: [
+      {
+        path: '',
+        redirectTo: 'overview', pathMatch: 'full'
+      },
+      {
+        path: 'api-reference',
+        loadComponent: () => import('./pages/docs/docs-api-reference/docs-api-reference.component').then(mod => mod.DocsApiReferenceComponent),
+        title: () => Promise.resolve('API references')
+      },
+      {
+        path: 'overview',
+        loadComponent: () => import('./pages/docs/docs-overview/docs-overview.component').then(mod => mod.DocsOverviewComponent),
+        title: () => Promise.resolve('Docs Overview')
+      },
+    ]
   },
   {
     path: '**',

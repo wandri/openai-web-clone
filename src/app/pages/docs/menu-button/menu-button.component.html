@@ -1,0 +1,10 @@
+@if (menu) {
+  <a [routerLink]="menu.path"
+     routerLinkActive
+     #rla="routerLinkActive"
+     [class.active]="rla.isActive"
+
+     class="w-full text-sm py-1.5 rounded-lg px-3 text-gray-600 hover:bg-gray-50 hover:text-gray-800 cursor-pointer">
+    {{ menu.name }}
+  </a>
+}

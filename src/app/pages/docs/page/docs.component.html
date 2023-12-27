@@ -1,0 +1,13 @@
+<app-header-tab [tabs]="tabs">
+  <app-button-text color="neutral" size="md">
+    <app-icon size="xs" svgIcon="discussion"/>
+    Forum
+  </app-button-text>
+  <app-button-text color="neutral" size="md">
+    <app-icon size="xs" svgIcon="question"/>
+    Help
+  </app-button-text>
+</app-header-tab>
+<div class="w-full h-[calc(100%-3.5rem)]">
+  <router-outlet/>
+</div>
