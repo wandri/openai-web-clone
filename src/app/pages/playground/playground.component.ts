@@ -31,7 +31,7 @@ export class PlaygroundComponent {
   @ViewChild('thread') threadElement!: ElementRef;
 
   isResizing = signal<boolean>(false);
-  leftContainerSize = signal<number>(30);
+  leftContainerSize = signal<number>(36);
   rightContainerSize = computed(() => 100 - this.leftContainerSize())
 
   readonly isLoading = toSignal(of(false).pipe(
@@ -47,8 +47,8 @@ export class PlaygroundComponent {
 
       const diff = pointerPosition - offsetLeft;
       let size = Math.round(diff / offsetWidth * 10_000) / 100;
-      if (size < 30) {
-        size = 30;
+      if (size < 36) {
+        size = 36;
       } else if (size > 50) {
         size = 50;
       }
