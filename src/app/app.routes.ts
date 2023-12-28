@@ -125,6 +125,11 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'components',
+    loadComponent: () => import('./pages/components/page/components.component').then(mod => mod.ComponentsComponent),
+    title: () => Promise.resolve('Components')
+  },
+  {
     path: '**',
     redirectTo: 'playground',
     pathMatch: 'full'

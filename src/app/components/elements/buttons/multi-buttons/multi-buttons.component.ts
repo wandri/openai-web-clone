@@ -20,7 +20,7 @@ export interface MultiButton extends OptionButton {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MultiButtonsComponent {
-  @Input({required: true}) color: 'neutral' | "primary" = 'primary'
+  @Input({required: true}) color: 'secondary' | "primary" = 'primary'
   @Input() size: 'md' | 'sm' = 'sm';
   @Input() buttons: MultiButton[] = [];
 

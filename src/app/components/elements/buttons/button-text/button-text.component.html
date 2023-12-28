@@ -1,18 +1,12 @@
 <button
-  [class.-ml-[5px]]="withMargin"
-  [class.-my-[3px]]="withMargin"
-  [class.active:bg-gray-200]="!disabled && color === 'neutral'"
-  [class.active:bg-green-200]="!disabled && color === 'primary'"
-  [class.active:shadow-gray]="!disabled && color === 'neutral'"
-  [class.active:shadow-green]="!disabled && color === 'primary'"
+  [class.active:bg-green-200]="!disabled"
+  [class.active:shadow-green]="!disabled"
   [class.bg-gray-50]="disabled"
-  [class.hover:bg-gray-100]="!disabled && color === 'neutral'"
-  [class.hover:bg-green-100]="!disabled && color === 'primary'"
+  [class.hover:bg-green-100]="!disabled"
   [class.text-gray-400]="disabled"
-  [class.text-gray-600]="!disabled && color === 'neutral'"
-  [class.text-green-700]="!disabled && color === 'primary'"
+  [class.text-green-700]="!disabled"
   [disabled]="disabled"
-  class="py-[3px] px-[5px] rounded-lg font-medium transition-colors relative text-sm">
+  class="py-[3px] px-[5px] -ml-[5px] -my-[3px] rounded-lg font-medium transition-colors relative text-sm">
   <span
     [class.h-5]="size === 'sm'"
     [class.h-7]="size === 'md'"

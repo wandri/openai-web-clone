@@ -10,6 +10,7 @@ import {delay, of, startWith} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {ButtonTextComponent} from "../../../../components/elements/buttons/button-text/button-text.component";
 import {BadgeComponent} from "../../../../components/elements/tag/badge.component";
+import {ButtonComponent} from "../../../../components/elements/buttons/button/button.component";
 
 @Component({
   selector: 'app-billings-history',
@@ -20,7 +21,8 @@ import {BadgeComponent} from "../../../../components/elements/tag/badge.componen
     DatePipe,
     SkeletonLoaderComponent,
     ButtonTextComponent,
-    BadgeComponent
+    BadgeComponent,
+    ButtonComponent
   ],
   templateUrl: './billings-history.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],

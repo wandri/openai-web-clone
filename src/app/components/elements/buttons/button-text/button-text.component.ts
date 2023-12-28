@@ -13,9 +13,7 @@ import {SpinnerComponent} from "../../loaders/spinner/spinner.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonTextComponent {
-  @Input({required: true}) color: 'primary' | 'neutral' = 'neutral';
   @Input({required: true}) size: 'md' | 'sm' = 'sm';
   @Input({transform: toBoolean}) disabled: boolean = false;
-  @Input({transform: toBoolean}) withMargin: boolean = false;
   @Input({transform: toBoolean}) isLoading: boolean = false;
 }
