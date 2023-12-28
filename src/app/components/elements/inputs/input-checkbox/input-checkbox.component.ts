@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {noop, tap} from 'rxjs';
@@ -27,7 +27,6 @@ import {LabelComponent} from "../label/label.component";
   ]
 })
 export class InputCheckboxComponent implements ControlValueAccessor, OnInit {
-  @Input() label?: string = '';
   readonly form: FormControl<boolean | null> = new FormControl<boolean | null>(
     false
   );

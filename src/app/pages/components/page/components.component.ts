@@ -1,16 +1,26 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ButtonComponent, ButtonVariant} from "../../../components/elements/buttons/button/button.component";
+import {ButtonComponent} from "../../../components/elements/buttons/button/button.component";
+import {Menu, VerticalMenuComponent} from "../../../components/navigation/vertical-menu/vertical-menu.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-components',
   standalone: true,
   imports: [
-    ButtonComponent
+    ButtonComponent,
+    VerticalMenuComponent,
+    RouterOutlet
   ],
   templateUrl: './components.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ComponentsComponent {
-  buttonVariants: ButtonVariant[] = ['default', 'outline', 'ghost', 'link'];
+  readonly navigations: { menu: Menu[], title: string }[] = [{
+    title: 'Components', menu: [
+      {name: 'button', path: ['/', 'components', 'button']},
+      {name: 'input', path: ['/', 'components', 'input']},
+    ]
+  }];
+
 }

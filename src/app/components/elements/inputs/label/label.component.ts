@@ -25,7 +25,7 @@ import {MatInputModule} from '@angular/material/input';
   ],
 })
 export class LabelComponent {
-  @Input() label?: string = '';
-  @Input() description?: string = '';
+  @Input() label: string | undefined | null = '';
+  @Input() description: string | undefined | null = '';
   @Input() required = false;
 }

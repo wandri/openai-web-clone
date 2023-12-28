@@ -88,6 +88,6 @@ export class MultiInputSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(value: string[] | undefined): void {
-    this.form.setValue(value ?? [], {emitEvent: false});
+    this.form.setValue(value ?? [], {emitEvent: true});
   }
 }

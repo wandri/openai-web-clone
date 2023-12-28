@@ -5,6 +5,8 @@
 >
   <input
     (click)="picker.open()"
+    [class.border-gray-400]="disabled()"
+    [class.text-gray-400]="disabled()"
     [formControl]="form"
     [matDatepicker]="picker"
     [placeholder]="placeholder"
@@ -13,6 +15,7 @@
   />
   <app-button-icon
     (click)="picker.open()"
+    [disabled]="disabled()"
     class="absolute left-36 top-2"
     svgIcon="calendar"
   ></app-button-icon>

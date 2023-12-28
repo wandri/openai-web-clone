@@ -6,10 +6,10 @@
   <div class='w-full relative'>
     <input
       (blur)='onTouched($event)'
-      [class.bg-gray-50]="form.disabled"
+      [class.bg-gray-50]="disabled()"
       [class.hidden]='isLoading'
       [class.pl-10]='icon'
-      [class.text-gray-400]="form.disabled"
+      [class.text-gray-400]="disabled()"
       [formControl]='form'
       [placeholder]='placeholder'
       [type]='type'

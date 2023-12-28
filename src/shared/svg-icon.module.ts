@@ -13,6 +13,7 @@ export class SvgIconModule {
     private sanitizer: DomSanitizer
   ) {
     this.registerIcon('discussion');
+    this.registerIcon('calendar');
     this.registerIcon('question');
     this.registerIcon('api-keys');
     this.registerIcon('assistants');

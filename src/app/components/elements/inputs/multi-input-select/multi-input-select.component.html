@@ -1,6 +1,7 @@
 <div
   (click)="select.open()"
-  class="flex overflow-hidden h-10 gap-2 cursor-pointer items-center relative max-w-[9rem]"
+  [class.text-gray-400]="form.disabled"
+  class="flex overflow-hidden h-6 gap-2 cursor-pointer items-center relative max-w-[9rem]"
 >
   @if (!form.value || form.value.length === 0) {
     <span>{{ type }}: All</span>
@@ -13,7 +14,7 @@
   <div class="w-6 flex items-center">
     <app-icon fontIcon="arrow_drop_down"/>
   </div>
-  <div class="w-96 absolute left-0 top-0">
+  <div class="w-96 absolute left-0 top-0 opacity-0">
     <mat-select #select [formControl]="form" [multiple]="true" class="w-full">
       @for (option of _options();track option) {
         <mat-option [value]="option.value"

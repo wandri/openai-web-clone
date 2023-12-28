@@ -7,6 +7,7 @@ import {
   Input,
   OnChanges,
   OnInit,
+  signal,
   SimpleChanges
 } from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -33,16 +34,17 @@ import {IconComponent} from "../../icon/icon.component";
   ]
 })
 export class InputTextComponent implements ControlValueAccessor, OnInit, OnChanges {
-  @Input() label?: string = '';
+  @Input() label: string | undefined | null = '';
   @Input() isLoading: boolean = false;
   @Input() type: 'text' | 'email' = 'text';
   @Input() placeholder: string = '';
-  @Input() description?: string = '';
+  @Input() description: string | undefined | null = '';
   @Input() required = false;
   @Input() icon ?: string;
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''
   );
+  disabled = signal<boolean>(false);
   private destroyRef = inject(DestroyRef);
   private onChange: (value: string | null) => void = noop;
 
@@ -84,9 +86,11 @@ export class InputTextComponent implements ControlValueAccessor, OnInit, OnChang
 
   setDisabledState(isDisabled: boolean): void {
     if (isDisabled) {
-      this.form.disable({emitEvent: false});
+      this.form.disable();
+      this.disabled.set(true);
     } else {
-      this.form.enable({emitEvent: false});
+      this.form.enable();
+      this.disabled.set(false);
     }
   }
 }

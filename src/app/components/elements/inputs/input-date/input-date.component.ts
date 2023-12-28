@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, forwardRef, inject, Input, OnInit, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule} from '@angular/forms';
 import {noop, tap} from 'rxjs';
@@ -7,6 +7,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {ButtonIconComponent} from "../../buttons/button-icon/button-icon.component";
 import {LabelComponent} from "../label/label.component";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @Component({
   selector: 'app-input-date',
@@ -17,7 +18,8 @@ import {LabelComponent} from "../label/label.component";
     MatInputModule,
     MatDatepickerModule,
     LabelComponent,
-    ButtonIconComponent
+    ButtonIconComponent,
+    MatNativeDateModule
   ],
   templateUrl: './input-date.component.html',
   styles: [':host {@apply flex text-inherit relative; }'],
@@ -31,13 +33,14 @@ import {LabelComponent} from "../label/label.component";
   ]
 })
 export class InputDateComponent implements ControlValueAccessor, OnInit {
-  @Input() label?: string = '';
+  @Input() label: string | undefined | null = '';
   @Input() placeholder: string = '';
-  @Input() description?: string = '';
+  @Input() description: string | undefined | null = '';
   @Input() required = false;
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''
   );
+  readonly disabled = signal<boolean>(false)
   private destroyRef = inject(DestroyRef);
   private onTouched: (value: string) => void = noop;
   private onChange: (value: string | null) => void = noop;
@@ -62,8 +65,10 @@ export class InputDateComponent implements ControlValueAccessor, OnInit {
   setDisabledState(disabled: boolean): void {
     if (disabled) {
       this.form.disable({emitEvent: false});
+      this.disabled.set(true);
     } else {
       this.form.enable({emitEvent: false});
+      this.disabled.set(false);
     }
   }
 
