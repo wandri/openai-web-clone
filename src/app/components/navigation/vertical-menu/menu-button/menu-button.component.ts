@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {Menu} from "../docs-overview/docs-overview.component";
+import {Menu} from "../vertical-menu.component";
 
 @Component({
   selector: 'app-menu-button',
@@ -17,5 +17,5 @@ import {Menu} from "../docs-overview/docs-overview.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuButtonComponent {
-  @Input({required: true}) menu?: Menu
+  @Input({required: true}) menu?: Menu;
 }

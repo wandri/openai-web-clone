@@ -96,8 +96,7 @@ export class SidenavComponent implements AfterViewInit {
     {
       icon: 'help',
       name: 'Help',
-      run: () => {
-      },
+      route: ['/', 'components'],
     },
     {
       icon: 'all-products',

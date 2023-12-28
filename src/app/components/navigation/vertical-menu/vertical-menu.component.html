@@ -1,0 +1,10 @@
+<div class="w-[250px] h-full py-5 px-2.5 overflow-y-scroll flex flex-col gap-5">
+  @for (navigation of navigations;track navigation) {
+    <div class="flex-col flex">
+      <div class="text-xs py-2.5 font-bold uppercase tracking-widest px-3">{{ navigation.title }}</div>
+      @for (menu of navigation.menu;track menu) {
+        <app-menu-button [menu]="menu"/>
+      }
+    </div>
+  }
+</div>

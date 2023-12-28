@@ -1,17 +1,12 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MenuButtonComponent} from "../menu-button/menu-button.component";
+import {Menu, VerticalMenuComponent} from "../../../components/navigation/vertical-menu/vertical-menu.component";
 
-export interface Menu {
-  name: string,
-  path: string[],
-  children?: Menu[]
-}
 
 @Component({
   selector: 'app-docs-overview',
   standalone: true,
   imports: [
-    MenuButtonComponent
+    VerticalMenuComponent
   ],
   templateUrl: './docs-overview.component.html',
   styles: [':host {@apply flex flex-col w-full h-full}'],
