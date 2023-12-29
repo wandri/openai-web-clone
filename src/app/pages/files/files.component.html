@@ -1,8 +1,8 @@
 <app-header-with-sub-header title="Files">
   <div class="flex items-center justify-between w-full">
     <div class="flex items-center gap-2">
-      <app-selection-button [buttons]="fileSortOptions" color="primary"/>
-      <app-selection-button [buttons]="directionSortOptions" color="neutral"/>
+      <app-button-toggle [buttons]="fileSortOptions" color="primary"/>
+      <app-button-toggle [buttons]="directionSortOptions" color="neutral"/>
     </div>
     <div class="flex items-center gap-2">
       <app-button color="neutral" size="sm">

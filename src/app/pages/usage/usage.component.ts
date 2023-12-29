@@ -4,7 +4,7 @@ import {ButtonComponent} from "../../components/elements/buttons/button/button.c
 import {
   HeaderWithSubHeaderComponent
 } from "../../components/elements/headers/header-with-sub-header/header-with-sub-header.component";
-import {SelectionButtonComponent} from "../../components/elements/buttons/multi-buttons/selection-button.component";
+import {ButtonToggleComponent} from "../../components/elements/buttons/button-toggle/button-toggle.component";
 import {
   ButtonNavigationComponent
 } from "../../components/elements/buttons/button-navigation/button-navigation.component";
@@ -25,7 +25,7 @@ import {PieChartComponent} from "../../components/elements/chart/pie-chart/pie-c
     HeaderComponent,
     ButtonComponent,
     HeaderWithSubHeaderComponent,
-    SelectionButtonComponent,
+    ButtonToggleComponent,
     ButtonNavigationComponent,
     SkeletonLoaderComponent,
     ChartBarTimelineComponent,

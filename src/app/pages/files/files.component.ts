@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {
   HeaderWithSubHeaderComponent
 } from "../../components/elements/headers/header-with-sub-header/header-with-sub-header.component";
-import {SelectionButtonComponent} from "../../components/elements/buttons/multi-buttons/selection-button.component";
+import {ButtonToggleComponent} from "../../components/elements/buttons/button-toggle/button-toggle.component";
 import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
 import {MatIconModule} from "@angular/material/icon";
 
@@ -11,7 +11,7 @@ import {MatIconModule} from "@angular/material/icon";
   standalone: true,
   imports: [
     HeaderWithSubHeaderComponent,
-    SelectionButtonComponent,
+    ButtonToggleComponent,
     ButtonComponent,
     MatIconModule
   ],

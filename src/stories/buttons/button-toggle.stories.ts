@@ -1,20 +1,20 @@
 import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angular';
-import {SelectionButtonComponent} from "../../app/components/elements/buttons/multi-buttons/selection-button.component";
+import {ButtonToggleComponent} from "../../app/components/elements/buttons/button-toggle/button-toggle.component";
 import {SvgIconModule} from "../../shared/svg-icon.module";
 import {importProvidersFrom} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
-const meta: Meta<SelectionButtonComponent> = {
-  title: 'Components/buttons/selection',
+const meta: Meta<ButtonToggleComponent> = {
+  title: 'Components/buttons/toggle',
   decorators: [
     applicationConfig({
       providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]
     }),
     moduleMetadata({
       imports: [
-        SelectionButtonComponent,
+        ButtonToggleComponent,
         SvgIconModule
       ]
     })
@@ -58,11 +58,11 @@ const meta: Meta<SelectionButtonComponent> = {
 } as Meta;
 
 export default meta;
-type Story = StoryFn<SelectionButtonComponent>;
+type Story = StoryFn<ButtonToggleComponent>;
 
-export const Selection: Story = (args) => ({
+export const Toggle: Story = (args) => ({
   template: `
-  <app-selection-button
+  <app-button-toggle
     [size]="size"
     [color]="color"
     [buttons]="buttons"

@@ -1,0 +1,52 @@
+<div class='h-9 flex items-center'>
+  @for (button of buttons;track button;let last=$last;let first=$first;let index=$index) {
+    <button
+      [class.text-base]="size === 'md'"
+      [class.text-sm]="size === 'sm'"
+      [class.text-green-700]="color === 'primary'"
+      [class.hover:bg-green-100]="color === 'primary'"
+      [class.active:bg-green-200]="color === 'primary'"
+      [class.border-green-700]="color === 'primary'"
+      [class.text-gray-700]="color === 'neutral'"
+      [class.hover:bg-gray-300]="color === 'neutral'"
+      [class.active:bg-gray-400]="color === 'neutral'"
+      [class.border-gray-200]="color === 'neutral'"
+      [class.border-l]="first"
+      [class.rounded-l-lg]="first"
+      [class.rounded-r-lg]="last"
+      [matMenuTriggerFor]='button.options ? menu : null'
+      (click)='button.callback && !disabled ? button.callback(argument) : null'
+      class="py-1.5 px-3 font-medium transition-colors border-t border-r border-b">
+      <span
+        [class.h-5]="size === 'sm'"
+        [class.h-6]="size === 'md'"
+        class="flex items-center whitespace-nowrap w-100 mb-px gap-1">
+        @if (button.svgIcon) {
+          <app-icon [svgIcon]='button.svgIcon'/>
+        }
+        @if (button.fontIcon) {
+          <app-icon [fontIcon]='button.fontIcon'/>
+        }
+        @if (button.text) {
+          <div class='flex justify-between items-center'>{{ button.text }}</div>
+        }
+      </span>
+    </button>
+    <mat-menu #menu='matMenu'>
+      @for (option of button?.options || [];track option) {
+        <div
+          (click)='option.callback ? option.callback(argument) : null'
+          class="flex justify-between h-10 px-4 py-2 items-center cursor-pointer hover:bg-gray-100 transition-colors hover:text-gray-900"
+        >
+          @if (option.svgIcon) {
+            <app-icon [svgIcon]='option.svgIcon'/>
+          }
+          @if (option.fontIcon) {
+            <app-icon [fontIcon]='option.fontIcon'/>
+          }
+          {{ option.text }}
+        </div>
+      }
+    </mat-menu>
+  }
+</div>
