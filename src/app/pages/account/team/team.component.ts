@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {HeaderComponent} from "../../../components/elements/headers/header/header.component";
 import {ButtonComponent} from "../../../components/elements/buttons/button/button.component";
 import {MatIconModule} from "@angular/material/icon";
@@ -24,5 +24,9 @@ import {TagComponent} from "../../../components/elements/badge/tag.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TeamComponent {
+  readonly value = signal<string>('Owner');
 
+  changeValue($event: string): void {
+    this.value.set($event)
+  }
 }

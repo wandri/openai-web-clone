@@ -1,6 +1,4 @@
 import {Routes} from '@angular/router';
-import {DemoButtonComponent} from "./pages/components/buttons/demo-button.component";
-import {DemoInputComponent} from "./pages/components/inputs/demo-input.component";
 
 export const routes: Routes = [
   {
@@ -123,27 +121,6 @@ export const routes: Routes = [
         path: 'overview',
         loadComponent: () => import('./pages/docs/docs-overview/docs-overview.component').then(mod => mod.DocsOverviewComponent),
         title: () => Promise.resolve('Docs Overview')
-      },
-    ]
-  },
-  {
-    path: 'components',
-    loadComponent: () => import('./pages/components/page/components.component').then(mod => mod.ComponentsComponent),
-    title: () => Promise.resolve('Components'),
-    children: [
-      {
-        path: '',
-        redirectTo: 'button', pathMatch: 'full'
-      },
-      {
-        path: 'button',
-        component: DemoButtonComponent,
-        title: () => Promise.resolve('Button')
-      },
-      {
-        path: 'input',
-        component: DemoInputComponent,
-        title: () => Promise.resolve('Input')
       },
     ]
   },

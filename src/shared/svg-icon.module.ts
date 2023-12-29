@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
+import {MatIconRegistry} from '@angular/material/icon';
 import {DomSanitizer} from '@angular/platform-browser';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, HttpClientModule],
 })
 export class SvgIconModule {
   constructor(

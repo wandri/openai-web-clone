@@ -2,7 +2,7 @@
                             titleTooltip="Below you'll find a summary of API usage for your organization. All dates and times are UTC-based, and data may be delayed up to 5 minutes.">
   <div class="flex items-center justify-between w-full">
     <div class="flex items-center gap-2">
-      <app-multi-buttons [buttons]="costActivityButtons" color="primary"/>
+      <app-selection-button [buttons]="costActivityButtons" color="primary"/>
     </div>
     <div class="flex items-center gap-2">
       <app-button-navigation (onChangeIndex)="changeMonthIndex($event)" [chosenIndex]="chosenMonthIndex()"

@@ -13,14 +13,14 @@ export interface MultiButton extends OptionButton {
 }
 
 @Component({
-  selector: 'app-multi-buttons',
+  selector: 'app-selection-button',
   standalone: true,
   imports: [CommonModule, MatIconModule],
-  templateUrl: './multi-buttons.component.html',
+  templateUrl: './selection-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MultiButtonsComponent {
-  @Input({required: true}) color: 'secondary' | "primary" = 'primary'
+export class SelectionButtonComponent {
+  @Input({required: true}) color: 'neutral' | "primary" = 'primary'
   @Input() size: 'md' | 'sm' = 'sm';
   @Input() buttons: MultiButton[] = [];
 

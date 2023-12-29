@@ -6,7 +6,7 @@ import {toBoolean} from "../../../../../shared/utils";
   selector: 'app-button-icon',
   standalone: true,
   imports: [
-    IconComponent
+    IconComponent,
   ],
   templateUrl: './button-icon.component.html',
   styles: ``,

@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  EventEmitter,
   HostListener,
   inject,
   Input,
   OnInit,
+  Output,
   signal
 } from '@angular/core';
 import {ControlValueAccessor, FormControl, ReactiveFormsModule} from "@angular/forms";
@@ -35,6 +37,7 @@ export class SelectDropdownComponent implements ControlValueAccessor, OnInit {
   @Input() value: string | null = 'Personal';
   @Input() options: string[] = ['Personal', 'Pro'];
   @Input() size: 'sm' | 'md' = 'md';
+  @Output() onValueChange = new EventEmitter();
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''
   );

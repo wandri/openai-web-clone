@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MultiButtonsComponent} from "../../components/elements/buttons/multi-buttons/multi-buttons.component";
+import {SelectionButtonComponent} from "../../components/elements/buttons/multi-buttons/selection-button.component";
 import {
   HeaderWithSubHeaderComponent
 } from "../../components/elements/headers/header-with-sub-header/header-with-sub-header.component";
@@ -13,7 +13,7 @@ import {IconComponent} from "../../components/elements/icon/icon.component";
   selector: 'app-finetune',
   standalone: true,
   imports: [
-    MultiButtonsComponent,
+    SelectionButtonComponent,
     HeaderWithSubHeaderComponent,
     ButtonComponent,
     SpinnerComponent,

@@ -1,20 +1,20 @@
 import {ComponentFixture} from '@angular/core/testing';
 
-import {MultiButtonsComponent} from './multi-buttons.component';
+import {SelectionButtonComponent} from './selection-button.component';
 import {MockBuilder, MockRender} from 'ng-mocks';
 
 describe('OptionButtonComponent', () => {
-  let component: MultiButtonsComponent;
-  let fixture: ComponentFixture<MultiButtonsComponent>;
+  let component: SelectionButtonComponent;
+  let fixture: ComponentFixture<SelectionButtonComponent>;
 
   beforeEach(() => {
     return MockBuilder(
-      MultiButtonsComponent
+      SelectionButtonComponent
     );
   });
 
   it('should create', () => {
-    fixture = MockRender(MultiButtonsComponent);
+    fixture = MockRender(SelectionButtonComponent);
     component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
