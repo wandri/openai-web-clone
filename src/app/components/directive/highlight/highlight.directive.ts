@@ -34,6 +34,7 @@ export class HighlightDirective implements OnInit {
   private isAttached = false;
 
   constructor() {
+    // TODO: appHighlightDisabled should be dynamic.
     if (!this.appHighlightDisabled) {
       const element = this.elementRef.nativeElement;
       fromEvent(element, 'mouseenter').pipe(

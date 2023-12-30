@@ -2,19 +2,19 @@ import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angul
 import {importProvidersFrom} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {SvgIconModule} from "../../shared/svg-icon.module";
-import {SelectDropdownComponent} from "../../app/components/elements/inputs/select-dropdown/select-dropdown.component";
+import {AutocompleteComponent} from "../../app/components/elements/inputs/autocomplete/autocomplete.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
-const meta: Meta<SelectDropdownComponent> = {
-  title: 'Components/inputs/select-dropdown',
+const meta: Meta<AutocompleteComponent> = {
+  title: 'Components/inputs/autocomplete',
   decorators: [
     applicationConfig({
       providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]
     }),
     moduleMetadata({
       imports: [
-        SelectDropdownComponent,
+        AutocompleteComponent,
         SvgIconModule,
       ]
     })
@@ -52,11 +52,11 @@ const meta: Meta<SelectDropdownComponent> = {
 } as Meta;
 
 export default meta;
-type Story = StoryFn<SelectDropdownComponent>;
+type Story = StoryFn<AutocompleteComponent>;
 
-export const SelectDropdown: Story = (args) => ({
+export const Autocomplete: Story = (args) => ({
   template: `
-  <app-select-dropdown
+  <app-autocomplete
     class="w-52"
     [value]="value"
     [size]="size"

@@ -1,0 +1,43 @@
+<app-label
+  [description]="description"
+  [label]="label"
+  [required]="required">
+  <div [appMenuFor]="optionsMenu"
+       [class.border-gray-400]="!isInputEnabled()"
+       [class.border-green-700]="isInputEnabled()"
+       [class.h-8]="size === 'sm'"
+       [class.h-9]="size === 'md'"
+       [class.text-gray-400]="!isInputEnabled()"
+       appMenu appMenuDirection="bottom" class="flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative text-gray-900"
+  >
+    @if (!!_value()) {
+      {{ _value() }}
+    } @else if (placeholder) {
+      <span class="text-gray-400">{{ placeholder }}</span>
+    }
+    <div [class.text-gray-400]="!isInputEnabled()"
+         class="text-sm absolute rounded-lg h-full top-0 right-0 group-focus:opacity-0 w-8 flex items-center justify-center"
+    >
+      <app-icon class="group-hover:text-gray-500 text-gray-400" svgIcon="dropdown"/>
+    </div>
+  </div>
+</app-label>
+<ng-template #optionsMenu>
+  <div class="flex flex-col pt-1 pb-1 w-full text-sm">
+    @for (option of options;track option) {
+      <div class="flex flex-col gap-0.5 px-4 py-2 cursor-pointer" (mouseup)="selectOption(option)"
+           [class.bg-green-700]="_value() === option.label"
+           [class.text-white]="_value() === option.label"
+           [class.text-gray-700]="_value() !== option.label"
+           [class.hover:bg-green-50]="_value() !== option.label"
+      >
+        <div class="text-sm">{{ option.label }}</div>
+        <div class="text-xs"
+             [class.text-green-200]="_value() === option.label"
+             [class.text-gray-600]="_value() !== option.label"
+        >{{ option.description }}
+        </div>
+      </div>
+    }
+  </div>
+</ng-template>

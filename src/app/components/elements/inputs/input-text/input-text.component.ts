@@ -35,11 +35,11 @@ import {IconComponent} from "../../icon/icon.component";
 })
 export class InputTextComponent implements ControlValueAccessor, OnInit, OnChanges {
   @Input() label: string | undefined | null = '';
+  @Input() description: string | undefined | null = '';
+  @Input() required = false;
   @Input() isLoading: boolean = false;
   @Input() type: 'text' | 'email' = 'text';
   @Input() placeholder: string = '';
-  @Input() description: string | undefined | null = '';
-  @Input() required = false;
   @Input() icon ?: string;
   readonly form: FormControl<string | null> = new FormControl<string | null>(
     ''

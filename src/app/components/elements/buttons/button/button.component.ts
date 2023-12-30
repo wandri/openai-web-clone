@@ -81,7 +81,7 @@ export class ButtonComponent {
             updatedClasses.push('bg-green-700 hover:bg-green-800 active:bg-green-900 focus:shadow-green text-white')
             break;
           case 'neutral':
-            updatedClasses.push('bg-gray-200 active:bg-gray-300 hover:bg-gray-400 focus:shadow-gray text-gray-900')
+            updatedClasses.push('bg-gray-200 hover:bg-gray-300 active:bg-gray-400  focus:shadow-gray text-gray-900')
             break;
         }
       }
@@ -94,7 +94,7 @@ export class ButtonComponent {
             updatedClasses.push('border border-green-700 active:bg-green-200 hover:bg-green-100 focus:shadow-green text-green-700')
             break;
           case 'neutral':
-            updatedClasses.push('border active:bg-gray-200 hover:bg-gray-100 focus:shadow-gray text-gray-900')
+            updatedClasses.push('border hover:bg-gray-100 active:bg-gray-200  focus:shadow-gray text-gray-900')
             break;
         }
       }
@@ -104,10 +104,10 @@ export class ButtonComponent {
       } else {
         switch (this._color()) {
           case 'primary':
-            updatedClasses.push('active:bg-green-200 hover:bg-green-100 focus:shadow-green text-green-700')
+            updatedClasses.push('hover:bg-green-100 active:bg-green-200 focus:shadow-green text-green-700')
             break;
           case 'neutral':
-            updatedClasses.push('active:bg-gray-200 hover:bg-gray-100 focus:shadow-gray text-gray-500')
+            updatedClasses.push('hover:bg-gray-100  active:bg-gray-200 focus:shadow-gray text-gray-500')
             break;
         }
       }

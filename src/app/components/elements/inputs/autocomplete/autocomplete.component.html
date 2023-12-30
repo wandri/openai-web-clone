@@ -5,16 +5,16 @@
      class="flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative"
 >
   <div class="grid text-sm relative grow">
-    <div class="flex overflow-hidden overflow-ellipsis">{{ value }}</div>
+    <div class="flex overflow-hidden overflow-ellipsis">{{ _value() }}</div>
   </div>
   <input [class.opacity-0]="!isInputEnabled()"
          [formControl]='form'
          [matAutocomplete]="auto"
-         class="w-full pl-3 absolute rounded-lg h-full top-0 left-0 outline-0 group-focus:opacity-0 pr-12"
+         class="w-full pl-3 text-sm absolute rounded-lg h-full top-0 left-0 outline-0 group-focus:opacity-0 pr-12"
   >
-  <mat-autocomplete #auto="matAutocomplete">
-    @for (option of options;track option) {
-      <mat-option [value]="option">{{ option }}</mat-option>
+  <mat-autocomplete #auto="matAutocomplete" [autoActiveFirstOption]="true">
+    @for (option of filteredOptions();track option) {
+      <mat-option [value]="option" (click)="selectOption(option)">{{ option }}</mat-option>
     }
   </mat-autocomplete>
   <app-icon class="group-hover:text-gray-500 text-gray-400" svgIcon="dropdown"/>

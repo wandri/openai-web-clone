@@ -4,7 +4,7 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {DatePipe} from "@angular/common";
 import {ButtonIconComponent} from "../../components/elements/buttons/button-icon/button-icon.component";
 import {ButtonComponent} from "../../components/elements/buttons/button/button.component";
-import {SelectDropdownComponent} from "../../components/elements/inputs/select-dropdown/select-dropdown.component";
+import {AutocompleteComponent} from "../../components/elements/inputs/autocomplete/autocomplete.component";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
@@ -20,7 +20,7 @@ import {IconComponent} from "../../components/elements/icon/icon.component";
     DatePipe,
     ButtonIconComponent,
     ButtonComponent,
-    SelectDropdownComponent,
+    AutocompleteComponent,
     SkeletonLoaderComponent,
     IconComponent
   ],

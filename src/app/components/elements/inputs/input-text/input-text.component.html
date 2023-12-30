@@ -16,9 +16,9 @@
       class='w-[340px] text-sm py-1.5 px-3 outline-0 placeholder:text-gray-500 border border-gray-300 rounded-lg p-2 focus:shadow-input focus:border-green-700'
     />
     @if (icon) {
-      <div class='absolute top-0 left-2 h-full flex items-center'
+      <div class='absolute top-0 left-2 h-full flex items-center z-10'
            [class.hidden]='isLoading'>
-        <app-icon [fontIcon]='icon'/>
+        <app-icon [svgIcon]='icon'/>
       </div>
     }
     @if (isLoading) {

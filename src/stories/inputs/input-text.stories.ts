@@ -5,7 +5,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {SvgIconModule} from "../../shared/svg-icon.module";
 
 
-
 const meta: Meta<InputTextComponent> = {
   title: 'Components/inputs/text',
   decorators: [
@@ -39,6 +38,9 @@ const meta: Meta<InputTextComponent> = {
       description: 'The description.',
       control: {type: 'text'}
     },
+    required: {
+      description: 'Whether the input is required.',
+    },
     placeholder: {
       defaultValue: '',
       description: 'The placeholder.',
@@ -48,9 +50,6 @@ const meta: Meta<InputTextComponent> = {
       description: 'The type to use.',
       options: ['text', 'email'],
       control: {type: 'select'}
-    },
-    required: {
-      description: 'Whether the input is required.',
     },
     isLoading: {
       description: 'Whether the input is required.',
@@ -97,4 +96,19 @@ export const TextWithIcon: Story = (args) => ({
     />
   `,
   props: {...args, icon: 'playground'}
+});
+
+export const LoadingText: Story = (args) => ({
+  template: `
+  <app-input-text
+    [label]="label"
+    [placeholder]="placeholder"
+    [description]="description"
+    [type]="type"
+    [required]="required"
+    [icon]="icon"
+    [isLoading]="isLoading"
+    />
+  `,
+  props: {...args, isLoading: true}
 });

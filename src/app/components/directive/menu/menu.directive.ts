@@ -9,9 +9,9 @@ import {
   Renderer2,
   TemplateRef
 } from '@angular/core';
-import {Overlay, OverlayPositionBuilder, OverlayRef} from '@angular/cdk/overlay';
+import {ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal} from '@angular/cdk/portal';
-import {fromEvent, tap} from 'rxjs';
+import {filter, fromEvent, tap} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MenuComponent} from "./menu.component";
 
@@ -19,8 +19,9 @@ import {MenuComponent} from "./menu.component";
   standalone: true,
   selector: '[appMenu]'
 })
-export class HighlightDirective implements OnInit {
+export class MenuDirective implements OnInit {
   @Input({required: true, alias: "appMenuFor"}) dropdownPanel!: TemplateRef<HTMLElement>;
+  @Input({alias: "appMenuDirection"}) appMenuDirection: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
   @Input() appMenuDisabled: boolean = false;
   private elementRef: ElementRef = inject(ElementRef);
   private destroyRef: DestroyRef = inject(DestroyRef);
@@ -35,33 +36,82 @@ export class HighlightDirective implements OnInit {
   constructor() {
     if (!this.appMenuDisabled) {
       const element = this.elementRef.nativeElement;
-      fromEvent<PointerEvent>(element, 'click').pipe(
+      fromEvent<PointerEvent>(element, 'mouseup').pipe(
         tap(() => this.isOpened = !this.isOpened),
         takeUntilDestroyed(this.destroyRef)
       ).subscribe((event) => {
         event.stopPropagation();
         this.show();
       });
-      fromEvent<PointerEvent>(document, 'click').pipe(
+      fromEvent<PointerEvent>(document, 'mouseup').pipe(
         tap(() => this.isOpened = false),
         takeUntilDestroyed(this.destroyRef)
+      ).subscribe((event) => {
+        this.hide()
+      });
+
+      fromEvent<KeyboardEvent>(document, 'keydown').pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter(event => event.key === 'Escape'),
+        tap(() => this.isOpened = false),
       ).subscribe((event) => this.hide());
+
       this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'relative');
       this.renderer.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');
     }
   }
 
   ngOnInit() {
+    const positions: ConnectedPosition[] = [];
+    switch (this.appMenuDirection) {
+      case "top":
+        positions.push({
+          originX: 'center',
+          originY: 'top',
+          overlayX: 'center',
+          overlayY: 'bottom',
+          offsetY: -4
+        })
+        break;
+      case "bottom":
+        positions.push({
+          originX: 'center',
+          originY: 'bottom',
+          overlayX: 'center',
+          overlayY: 'top',
+          offsetY: 4
+        })
+        break;
+      case "right":
+        positions.push({
+          originX: 'end',
+          originY: 'center',
+          overlayX: 'start',
+          overlayY: 'center',
+          offsetX: 4
+        })
+        break;
+      case "left":
+        positions.push({
+          originX: 'start',
+          originY: 'center',
+          overlayX: 'end',
+          overlayY: 'center',
+          offsetX: -4
+        })
+        break;
+    }
     const positionStrategy = this.overlayPositionBuilder
       .flexibleConnectedTo(this.elementRef)
-      .withPositions([{
-        originX: 'center',
-        originY: 'top',
-        overlayX: 'center',
-        overlayY: 'bottom',
-        offsetY: -10
-      }]);
+      .withPositions(positions);
     this.overlayRef = this.overlay.create({positionStrategy});
+  }
+
+  hide() {
+    if (this.overlayRef && !this.isOpened) {
+      this.overlayRef.detach();
+      this.isAttached = false;
+    }
   }
 
   private show() {
@@ -79,13 +129,6 @@ export class HighlightDirective implements OnInit {
           event.stopPropagation();
         });
       }
-    }
-  }
-
-  private hide() {
-    if (this.overlayRef && !this.isOpened) {
-      this.overlayRef.detach();
-      this.isAttached = false;
     }
   }
 }

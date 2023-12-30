@@ -5,7 +5,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {RouterButtonComponent} from "./router-button/router-button.component";
 import {Navigation} from "./navigation.type";
 import {ProfilePictureComponent} from "../../elements/user/profil-picture/profile-picture.component";
-import {HighlightDirective} from "../../directive/menu/menu.directive";
+import {MenuDirective} from "../../directive/menu/menu.directive";
 import {fromEvent, map} from "rxjs";
 import {getDeviceDimension, SIZE} from "./size";
 
@@ -19,7 +19,7 @@ import {getDeviceDimension, SIZE} from "./size";
     RouterLinkActive,
     RouterButtonComponent,
     ProfilePictureComponent,
-    HighlightDirective
+    MenuDirective
   ],
   templateUrl: './sidenav.component.html',
   styles: [':host {@apply flex flex-col h-full}'],

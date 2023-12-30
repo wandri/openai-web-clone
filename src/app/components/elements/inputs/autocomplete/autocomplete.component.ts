@@ -11,14 +11,14 @@ import {
   signal
 } from '@angular/core';
 import {ControlValueAccessor, FormControl, ReactiveFormsModule} from "@angular/forms";
-import {noop, tap} from "rxjs";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {map, noop, startWith, tap} from "rxjs";
+import {takeUntilDestroyed, toSignal} from "@angular/core/rxjs-interop";
 import {CdkMenu, CdkMenuItem, CdkMenuTrigger} from "@angular/cdk/menu";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {IconComponent} from "../../icon/icon.component";
 
 @Component({
-  selector: 'app-select-dropdown',
+  selector: 'app-autocomplete',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -28,14 +28,13 @@ import {IconComponent} from "../../icon/icon.component";
     MatAutocompleteModule,
     IconComponent
   ],
-  templateUrl: './select-dropdown.component.html',
+  templateUrl: './autocomplete.component.html',
   styles: [':host {@apply flex text-inherit relative; }'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectDropdownComponent implements ControlValueAccessor, OnInit {
+export class AutocompleteComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder: string = '';
-  @Input() value: string | null = 'Personal';
-  @Input() options: string[] = ['Personal', 'Pro'];
+  @Input() options: string[] = [];
   @Input() size: 'sm' | 'md' = 'md';
   @Output() onValueChange = new EventEmitter();
   readonly form: FormControl<string | null> = new FormControl<string | null>(
@@ -43,9 +42,19 @@ export class SelectDropdownComponent implements ControlValueAccessor, OnInit {
   );
   readonly isInputEnabled = signal<boolean>(false);
   readonly height = signal<number>(24)
+  readonly _value = signal<string | null>(null);
+  filteredOptions = toSignal(this.form.valueChanges.pipe(
+    startWith(''),
+    map(value => this._filter(value || '')),
+  ));
   private destroyRef = inject(DestroyRef);
   private onTouched: (value: string) => void = noop;
   private onChange: (value: string | null) => void = noop;
+
+  @Input() set value(val: string | null) {
+    this._value.set(val);
+    this.form.setValue(val ?? '', {emitEvent: false});
+  }
 
   @HostListener('click', ['$event'])
   clickInside($event: Event): void {
@@ -59,6 +68,7 @@ export class SelectDropdownComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
+    this.form.setValue(this._value() ?? '', {emitEvent: true});
     this.form.valueChanges
       .pipe(
         tap((value) => this.onChange(value)),
@@ -84,6 +94,17 @@ export class SelectDropdownComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(value: string | undefined): void {
-    this.form.setValue(value ?? '', {emitEvent: false});
+    this.form.setValue(value ?? '', {emitEvent: true});
+  }
+
+  selectOption(option: string): void {
+    this._value.set(option);
+    this.onValueChange.emit(option);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 }
