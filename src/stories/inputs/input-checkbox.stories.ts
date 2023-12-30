@@ -2,7 +2,6 @@ import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angul
 import {InputCheckboxComponent} from "../../app/components/elements/inputs/input-checkbox/input-checkbox.component";
 
 
-
 const meta: Meta<InputCheckboxComponent> = {
   title: 'Components/inputs/checkbox',
   decorators: [

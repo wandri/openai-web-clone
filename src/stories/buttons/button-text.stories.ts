@@ -2,7 +2,6 @@ import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angul
 import {ButtonTextComponent} from "../../app/components/elements/buttons/button-text/button-text.component";
 
 
-
 const meta: Meta<ButtonTextComponent> = {
   title: 'Components/buttons/buttonText',
   decorators: [
@@ -16,7 +15,7 @@ const meta: Meta<ButtonTextComponent> = {
     })
   ],
   args: {
-    label:'Button',
+    label: 'Button',
     size: 'md',
     isLoading: false,
     disabled: false,

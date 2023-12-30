@@ -2,7 +2,6 @@ import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angul
 import {ButtonComponent} from "../../app/components/elements/buttons/button/button.component";
 
 
-
 const meta: Meta<ButtonComponent> = {
   title: 'Components/buttons/button',
   decorators: [

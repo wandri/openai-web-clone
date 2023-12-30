@@ -9,7 +9,7 @@ const meta: Meta<InputDateComponent> = {
   title: 'Components/inputs/date',
   decorators: [
     applicationConfig({
-      providers: [importProvidersFrom(HttpClientModule,BrowserAnimationsModule)]
+      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]
     }),
     moduleMetadata({
       imports: [

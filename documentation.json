@@ -188,12 +188,12 @@
     },
     {
       "name": "SelectOption",
-      "id": "interface-SelectOption-2268e68df82ff42c2cbd7c48675ea05da8ffed9a2fe5c133751f2be26239187d7f29c06afaf16e72820916b2818d81b27db752969c07a4dde1033e0e2c8c03ee",
+      "id": "interface-SelectOption-2430bcfd7e983ef37052e4f4bf482bdf6042ae2b0442f99a1884122b7781a4db11ab8513e5d2a1d2380bd1c710e4633f55ec5854eaf62af89dd491edf0abd565",
       "file": "src/app/components/elements/inputs/select/select.component.ts",
       "deprecated": false,
       "deprecationMessage": "",
       "type": "interface",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component, computed,\n  DestroyRef,\n  EventEmitter,\n  HostListener,\n  inject,\n  Input,\n  OnInit,\n  Output,\n  signal\n} from '@angular/core';\nimport {ControlValueAccessor, FormControl, ReactiveFormsModule} from \"@angular/forms\";\nimport {noop, tap} from \"rxjs\";\nimport {takeUntilDestroyed} from \"@angular/core/rxjs-interop\";\nimport {IconComponent} from \"../../icon/icon.component\";\nimport {MenuDirective} from \"../../../directive/menu/menu.directive\";\nimport {LabelComponent} from \"../label/label.component\";\n\nexport interface SelectOption {\n  label: string;\n  description: string;\n}\n\n@Component({\n  selector: 'app-select',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    IconComponent,\n    MenuDirective,\n    LabelComponent,\n  ],\n  templateUrl: './select.component.html',\n  styles: [':host {@apply flex text-inherit relative; }'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class SelectComponent implements ControlValueAccessor, OnInit {\n  @Input() label: string | undefined | null = '';\n  @Input() description: string | undefined | null = '';\n  @Input() required = false;\n  @Input() placeholder: string = '';\n  @Input() options: SelectOption[] = [];\n  @Input() size: 'sm' | 'md' = 'md';\n  @Output() onValueChange = new EventEmitter();\n  readonly form: FormControl<string | null> = new FormControl<string | null>(\n    ''\n  );\n  readonly isInputEnabled = signal<boolean>(false);\n  readonly height = signal<number>(24)\n  readonly _value = signal<string | null>(null);\n  private destroyRef = inject(DestroyRef);\n  private onTouched: (value: string) => void = noop;\n  private onChange: (value: string | null) => void = noop;\n\n  @Input() set value(val: string | null) {\n    this._value.set(val);\n    this.form.setValue(val ?? '', {emitEvent: false});\n  }\n\n  @HostListener('click', ['$event'])\n  clickInside($event: Event): void {\n    this.isInputEnabled.set(true);\n    $event.stopPropagation();\n  }\n\n  @HostListener('document:click')\n  clickOutside(): void {\n    this.isInputEnabled.set(false)\n  }\n\n  ngOnInit(): void {\n    this.form.setValue(this._value() ?? '', {emitEvent: true});\n    this.form.valueChanges\n      .pipe(\n        tap((value) => this.onChange(value)),\n        takeUntilDestroyed(this.destroyRef)\n      )\n      .subscribe();\n  }\n\n  registerOnChange(fn: () => void): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(disabled: boolean): void {\n    if (disabled) {\n      this.form.disable({emitEvent: false});\n    } else {\n      this.form.enable({emitEvent: false});\n    }\n  }\n\n  writeValue(value: string | undefined): void {\n    this.form.setValue(value ?? '', {emitEvent: true});\n  }\n\n  selectOption(option: string): void {\n    this._value.set(option);\n    this.onValueChange.emit(option);\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  DestroyRef,\n  ElementRef,\n  EventEmitter,\n  inject,\n  Input,\n  OnInit,\n  Output,\n  signal\n} from '@angular/core';\nimport {ReactiveFormsModule} from \"@angular/forms\";\nimport {IconComponent} from \"../../icon/icon.component\";\nimport {MenuDirective} from \"../../../directive/menu/menu.directive\";\nimport {LabelComponent} from \"../label/label.component\";\nimport {fromEvent} from \"rxjs\";\nimport {takeUntilDestroyed} from \"@angular/core/rxjs-interop\";\n\nexport interface SelectOption {\n  label: string;\n  description: string;\n}\n\n@Component({\n  selector: 'app-select',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    IconComponent,\n    MenuDirective,\n    LabelComponent,\n  ],\n  templateUrl: './select.component.html',\n  styles: [':host {@apply flex text-inherit relative; }'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class SelectComponent implements OnInit {\n  @Input() label: string | undefined | null = '';\n  @Input() description: string | undefined | null = '';\n  @Input() required = false;\n  @Input() placeholder: string = '';\n  @Input() options: SelectOption[] = [];\n  @Input() size: 'sm' | 'md' = 'md';\n  @Output() onValueChange = new EventEmitter();\n\n  readonly isInputEnabled = signal<boolean>(false);\n  readonly height = signal<number>(24)\n  readonly _value = signal<string | null>(null);\n  private destroyRef = inject(DestroyRef);\n  private elementRef: ElementRef = inject(ElementRef);\n\n  @Input() set value(val: string | null) {\n    this._value.set(val);\n  }\n\n  ngOnInit(): void {\n    const element = this.elementRef.nativeElement;\n    fromEvent<PointerEvent>(element, 'mouseup').pipe(\n      takeUntilDestroyed(this.destroyRef)\n    ).subscribe((event) => {\n      this.isInputEnabled.set(true);\n      event.stopPropagation();\n    });\n\n    fromEvent<PointerEvent>(document, 'mouseup').pipe(\n      takeUntilDestroyed(this.destroyRef)\n    ).subscribe((event) => {\n      this.isInputEnabled.set(false);\n    });\n  }\n\n  selectOption(option: SelectOption): void {\n    this._value.set(option.label);\n    this.onValueChange.emit(option);\n  }\n}\n",
       "properties": [
         {
           "name": "description",
@@ -501,12 +501,12 @@
     },
     {
       "name": "MenuDirective",
-      "id": "directive-MenuDirective-a41ddae86e0ab516f119b71746898e45fa9e0adbde134712fefcdae1961ae5fe8af915d80b19eba1b49f12978c9e7766577dde7c35a35bb38201f4c0e6207350",
+      "id": "directive-MenuDirective-c022f81b47e33f59d64645b3fe0c1446091165e7af7e1bbb723f0889c58d2861d28f909eec62ab874a228a3e5d82ec4c8ceb004040f931a570abdfcd52b7c6c2",
       "file": "src/app/components/directive/menu/menu.directive.ts",
       "type": "directive",
       "description": "",
       "rawdescription": "\n",
-      "sourceCode": "import {\r\n  ComponentRef,\r\n  DestroyRef,\r\n  Directive,\r\n  ElementRef,\r\n  inject,\r\n  Input,\r\n  OnInit,\r\n  Renderer2,\r\n  TemplateRef\r\n} from '@angular/core';\r\nimport {ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef} from '@angular/cdk/overlay';\r\nimport {ComponentPortal} from '@angular/cdk/portal';\r\nimport {fromEvent, tap} from 'rxjs';\r\nimport {takeUntilDestroyed} from '@angular/core/rxjs-interop';\r\nimport {MenuComponent} from \"./menu.component\";\r\n\r\n@Directive({\r\n  standalone: true,\r\n  selector: '[appMenu]'\r\n})\r\nexport class MenuDirective implements OnInit {\r\n  @Input({required: true, alias: \"appMenuFor\"}) dropdownPanel!: TemplateRef<HTMLElement>;\r\n  @Input({alias: \"appMenuDirection\"}) appMenuDirection: 'top' | 'bottom' | 'left' | 'right' = 'bottom';\r\n  @Input() appMenuDisabled: boolean = false;\r\n  private elementRef: ElementRef = inject(ElementRef);\r\n  private destroyRef: DestroyRef = inject(DestroyRef);\r\n  private renderer: Renderer2 = inject(Renderer2);\r\n  private overlay: Overlay = inject(Overlay);\r\n  private overlayPositionBuilder: OverlayPositionBuilder = inject(OverlayPositionBuilder);\r\n  private overlayRef?: OverlayRef;\r\n\r\n  private isOpened = false;\r\n  private isAttached = false;\r\n\r\n  constructor() {\r\n    if (!this.appMenuDisabled) {\r\n      const element = this.elementRef.nativeElement;\r\n      fromEvent<PointerEvent>(element, 'click').pipe(\r\n        tap(() => this.isOpened = !this.isOpened),\r\n        takeUntilDestroyed(this.destroyRef)\r\n      ).subscribe((event) => {\r\n        event.stopPropagation();\r\n        this.show();\r\n      });\r\n      fromEvent<PointerEvent>(document, 'click').pipe(\r\n        tap(() => this.isOpened = false),\r\n        takeUntilDestroyed(this.destroyRef)\r\n      ).subscribe((event) => this.hide());\r\n\r\n      fromEvent<KeyboardEvent>(document, 'keydown').pipe(\r\n        takeUntilDestroyed(this.destroyRef)\r\n      ).subscribe((event) => {\r\n        console.log(event.key)\r\n        if (event.key === 'Escape') {\r\n          console.log(event)\r\n          event.stopPropagation();\r\n          this.hide();\r\n        }\r\n      });\r\n\r\n      this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'relative');\r\n      this.renderer.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');\r\n    }\r\n  }\r\n\r\n  ngOnInit() {\r\n    const positions: ConnectedPosition[] = [];\r\n    switch (this.appMenuDirection) {\r\n      case \"top\":\r\n        positions.push({\r\n          originX: 'center',\r\n          originY: 'top',\r\n          overlayX: 'center',\r\n          overlayY: 'bottom',\r\n          offsetY: -4\r\n        })\r\n        break;\r\n      case \"bottom\":\r\n        positions.push({\r\n          originX: 'center',\r\n          originY: 'bottom',\r\n          overlayX: 'center',\r\n          overlayY: 'top',\r\n          offsetY: 4\r\n        })\r\n        break;\r\n      case \"right\":\r\n        positions.push({\r\n          originX: 'end',\r\n          originY: 'center',\r\n          overlayX: 'start',\r\n          overlayY: 'center',\r\n          offsetX: 4\r\n        })\r\n        break;\r\n      case \"left\":\r\n        positions.push({\r\n          originX: 'start',\r\n          originY: 'center',\r\n          overlayX: 'end',\r\n          overlayY: 'center',\r\n          offsetX: -4\r\n        })\r\n        break;\r\n    }\r\n    const positionStrategy = this.overlayPositionBuilder\r\n      .flexibleConnectedTo(this.elementRef)\r\n      .withPositions(positions);\r\n    this.overlayRef = this.overlay.create({positionStrategy});\r\n  }\r\n\r\n  private show() {\r\n    if (this.overlayRef && this.isOpened && this.dropdownPanel) {\r\n      this.isOpened = true;\r\n      if (!this.isAttached) {\r\n        this.isAttached = true;\r\n        const componentPortal = new ComponentPortal(MenuComponent);\r\n        const ref: ComponentRef<MenuComponent> = this.overlayRef.attach(componentPortal);\r\n        ref.instance.content = this.dropdownPanel;\r\n        fromEvent<PointerEvent>(ref.location.nativeElement, 'click').pipe(\r\n          tap(() => this.isOpened = !this.isOpened),\r\n          takeUntilDestroyed(this.destroyRef)\r\n        ).subscribe((event) => {\r\n          event.stopPropagation();\r\n        });\r\n      }\r\n    }\r\n  }\r\n\r\n  private hide() {\r\n    if (this.overlayRef && !this.isOpened) {\r\n      this.overlayRef.detach();\r\n      this.isAttached = false;\r\n    }\r\n  }\r\n}\r\n",
+      "sourceCode": "import {\r\n  ComponentRef,\r\n  DestroyRef,\r\n  Directive,\r\n  ElementRef,\r\n  inject,\r\n  Input,\r\n  OnInit,\r\n  Renderer2,\r\n  TemplateRef\r\n} from '@angular/core';\r\nimport {ConnectedPosition, Overlay, OverlayPositionBuilder, OverlayRef} from '@angular/cdk/overlay';\r\nimport {ComponentPortal} from '@angular/cdk/portal';\r\nimport {filter, fromEvent, tap} from 'rxjs';\r\nimport {takeUntilDestroyed} from '@angular/core/rxjs-interop';\r\nimport {MenuComponent} from \"./menu.component\";\r\n\r\n@Directive({\r\n  standalone: true,\r\n  selector: '[appMenu]'\r\n})\r\nexport class MenuDirective implements OnInit {\r\n  @Input({required: true, alias: \"appMenuFor\"}) dropdownPanel!: TemplateRef<HTMLElement>;\r\n  @Input({alias: \"appMenuDirection\"}) appMenuDirection: 'top' | 'bottom' | 'left' | 'right' = 'bottom';\r\n  @Input() appMenuDisabled: boolean = false;\r\n  private elementRef: ElementRef = inject(ElementRef);\r\n  private destroyRef: DestroyRef = inject(DestroyRef);\r\n  private renderer: Renderer2 = inject(Renderer2);\r\n  private overlay: Overlay = inject(Overlay);\r\n  private overlayPositionBuilder: OverlayPositionBuilder = inject(OverlayPositionBuilder);\r\n  private overlayRef?: OverlayRef;\r\n\r\n  private isOpened = false;\r\n  private isAttached = false;\r\n\r\n  constructor() {\r\n    if (!this.appMenuDisabled) {\r\n      const element = this.elementRef.nativeElement;\r\n      fromEvent<PointerEvent>(element, 'mouseup').pipe(\r\n        tap(() => this.isOpened = !this.isOpened),\r\n        takeUntilDestroyed(this.destroyRef)\r\n      ).subscribe((event) => {\r\n        event.stopPropagation();\r\n        this.show();\r\n      });\r\n      fromEvent<PointerEvent>(document, 'mouseup').pipe(\r\n        tap(() => this.isOpened = false),\r\n        takeUntilDestroyed(this.destroyRef)\r\n      ).subscribe((event) => {\r\n        this.hide()\r\n      });\r\n\r\n      fromEvent<KeyboardEvent>(document, 'keydown').pipe(\r\n        takeUntilDestroyed(this.destroyRef),\r\n        filter(event => event.key === 'Escape'),\r\n        tap(() => this.isOpened = false),\r\n      ).subscribe((event) => this.hide());\r\n\r\n      this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'relative');\r\n      this.renderer.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');\r\n    }\r\n  }\r\n\r\n  ngOnInit() {\r\n    const positions: ConnectedPosition[] = [];\r\n    switch (this.appMenuDirection) {\r\n      case \"top\":\r\n        positions.push({\r\n          originX: 'center',\r\n          originY: 'top',\r\n          overlayX: 'center',\r\n          overlayY: 'bottom',\r\n          offsetY: -4\r\n        })\r\n        break;\r\n      case \"bottom\":\r\n        positions.push({\r\n          originX: 'center',\r\n          originY: 'bottom',\r\n          overlayX: 'center',\r\n          overlayY: 'top',\r\n          offsetY: 4\r\n        })\r\n        break;\r\n      case \"right\":\r\n        positions.push({\r\n          originX: 'end',\r\n          originY: 'center',\r\n          overlayX: 'start',\r\n          overlayY: 'center',\r\n          offsetX: 4\r\n        })\r\n        break;\r\n      case \"left\":\r\n        positions.push({\r\n          originX: 'start',\r\n          originY: 'center',\r\n          overlayX: 'end',\r\n          overlayY: 'center',\r\n          offsetX: -4\r\n        })\r\n        break;\r\n    }\r\n    const positionStrategy = this.overlayPositionBuilder\r\n      .flexibleConnectedTo(this.elementRef)\r\n      .withPositions(positions);\r\n    this.overlayRef = this.overlay.create({positionStrategy});\r\n  }\r\n\r\n  hide() {\r\n    if (this.overlayRef && !this.isOpened) {\r\n      this.overlayRef.detach();\r\n      this.isAttached = false;\r\n    }\r\n  }\r\n\r\n  private show() {\r\n    if (this.overlayRef && this.isOpened && this.dropdownPanel) {\r\n      this.isOpened = true;\r\n      if (!this.isAttached) {\r\n        this.isAttached = true;\r\n        const componentPortal = new ComponentPortal(MenuComponent);\r\n        const ref: ComponentRef<MenuComponent> = this.overlayRef.attach(componentPortal);\r\n        ref.instance.content = this.dropdownPanel;\r\n        fromEvent<PointerEvent>(ref.location.nativeElement, 'click').pipe(\r\n          tap(() => this.isOpened = !this.isOpened),\r\n          takeUntilDestroyed(this.destroyRef)\r\n        ).subscribe((event) => {\r\n          event.stopPropagation();\r\n        });\r\n      }\r\n    }\r\n  }\r\n}\r\n",
       "selector": "[appMenu]",
       "providers": [],
       "hostDirectives": [],
@@ -659,12 +659,9 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 131,
+          "line": 110,
           "deprecated": false,
-          "deprecationMessage": "",
-          "modifierKind": [
-            123
-          ]
+          "deprecationMessage": ""
         },
         {
           "name": "ngOnInit",
@@ -672,7 +669,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 67,
+          "line": 64,
           "deprecated": false,
           "deprecationMessage": ""
         },
@@ -682,7 +679,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 113,
+          "line": 117,
           "deprecated": false,
           "deprecationMessage": "",
           "modifierKind": [
@@ -3281,7 +3278,7 @@
     },
     {
       "name": "HeaderComponent",
-      "id": "component-HeaderComponent-551fff3f99aab14423e3b09984fef6b3e5358344e087f621f5f5d679cf9431cc1d0ab1e6a88758af0ce3f1850b74b42ba1e3c376a5b2f5b9bcbabab877bc1567",
+      "id": "component-HeaderComponent-a0ecb37fe46be944f405a9f9f1f5c4590a04c30541db3c71f0233795f02695af5e3ede092646a7a6d79df2fca2f3983ab031200256e2f84e47c1df84163273a1",
       "file": "src/app/components/elements/headers/header/header.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -3304,7 +3301,7 @@
           "name": "tabs",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 18,
+          "line": 16,
           "type": "literal type[]",
           "decorators": []
         },
@@ -3314,7 +3311,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "optional": false,
-          "line": 17,
+          "line": 15,
           "type": "string",
           "decorators": []
         }
@@ -3329,10 +3326,6 @@
       "standalone": true,
       "imports": [
         {
-          "name": "MatIconModule",
-          "type": "module"
-        },
-        {
           "name": "TabRouteComponent",
           "type": "component"
         }
@@ -3340,7 +3333,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {ChangeDetectionStrategy, Component, Input} from '@angular/core';\nimport {MatIconModule} from \"@angular/material/icon\";\nimport {TabRouteComponent} from \"../../../navigation/tabs/tab-route/tab-route.component\";\n\n@Component({\n  selector: 'app-header',\n  standalone: true,\n  imports: [\n    MatIconModule,\n    TabRouteComponent\n  ],\n  templateUrl: './header.component.html',\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class HeaderComponent {\n  @Input({required: true}) title?: string;\n  @Input() tabs?: { name: string; route: string[] }[];\n}\n",
+      "sourceCode": "import {ChangeDetectionStrategy, Component, Input} from '@angular/core';\nimport {TabRouteComponent} from \"../../../navigation/tabs/tab-route/tab-route.component\";\n\n@Component({\n  selector: 'app-header',\n  standalone: true,\n  imports: [\n    TabRouteComponent\n  ],\n  templateUrl: './header.component.html',\n  styles: ``,\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class HeaderComponent {\n  @Input({required: true}) title?: string;\n  @Input() tabs?: { name: string; route: string[] }[];\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": "\n",
@@ -5745,7 +5738,7 @@
     },
     {
       "name": "SelectComponent",
-      "id": "component-SelectComponent-2268e68df82ff42c2cbd7c48675ea05da8ffed9a2fe5c133751f2be26239187d7f29c06afaf16e72820916b2818d81b27db752969c07a4dde1033e0e2c8c03ee",
+      "id": "component-SelectComponent-2430bcfd7e983ef37052e4f4bf482bdf6042ae2b0442f99a1884122b7781a4db11ab8513e5d2a1d2380bd1c710e4633f55ec5854eaf62af89dd491edf0abd565",
       "file": "src/app/components/elements/inputs/select/select.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -5822,7 +5815,7 @@
           "name": "value",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 56,
+          "line": 53,
           "type": "string | null",
           "decorators": []
         }
@@ -5846,7 +5839,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 51,
+          "line": 49,
           "modifierKind": [
             148
           ]
@@ -5859,22 +5852,22 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 52,
+          "line": 50,
           "modifierKind": [
             123
           ]
         },
         {
-          "name": "form",
-          "defaultValue": "new FormControl<string | null>(\n    ''\n  )",
+          "name": "elementRef",
+          "defaultValue": "inject(ElementRef)",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "FormControl<string | null>",
+          "type": "ElementRef",
           "optional": false,
           "description": "",
-          "line": 46,
+          "line": 51,
           "modifierKind": [
-            148
+            123
           ]
         },
         {
@@ -5885,7 +5878,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 50,
+          "line": 48,
           "modifierKind": [
             148
           ]
@@ -5898,171 +5891,29 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 49,
+          "line": 47,
           "modifierKind": [
             148
-          ]
-        },
-        {
-          "name": "onChange",
-          "defaultValue": "noop",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "function",
-          "optional": false,
-          "description": "",
-          "line": 54,
-          "modifierKind": [
-            123
-          ]
-        },
-        {
-          "name": "onTouched",
-          "defaultValue": "noop",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "function",
-          "optional": false,
-          "description": "",
-          "line": 53,
-          "modifierKind": [
-            123
           ]
         }
       ],
       "methodsClass": [
-        {
-          "name": "clickInside",
-          "args": [
-            {
-              "name": "$event",
-              "type": "Event",
-              "deprecated": false,
-              "deprecationMessage": ""
-            }
-          ],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 62,
-          "deprecated": false,
-          "deprecationMessage": "",
-          "decorators": [
-            {
-              "name": "HostListener",
-              "stringifiedArguments": "'click', ['$event']"
-            }
-          ],
-          "modifierKind": [
-            170
-          ],
-          "jsdoctags": [
-            {
-              "name": "$event",
-              "type": "Event",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "tagName": {
-                "text": "param"
-              }
-            }
-          ]
-        },
-        {
-          "name": "clickOutside",
-          "args": [],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 68,
-          "deprecated": false,
-          "deprecationMessage": "",
-          "decorators": [
-            {
-              "name": "HostListener",
-              "stringifiedArguments": "'document:click'"
-            }
-          ],
-          "modifierKind": [
-            170
-          ]
-        },
         {
           "name": "ngOnInit",
           "args": [],
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 72,
+          "line": 57,
           "deprecated": false,
           "deprecationMessage": ""
-        },
-        {
-          "name": "registerOnChange",
-          "args": [
-            {
-              "name": "fn",
-              "type": "function",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "function": []
-            }
-          ],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 82,
-          "deprecated": false,
-          "deprecationMessage": "",
-          "jsdoctags": [
-            {
-              "name": "fn",
-              "type": "function",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "function": [],
-              "tagName": {
-                "text": "param"
-              }
-            }
-          ]
-        },
-        {
-          "name": "registerOnTouched",
-          "args": [
-            {
-              "name": "fn",
-              "type": "function",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "function": []
-            }
-          ],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 86,
-          "deprecated": false,
-          "deprecationMessage": "",
-          "jsdoctags": [
-            {
-              "name": "fn",
-              "type": "function",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "function": [],
-              "tagName": {
-                "text": "param"
-              }
-            }
-          ]
         },
         {
           "name": "selectOption",
           "args": [
             {
               "name": "option",
-              "type": "string",
+              "type": "SelectOption",
               "deprecated": false,
               "deprecationMessage": ""
             }
@@ -6070,69 +5921,13 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 102,
+          "line": 73,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
             {
               "name": "option",
-              "type": "string",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "tagName": {
-                "text": "param"
-              }
-            }
-          ]
-        },
-        {
-          "name": "setDisabledState",
-          "args": [
-            {
-              "name": "disabled",
-              "type": "boolean",
-              "deprecated": false,
-              "deprecationMessage": ""
-            }
-          ],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 90,
-          "deprecated": false,
-          "deprecationMessage": "",
-          "jsdoctags": [
-            {
-              "name": "disabled",
-              "type": "boolean",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "tagName": {
-                "text": "param"
-              }
-            }
-          ]
-        },
-        {
-          "name": "writeValue",
-          "args": [
-            {
-              "name": "value",
-              "type": "string | undefined",
-              "deprecated": false,
-              "deprecationMessage": ""
-            }
-          ],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 98,
-          "deprecated": false,
-          "deprecationMessage": "",
-          "jsdoctags": [
-            {
-              "name": "value",
-              "type": "string | undefined",
+              "type": "SelectOption",
               "deprecated": false,
               "deprecationMessage": "",
               "tagName": {
@@ -6145,33 +5940,7 @@
       "deprecated": false,
       "deprecationMessage": "",
       "hostBindings": [],
-      "hostListeners": [
-        {
-          "name": "click",
-          "args": [
-            {
-              "name": "$event",
-              "type": "Event",
-              "deprecated": false,
-              "deprecationMessage": ""
-            }
-          ],
-          "argsDecorator": [
-            "$event"
-          ],
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 62
-        },
-        {
-          "name": "document:click",
-          "args": [],
-          "argsDecorator": [],
-          "deprecated": false,
-          "deprecationMessage": "",
-          "line": 68
-        }
-      ],
+      "hostListeners": [],
       "standalone": true,
       "imports": [
         {
@@ -6194,13 +5963,12 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component, computed,\n  DestroyRef,\n  EventEmitter,\n  HostListener,\n  inject,\n  Input,\n  OnInit,\n  Output,\n  signal\n} from '@angular/core';\nimport {ControlValueAccessor, FormControl, ReactiveFormsModule} from \"@angular/forms\";\nimport {noop, tap} from \"rxjs\";\nimport {takeUntilDestroyed} from \"@angular/core/rxjs-interop\";\nimport {IconComponent} from \"../../icon/icon.component\";\nimport {MenuDirective} from \"../../../directive/menu/menu.directive\";\nimport {LabelComponent} from \"../label/label.component\";\n\nexport interface SelectOption {\n  label: string;\n  description: string;\n}\n\n@Component({\n  selector: 'app-select',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    IconComponent,\n    MenuDirective,\n    LabelComponent,\n  ],\n  templateUrl: './select.component.html',\n  styles: [':host {@apply flex text-inherit relative; }'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class SelectComponent implements ControlValueAccessor, OnInit {\n  @Input() label: string | undefined | null = '';\n  @Input() description: string | undefined | null = '';\n  @Input() required = false;\n  @Input() placeholder: string = '';\n  @Input() options: SelectOption[] = [];\n  @Input() size: 'sm' | 'md' = 'md';\n  @Output() onValueChange = new EventEmitter();\n  readonly form: FormControl<string | null> = new FormControl<string | null>(\n    ''\n  );\n  readonly isInputEnabled = signal<boolean>(false);\n  readonly height = signal<number>(24)\n  readonly _value = signal<string | null>(null);\n  private destroyRef = inject(DestroyRef);\n  private onTouched: (value: string) => void = noop;\n  private onChange: (value: string | null) => void = noop;\n\n  @Input() set value(val: string | null) {\n    this._value.set(val);\n    this.form.setValue(val ?? '', {emitEvent: false});\n  }\n\n  @HostListener('click', ['$event'])\n  clickInside($event: Event): void {\n    this.isInputEnabled.set(true);\n    $event.stopPropagation();\n  }\n\n  @HostListener('document:click')\n  clickOutside(): void {\n    this.isInputEnabled.set(false)\n  }\n\n  ngOnInit(): void {\n    this.form.setValue(this._value() ?? '', {emitEvent: true});\n    this.form.valueChanges\n      .pipe(\n        tap((value) => this.onChange(value)),\n        takeUntilDestroyed(this.destroyRef)\n      )\n      .subscribe();\n  }\n\n  registerOnChange(fn: () => void): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(disabled: boolean): void {\n    if (disabled) {\n      this.form.disable({emitEvent: false});\n    } else {\n      this.form.enable({emitEvent: false});\n    }\n  }\n\n  writeValue(value: string | undefined): void {\n    this.form.setValue(value ?? '', {emitEvent: true});\n  }\n\n  selectOption(option: string): void {\n    this._value.set(option);\n    this.onValueChange.emit(option);\n  }\n}\n",
+      "sourceCode": "import {\n  ChangeDetectionStrategy,\n  Component,\n  DestroyRef,\n  ElementRef,\n  EventEmitter,\n  inject,\n  Input,\n  OnInit,\n  Output,\n  signal\n} from '@angular/core';\nimport {ReactiveFormsModule} from \"@angular/forms\";\nimport {IconComponent} from \"../../icon/icon.component\";\nimport {MenuDirective} from \"../../../directive/menu/menu.directive\";\nimport {LabelComponent} from \"../label/label.component\";\nimport {fromEvent} from \"rxjs\";\nimport {takeUntilDestroyed} from \"@angular/core/rxjs-interop\";\n\nexport interface SelectOption {\n  label: string;\n  description: string;\n}\n\n@Component({\n  selector: 'app-select',\n  standalone: true,\n  imports: [\n    ReactiveFormsModule,\n    IconComponent,\n    MenuDirective,\n    LabelComponent,\n  ],\n  templateUrl: './select.component.html',\n  styles: [':host {@apply flex text-inherit relative; }'],\n  changeDetection: ChangeDetectionStrategy.OnPush\n})\nexport class SelectComponent implements OnInit {\n  @Input() label: string | undefined | null = '';\n  @Input() description: string | undefined | null = '';\n  @Input() required = false;\n  @Input() placeholder: string = '';\n  @Input() options: SelectOption[] = [];\n  @Input() size: 'sm' | 'md' = 'md';\n  @Output() onValueChange = new EventEmitter();\n\n  readonly isInputEnabled = signal<boolean>(false);\n  readonly height = signal<number>(24)\n  readonly _value = signal<string | null>(null);\n  private destroyRef = inject(DestroyRef);\n  private elementRef: ElementRef = inject(ElementRef);\n\n  @Input() set value(val: string | null) {\n    this._value.set(val);\n  }\n\n  ngOnInit(): void {\n    const element = this.elementRef.nativeElement;\n    fromEvent<PointerEvent>(element, 'mouseup').pipe(\n      takeUntilDestroyed(this.destroyRef)\n    ).subscribe((event) => {\n      this.isInputEnabled.set(true);\n      event.stopPropagation();\n    });\n\n    fromEvent<PointerEvent>(document, 'mouseup').pipe(\n      takeUntilDestroyed(this.destroyRef)\n    ).subscribe((event) => {\n      this.isInputEnabled.set(false);\n    });\n  }\n\n  selectOption(option: SelectOption): void {\n    this._value.set(option.label);\n    this.onValueChange.emit(option);\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": ":host {@apply flex text-inherit relative; }\n",
       "extends": [],
       "implements": [
-        "ControlValueAccessor",
         "OnInit"
       ],
       "accessors": {
@@ -6220,7 +5988,7 @@
               }
             ],
             "returnType": "void",
-            "line": 56,
+            "line": 53,
             "jsdoctags": [
               {
                 "name": "val",
@@ -6235,7 +6003,7 @@
           }
         }
       },
-      "templateData": "<app-label\n  [label]=\"label\"\n  [description]=\"description\"\n  [required]=\"required\">\n  <div [class.border-gray-400]=\"!isInputEnabled()\"\n       [class.border-green-700]=\"isInputEnabled()\"\n       [class.h-8]=\"size === 'sm'\"\n       [class.h-9]=\"size === 'md'\"\n       [class.text-gray-400]=\"!isInputEnabled()\"\n       class=\"flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative text-gray-900\"\n       [appMenuFor]=\"optionsMenu\" appMenu appMenuDirection=\"bottom\"\n  >\n    @if (!!_value()) {\n      {{ _value() }}\n    } @else if (placeholder) {\n      <span class=\"text-gray-400\">{{ placeholder }}</span>\n    }\n    <div [class.text-gray-400]=\"!isInputEnabled()\"\n         class=\"text-sm absolute rounded-lg h-full top-0 right-0 group-focus:opacity-0 w-8 flex items-center justify-center\"\n    >\n      <app-icon class=\"group-hover:text-gray-500 text-gray-400\" svgIcon=\"dropdown\"/>\n    </div>\n  </div>\n</app-label>\n<ng-template #optionsMenu>\n  <div class=\"flex flex-col pt-1 pb-1 w-full text-sm\">\n    @for (option of options;track option) {\n      <div class=\"flex flex-col gap-2 px-4 py-2\"\n           [class.bg-green-700]=\"form.value === option.label\"\n           [class.text-white]=\"form.value === option.label\"\n           [class.text-gray-900]=\"form.value === option.label\"\n      >\n        <div class=\"text-sm\">{{ option.label }}</div>\n        <div class=\"text-xs\"\n             [class.text-green-50]=\"form.value === option.label\"\n             [class.text-gray-600]=\"form.value !== option.label\"\n        >{{ option.description }}\n        </div>\n      </div>\n    }\n  </div>\n</ng-template>\n"
+      "templateData": "<app-label\n  [description]=\"description\"\n  [label]=\"label\"\n  [required]=\"required\">\n  <div [appMenuFor]=\"optionsMenu\"\n       [class.border-gray-400]=\"!isInputEnabled()\"\n       [class.border-green-700]=\"isInputEnabled()\"\n       [class.h-8]=\"size === 'sm'\"\n       [class.h-9]=\"size === 'md'\"\n       [class.text-gray-400]=\"!isInputEnabled()\"\n       appMenu appMenuDirection=\"bottom\" class=\"flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative text-gray-900\"\n  >\n    @if (!!_value()) {\n      {{ _value() }}\n    } @else if (placeholder) {\n      <span class=\"text-gray-400\">{{ placeholder }}</span>\n    }\n    <div [class.text-gray-400]=\"!isInputEnabled()\"\n         class=\"text-sm absolute rounded-lg h-full top-0 right-0 group-focus:opacity-0 w-8 flex items-center justify-center\"\n    >\n      <app-icon class=\"group-hover:text-gray-500 text-gray-400\" svgIcon=\"dropdown\"/>\n    </div>\n  </div>\n</app-label>\n<ng-template #optionsMenu>\n  <div class=\"flex flex-col pt-1 pb-1 w-full text-sm\">\n    @for (option of options;track option) {\n      <div class=\"flex flex-col gap-0.5 px-4 py-2 cursor-pointer\" (mouseup)=\"selectOption(option)\"\n           [class.bg-green-700]=\"_value() === option.label\"\n           [class.text-white]=\"_value() === option.label\"\n           [class.text-gray-700]=\"_value() !== option.label\"\n           [class.hover:bg-green-50]=\"_value() !== option.label\"\n      >\n        <div class=\"text-sm\">{{ option.label }}</div>\n        <div class=\"text-xs\"\n             [class.text-green-200]=\"_value() === option.label\"\n             [class.text-gray-600]=\"_value() !== option.label\"\n        >{{ option.description }}\n        </div>\n      </div>\n    }\n  </div>\n</ng-template>\n"
     },
     {
       "name": "SidenavComponent",
@@ -6748,7 +6516,7 @@
     },
     {
       "name": "TeamComponent",
-      "id": "component-TeamComponent-a44e317faccc4e7c3e267b6129bd42d4d817bd607db3da3d05ba93f0bbbea117919045e15b600defbdeae40d076f703cecb2acf4e239e2db0039996b1b6ff1f4",
+      "id": "component-TeamComponent-d0653e50ec5bcc29365675257398eff55034d95079f574cc750e4fe33cf8e7f89e7231fe37cc2d9d8fdad3ce18f27b3d6606a63e83c2af4e6b4526e716e2705d",
       "file": "src/app/pages/account/team/team.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -6770,6 +6538,19 @@
       "outputsClass": [],
       "propertiesClass": [
         {
+          "name": "options",
+          "defaultValue": "[{\r\n    label: 'Owner',\r\n    description: 'Can modify billing and team settings'\r\n  }, {\r\n    label: 'Reader',\r\n    description: 'Can make standard requests'\r\n  }]",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "SelectOption[]",
+          "optional": false,
+          "description": "",
+          "line": 30,
+          "modifierKind": [
+            148
+          ]
+        },
+        {
           "name": "value",
           "defaultValue": "signal<string>('Owner')",
           "deprecated": false,
@@ -6777,7 +6558,7 @@
           "type": "",
           "optional": false,
           "description": "",
-          "line": 27,
+          "line": 29,
           "modifierKind": [
             148
           ]
@@ -6797,7 +6578,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 29,
+          "line": 38,
           "deprecated": false,
           "deprecationMessage": "",
           "jsdoctags": [
@@ -6846,17 +6627,21 @@
         {
           "name": "TagComponent",
           "type": "component"
+        },
+        {
+          "name": "SelectComponent",
+          "type": "component"
         }
       ],
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {ChangeDetectionStrategy, Component, signal} from '@angular/core';\r\nimport {HeaderComponent} from \"../../../components/elements/headers/header/header.component\";\r\nimport {ButtonComponent} from \"../../../components/elements/buttons/button/button.component\";\r\nimport {MatIconModule} from \"@angular/material/icon\";\r\nimport {InputTextComponent} from \"../../../components/elements/inputs/input-text/input-text.component\";\r\nimport {AutocompleteComponent} from \"../../../components/elements/inputs/autocomplete/autocomplete.component\";\r\nimport {ProfilePictureComponent} from \"../../../components/elements/user/profil-picture/profile-picture.component\";\r\nimport {TagComponent} from \"../../../components/elements/badge/tag.component\";\r\n\r\n@Component({\r\n  selector: 'app-team',\r\n  standalone: true,\r\n  imports: [\r\n    HeaderComponent,\r\n    ButtonComponent,\r\n    MatIconModule,\r\n    InputTextComponent,\r\n    AutocompleteComponent,\r\n    ProfilePictureComponent,\r\n    TagComponent\r\n  ],\r\n  templateUrl: './team.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TeamComponent {\r\n  readonly value = signal<string>('Owner');\r\n\r\n  changeValue($event: string): void {\r\n    this.value.set($event)\r\n  }\r\n}\r\n",
+      "sourceCode": "import {ChangeDetectionStrategy, Component, signal} from '@angular/core';\r\nimport {HeaderComponent} from \"../../../components/elements/headers/header/header.component\";\r\nimport {ButtonComponent} from \"../../../components/elements/buttons/button/button.component\";\r\nimport {MatIconModule} from \"@angular/material/icon\";\r\nimport {InputTextComponent} from \"../../../components/elements/inputs/input-text/input-text.component\";\r\nimport {AutocompleteComponent} from \"../../../components/elements/inputs/autocomplete/autocomplete.component\";\r\nimport {ProfilePictureComponent} from \"../../../components/elements/user/profil-picture/profile-picture.component\";\r\nimport {TagComponent} from \"../../../components/elements/badge/tag.component\";\r\nimport {SelectComponent, SelectOption} from \"../../../components/elements/inputs/select/select.component\";\r\n\r\n@Component({\r\n  selector: 'app-team',\r\n  standalone: true,\r\n  imports: [\r\n    HeaderComponent,\r\n    ButtonComponent,\r\n    MatIconModule,\r\n    InputTextComponent,\r\n    AutocompleteComponent,\r\n    ProfilePictureComponent,\r\n    TagComponent,\r\n    SelectComponent\r\n  ],\r\n  templateUrl: './team.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TeamComponent {\r\n  readonly value = signal<string>('Owner');\r\n  readonly options: SelectOption[] = [{\r\n    label: 'Owner',\r\n    description: 'Can modify billing and team settings'\r\n  }, {\r\n    label: 'Reader',\r\n    description: 'Can make standard requests'\r\n  }];\r\n\r\n  changeValue($event: string): void {\r\n    this.value.set($event)\r\n  }\r\n}\r\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": ":host {@apply flex flex-col w-full h-full}\n",
       "extends": [],
-      "templateData": "<app-header title=\"Team\">\r\n  <app-button color=\"primary\" size=\"sm\">\r\n    Invite members\r\n  </app-button>\r\n</app-header>\r\n<div class=\"flex flex-col gap-6 p-6\">\r\n  <div class=\"flex lg:flex-row flex-col justify-between gap-4\">\r\n    <div class=\"flex gap-4\">\r\n      <app-profile-picture class=\"w-8 h-8\"/>\r\n      <div>\r\n        <div class=\"text-sm flex items-center gap-2\">John Doe\r\n          <app-tag size=\"xs\">You</app-tag>\r\n        </div>\r\n        <div class=\"text-xs text-gray-600\">{{ 'john.doe@greate_company.com' }}</div>\r\n      </div>\r\n    </div>\r\n    <div class=\"flex justify-between items-center gap-8\">\r\n      <app-autocomplete [value]=\"value()\" [options]=\"[]\" (onValueChange)=\"changeValue($event)\" class=\"w-[150px]\" size=\"sm\"/>\r\n      <app-button color=\"neutral\" size=\"sm\">Leave</app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+      "templateData": "<app-header title=\"Team\">\r\n  <app-button color=\"primary\" size=\"sm\">\r\n    Invite members\r\n  </app-button>\r\n</app-header>\r\n<div class=\"flex flex-col gap-6 p-6\">\r\n  <div class=\"flex lg:flex-row flex-col justify-between gap-4\">\r\n    <div class=\"flex gap-4\">\r\n      <app-profile-picture class=\"w-8 h-8\"/>\r\n      <div>\r\n        <div class=\"text-sm flex items-center gap-2\">John Doe\r\n          <app-tag size=\"xs\">You</app-tag>\r\n        </div>\r\n        <div class=\"text-xs text-gray-600\">{{ 'john.doe@greate_company.com' }}</div>\r\n      </div>\r\n    </div>\r\n    <div class=\"flex justify-between items-center gap-8\">\r\n      <app-select (onValueChange)=\"changeValue($event)\" [options]=\"options\" [value]=\"value()\" class=\"w-[150px]\"\r\n                  size=\"sm\"/>\r\n      <app-button color=\"neutral\" size=\"sm\">Leave</app-button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
     },
     {
       "name": "TextAreaComponent",
@@ -7554,6 +7339,16 @@
         "defaultValue": "(args) => ({\n  template: `\n  <app-autocomplete\n    class=\"w-52\"\n    [value]=\"value\"\n    [size]=\"size\"\n    [options]=\"options\"\n    [placeholder]=\"placeholder\"\n    />\n  `,\n  props: args\n})"
       },
       {
+        "name": "Badge",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/badge.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-badge\n    [size]=\"size\"\n    >{{ label }}</app-badge>\n  `,\n  props: args\n})"
+      },
+      {
         "name": "barColor",
         "ctype": "miscellaneous",
         "subtype": "variable",
@@ -7654,6 +7449,26 @@
         "defaultValue": "(args) => ({\n  template: `\n  <app-button-group\n    [size]=\"size\"\n    [color]=\"color\"\n    [buttons]=\"buttons\"\n    [disabled]=\"disabled\"\n   />\n  `,\n  props: args\n})"
       },
       {
+        "name": "HeaderWithButton",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/simple-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {...args, content: \"Custom content on the right side\"}\n})"
+      },
+      {
+        "name": "HeaderWithTabs",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/simple-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {\n    ...args,\n    title: 'Header with tabs',\n    tabs: [{name: 'tab 1', route: []}, {name: 'tab 2', route: []}, {name: 'tab 3', route: []}]\n  }\n})"
+      },
+      {
         "name": "HighlightWithLink",
         "ctype": "miscellaneous",
         "subtype": "variable",
@@ -7671,7 +7486,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story",
-        "defaultValue": "(args) => ({\n  template: `\n  <div class=\"inline-block\" appHighlight [highlightLink]=\"highlightLink\" [appHighlightTooltip]=\"appHighlightTooltip\" [appHighlightDisabled]=\"appHighlightDisabled\">Hover me</div>\n  `,\n  props: {...args,appHighlightTooltip: 'This is a tooltip'}\n})"
+        "defaultValue": "(args) => ({\n  template: `\n  <div class=\"inline-block\" appHighlight [highlightLink]=\"highlightLink\" [appHighlightTooltip]=\"appHighlightTooltip\" [appHighlightDisabled]=\"appHighlightDisabled\">Hover me</div>\n  `,\n  props: {...args, appHighlightTooltip: 'This is a tooltip'}\n})"
       },
       {
         "name": "InputDate",
@@ -7712,6 +7527,16 @@
         "deprecationMessage": "",
         "type": "Story",
         "defaultValue": "(args) => ({\n  template: `\n<div class=\"flex w-full h-64 flex-col items-center justify-center gap-4\">\n  <div class=\"inline-block\" [appMenuFor]=\"menu\" appMenu appMenuDirection=\"left\">Click to display <span class=\"text-red-500\">left</span> menu</div>\n  <div class=\"inline-block\" [appMenuFor]=\"menu\" appMenu appMenuDirection=\"right\">Click to display <span class=\"text-red-500\">right</span> menu</div>\n  <div class=\"inline-block\" [appMenuFor]=\"menu\" appMenu appMenuDirection=\"top\">Click to display <span class=\"text-red-500\">top</span> menu</div>\n  <div class=\"inline-block\" [appMenuFor]=\"menu\" appMenu appMenuDirection=\"bottom\">Click to display <span class=\"text-red-500\">bottom</span> menu</div>\n</div>\n<ng-template #menu>\n  <div class=\"p-4\">Any content can be displayed here</div>\n</ng-template>\n\n`,\n  props: {...args}\n})"
+      },
+      {
+        "name": "meta",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/badge.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Meta<BadgeComponent>",
+        "defaultValue": "{\n  title: 'Components/badge',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        BadgeComponent\n      ]\n    })\n  ],\n  args: {\n    size: 'md',\n    label: 'Custom badge'\n  },\n  argTypes: {\n    label: {\n      description: 'The content of the badge.',\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
       },
       {
         "name": "meta",
@@ -7762,6 +7587,16 @@
         "deprecationMessage": "",
         "type": "Meta<ButtonComponent>",
         "defaultValue": "{\n  title: 'Components/buttons/button',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        ButtonComponent\n      ]\n    })\n  ],\n  args: {\n    label: 'Button',\n    variant: 'default',\n    color: 'primary',\n    size: 'md',\n    isLoading: false,\n    disabled: false,\n  },\n  argTypes: {\n    variant: {\n      description: 'The variant to use.',\n      options: ['default', 'outline', 'ghost', 'link'],\n      control: {type: 'select'}\n    },\n    color: {\n      description: 'Theme color palette for the button.',\n      options: ['primary', 'neutral'],\n      control: {type: 'select'}\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['xs', 'sm', 'md',],\n      control: {type: 'select'}\n    },\n    disabled: {\n      description: 'Whether the button is disabled.',\n    },\n    isLoading: {\n      description: 'Whether the button is loading.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+      },
+      {
+        "name": "meta",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/simple-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Meta<HeaderComponent>",
+        "defaultValue": "{\n  title: 'Components/headers/simple-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderComponent,\n        RouterModule.forRoot([]),\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
       },
       {
         "name": "meta",
@@ -7821,7 +7656,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Meta<SelectComponent>",
-        "defaultValue": "{\n  title: 'Components/inputs/select',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        SelectComponent,\n        SvgIconModule,\n        ReactiveFormsModule\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom label',\n    description: 'Custom description',\n    placeholder: 'Custom placeholder',\n    value: '1st value',\n    options: [\n      {label: '1st value', description: '1st description'},\n      {label: '2nd value'},\n      {label: '3rd value', description: '3rd description'},\n    ],\n    size: 'sm',\n    control:new FormControl('1st value')\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    value: {\n      defaultValue: '',\n      description: 'The value.',\n      control: {type: 'text'}\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md'],\n      control: {type: 'select'}\n    },\n    options: {\n      description: 'The options to use.',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        "defaultValue": "{\n  title: 'Components/inputs/select',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        SelectComponent,\n        SvgIconModule,\n        ReactiveFormsModule\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom label',\n    description: 'Custom description',\n    placeholder: 'Custom placeholder',\n    value: '1st value',\n    options: [\n      {label: '1st value', description: '1st description'},\n      {label: '2nd value'},\n      {label: '3rd value', description: '3rd description'},\n    ],\n    size: 'sm',\n    control: new FormControl('1st value')\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    value: {\n      defaultValue: '',\n      description: 'The value.',\n      control: {type: 'text'}\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md'],\n      control: {type: 'select'}\n    },\n    options: {\n      description: 'The options to use.',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
       },
       {
         "name": "meta",
@@ -7931,7 +7766,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story",
-        "defaultValue": "(args) => ({\n  template: `\n  <app-select\n    [formControl]=\"form\"\n    class=\"w-52\"\n    [value]=\"value\"\n    [size]=\"size\"\n    [options]=\"options\"\n    [placeholder]=\"placeholder\"\n    [label]=\"label\"\n    [description]=\"description\"\n    [required]=\"required\"\n    />\n  `,\n  props: args\n})"
+        "defaultValue": "(args) => ({\n  template: `\n  <app-select\n    class=\"w-52\"\n    [value]=\"value\"\n    [size]=\"size\"\n    [options]=\"options\"\n    [placeholder]=\"placeholder\"\n    [label]=\"label\"\n    [description]=\"description\"\n    [required]=\"required\"\n    />\n  `,\n  props: args\n})"
       },
       {
         "name": "setColor",
@@ -7942,6 +7777,16 @@
         "deprecationMessage": "",
         "type": "Record<string | string>",
         "defaultValue": "(opacity: number) => ({\r\n  \"GPT-4 Turbo\": `rgba(16,163,127,${opacity})`,\r\n  \"GPT-4\": `rgba(22,100,81,${opacity})`,\r\n  \"GPT-3.5 Turbo\": `rgba(54,208,218,${opacity})`,\r\n  \"Fine-tuning models\": `rgba(108,212,104,${opacity})`,\r\n  \"Embedding models\": `rgba(243,197,246,${opacity})`,\r\n  \"Base models\": `rgba(183,110,189,${opacity})`,\r\n  \"Image models\": `rgba(55,126,184,${opacity})`,\r\n  \"Audio models\": `rgba(77,175,74,${opacity})`,\r\n}) as const"
+      },
+      {
+        "name": "SimpleHeader",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/simple-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">  {{ content }}</app-header>\n  `,\n  props: args\n})"
       },
       {
         "name": "SimpleHighlight",
@@ -8164,6 +8009,17 @@
         "name": "Story",
         "ctype": "miscellaneous",
         "subtype": "typealias",
+        "rawtype": "StoryFn<BadgeComponent>",
+        "file": "src/stories/badge.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 183
+      },
+      {
+        "name": "Story",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
         "rawtype": "StoryFn<ButtonGroupComponent>",
         "file": "src/stories/buttons/button-group.stories.ts",
         "deprecated": false,
@@ -8210,6 +8066,17 @@
         "subtype": "typealias",
         "rawtype": "StoryFn<ButtonComponent>",
         "file": "src/stories/buttons/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 183
+      },
+      {
+        "name": "Story",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
+        "rawtype": "StoryFn<HeaderComponent>",
+        "file": "src/stories/headers/simple-header.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "description": "",
@@ -8386,6 +8253,28 @@
           "deprecationMessage": "",
           "type": "Meta<AutocompleteComponent>",
           "defaultValue": "{\n  title: 'Components/inputs/autocomplete',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        AutocompleteComponent,\n        SvgIconModule,\n      ]\n    })\n  ],\n  args: {\n    placeholder: 'Custom placeholder',\n    value: '1st value',\n    options: ['1st value', '2nd value'],\n    size: 'sm',\n  },\n  argTypes: {\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    value: {\n      defaultValue: '',\n      description: 'The value.',\n      control: {type: 'text'}\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md'],\n      control: {type: 'select'}\n    },\n    options: {\n      description: 'The options to use.',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        }
+      ],
+      "src/stories/badge.stories.ts": [
+        {
+          "name": "Badge",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/badge.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-badge\n    [size]=\"size\"\n    >{{ label }}</app-badge>\n  `,\n  props: args\n})"
+        },
+        {
+          "name": "meta",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/badge.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Meta<BadgeComponent>",
+          "defaultValue": "{\n  title: 'Components/badge',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        BadgeComponent\n      ]\n    })\n  ],\n  args: {\n    size: 'md',\n    label: 'Custom badge'\n  },\n  argTypes: {\n    label: {\n      description: 'The content of the badge.',\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         }
       ],
       "src/app/pages/usage/demo.ts": [
@@ -8614,6 +8503,48 @@
           "defaultValue": "{\n  title: 'Components/buttons/group',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        ButtonGroupComponent,\n        SvgIconModule\n      ]\n    })\n  ],\n  args: {\n    size: 'md',\n    color: 'primary',\n    disabled: false,\n    buttons: [\n      {\n        svgIcon: 'playground',\n      },\n      {\n        fontIcon: 'add',\n      },\n      {\n        text: 'Multi button',\n        options: [\n          {\n            text: '1st option',\n            fontIcon: \"emoji_events\",\n          },\n          {\n            text: '2nd option',\n          }\n        ]\n      },\n    ],\n  },\n  argTypes: {\n    size: {\n      description: 'The size to use.',\n      defaultValue: 'sm',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n    color: {\n      description: 'Theme color palette for the button.',\n      options: ['primary', 'neutral'],\n      defaultValue: 'primary',\n      control: {type: 'select'}\n    },\n    buttons: {\n      description: 'The buttons to use.',\n      control: {type: 'object'}\n    },\n    disabled: {\n      description: 'Whether the button is disabled.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         }
       ],
+      "src/stories/headers/simple-header.stories.ts": [
+        {
+          "name": "HeaderWithButton",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/simple-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {...args, content: \"Custom content on the right side\"}\n})"
+        },
+        {
+          "name": "HeaderWithTabs",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/simple-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {\n    ...args,\n    title: 'Header with tabs',\n    tabs: [{name: 'tab 1', route: []}, {name: 'tab 2', route: []}, {name: 'tab 3', route: []}]\n  }\n})"
+        },
+        {
+          "name": "meta",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/simple-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Meta<HeaderComponent>",
+          "defaultValue": "{\n  title: 'Components/headers/simple-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderComponent,\n        RouterModule.forRoot([]),\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        },
+        {
+          "name": "SimpleHeader",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/simple-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">  {{ content }}</app-header>\n  `,\n  props: args\n})"
+        }
+      ],
       "src/stories/transformations/hightlight.stories.ts": [
         {
           "name": "HighlightWithLink",
@@ -8633,7 +8564,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Story",
-          "defaultValue": "(args) => ({\n  template: `\n  <div class=\"inline-block\" appHighlight [highlightLink]=\"highlightLink\" [appHighlightTooltip]=\"appHighlightTooltip\" [appHighlightDisabled]=\"appHighlightDisabled\">Hover me</div>\n  `,\n  props: {...args,appHighlightTooltip: 'This is a tooltip'}\n})"
+          "defaultValue": "(args) => ({\n  template: `\n  <div class=\"inline-block\" appHighlight [highlightLink]=\"highlightLink\" [appHighlightTooltip]=\"appHighlightTooltip\" [appHighlightDisabled]=\"appHighlightDisabled\">Hover me</div>\n  `,\n  props: {...args, appHighlightTooltip: 'This is a tooltip'}\n})"
         },
         {
           "name": "meta",
@@ -8817,7 +8748,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Meta<SelectComponent>",
-          "defaultValue": "{\n  title: 'Components/inputs/select',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        SelectComponent,\n        SvgIconModule,\n        ReactiveFormsModule\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom label',\n    description: 'Custom description',\n    placeholder: 'Custom placeholder',\n    value: '1st value',\n    options: [\n      {label: '1st value', description: '1st description'},\n      {label: '2nd value'},\n      {label: '3rd value', description: '3rd description'},\n    ],\n    size: 'sm',\n    control:new FormControl('1st value')\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    value: {\n      defaultValue: '',\n      description: 'The value.',\n      control: {type: 'text'}\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md'],\n      control: {type: 'select'}\n    },\n    options: {\n      description: 'The options to use.',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+          "defaultValue": "{\n  title: 'Components/inputs/select',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        SelectComponent,\n        SvgIconModule,\n        ReactiveFormsModule\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom label',\n    description: 'Custom description',\n    placeholder: 'Custom placeholder',\n    value: '1st value',\n    options: [\n      {label: '1st value', description: '1st description'},\n      {label: '2nd value'},\n      {label: '3rd value', description: '3rd description'},\n    ],\n    size: 'sm',\n    control: new FormControl('1st value')\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    value: {\n      defaultValue: '',\n      description: 'The value.',\n      control: {type: 'text'}\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md'],\n      control: {type: 'select'}\n    },\n    options: {\n      description: 'The options to use.',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         },
         {
           "name": "Select",
@@ -8827,7 +8758,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Story",
-          "defaultValue": "(args) => ({\n  template: `\n  <app-select\n    [formControl]=\"form\"\n    class=\"w-52\"\n    [value]=\"value\"\n    [size]=\"size\"\n    [options]=\"options\"\n    [placeholder]=\"placeholder\"\n    [label]=\"label\"\n    [description]=\"description\"\n    [required]=\"required\"\n    />\n  `,\n  props: args\n})"
+          "defaultValue": "(args) => ({\n  template: `\n  <app-select\n    class=\"w-52\"\n    [value]=\"value\"\n    [size]=\"size\"\n    [options]=\"options\"\n    [placeholder]=\"placeholder\"\n    [label]=\"label\"\n    [description]=\"description\"\n    [required]=\"required\"\n    />\n  `,\n  props: args\n})"
         }
       ],
       "src/stories/inputs/text-area.stories.ts": [
@@ -9075,6 +9006,19 @@
           "kind": 187
         }
       ],
+      "src/stories/badge.stories.ts": [
+        {
+          "name": "Story",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "StoryFn<BadgeComponent>",
+          "file": "src/stories/badge.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 183
+        }
+      ],
       "src/stories/buttons/button-group.stories.ts": [
         {
           "name": "Story",
@@ -9134,6 +9078,19 @@
           "subtype": "typealias",
           "rawtype": "StoryFn<ButtonComponent>",
           "file": "src/stories/buttons/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 183
+        }
+      ],
+      "src/stories/headers/simple-header.stories.ts": [
+        {
+          "name": "Story",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "StoryFn<HeaderComponent>",
+          "file": "src/stories/headers/simple-header.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "description": "",
@@ -9641,7 +9598,7 @@
         "linktype": "component",
         "name": "SelectComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/26",
+        "coverageCount": "0/16",
         "status": "low"
       },
       {
@@ -9867,7 +9824,7 @@
         "linktype": "component",
         "name": "TeamComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/3",
+        "coverageCount": "0/4",
         "status": "low"
       },
       {
@@ -10022,6 +9979,26 @@
         "status": "low"
       },
       {
+        "filePath": "src/stories/badge.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Badge",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/badge.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "meta",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
         "filePath": "src/stories/buttons/button-group.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
@@ -10127,6 +10104,46 @@
         "linktype": "miscellaneous",
         "linksubtype": "variable",
         "name": "meta",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/simple-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "HeaderWithButton",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/simple-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "HeaderWithTabs",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/simple-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "meta",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/simple-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "SimpleHeader",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
