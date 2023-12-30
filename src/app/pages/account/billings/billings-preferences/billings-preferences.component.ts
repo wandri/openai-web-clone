@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {BadgeComponent} from "../../../../components/elements/tag/badge.component";
+import {BadgeComponent} from "../../../../components/elements/badge/badge.component";
 import {ButtonTextComponent} from "../../../../components/elements/buttons/button-text/button-text.component";
 import {CdkTableModule} from "@angular/cdk/table";
 import {DatePipe} from "@angular/common";

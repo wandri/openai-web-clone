@@ -1,16 +1,16 @@
 import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angular';
-import {BadgeComponent} from "../app/components/elements/badge/badge.component";
+import {TagComponent} from "../app/components/elements/tag/tag.component";
 
 
-const meta: Meta<BadgeComponent> = {
-  title: 'Components/badge',
+const meta: Meta<TagComponent> = {
+  title: 'Components/tag',
   decorators: [
     applicationConfig({
       providers: []
     }),
     moduleMetadata({
       imports: [
-        BadgeComponent
+        TagComponent
       ]
     })
   ],
@@ -34,13 +34,13 @@ const meta: Meta<BadgeComponent> = {
 } as Meta;
 
 export default meta;
-type Story = StoryFn<BadgeComponent>;
+type Story = StoryFn<TagComponent>;
 
-export const Badge: Story = (args) => ({
+export const Tag: Story = (args) => ({
   template: `
-  <app-badge class="inline-block"
+  <app-tag class="inline-block"
     [size]="size"
-    >{{ label }}</app-badge>
+    >{{ label }}</app-tag>
   `,
   props: args
 });

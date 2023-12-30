@@ -9,7 +9,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, of, startWith} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {ButtonTextComponent} from "../../../../components/elements/buttons/button-text/button-text.component";
-import {BadgeComponent} from "../../../../components/elements/tag/badge.component";
+import {BadgeComponent} from "../../../../components/elements/badge/badge.component";
 import {ButtonComponent} from "../../../../components/elements/buttons/button/button.component";
 
 @Component({

@@ -1512,7 +1512,7 @@
     {
       "name": "BadgeComponent",
       "id": "component-BadgeComponent-e04e05c5009f86416dd756becef84a6522915182004ab77c62f3f6b342de06afdb8dbeb9cb0e025502959abbe90b8139d3050f72297d7b63338b4571aac8fcbb",
-      "file": "src/app/components/elements/tag/badge.component.ts",
+      "file": "src/app/components/elements/badge/badge.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
       "entryComponents": [],
@@ -1625,7 +1625,7 @@
     },
     {
       "name": "BillingsHistoryComponent",
-      "id": "component-BillingsHistoryComponent-4ddfcf55fc6a936757ccdb00f197cfabea62f80dfdc1debb471e026ead790ced456b1661d894d58bea0aec5a108acc8dff9db484e5a39f5c2c19abbd6d745007",
+      "id": "component-BillingsHistoryComponent-2ab07926143270ac0fbbf12d5c8206cc353b23c7ca7637208558682ee234d3339a08af176c5ad4f9b7b734ad571245ee9e7d998ef47d9f9f5444b474b4ff5b3b",
       "file": "src/app/pages/account/billings/billings-history/billings-history.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -1725,7 +1725,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {ChangeDetectionStrategy, Component, computed} from '@angular/core';\r\nimport {ButtonIconComponent} from \"../../../../components/elements/buttons/button-icon/button-icon.component\";\r\nimport {CdkTableModule} from \"@angular/cdk/table\";\r\nimport {DatePipe} from \"@angular/common\";\r\nimport {\r\n  SkeletonLoaderComponent\r\n} from \"../../../../components/elements/loaders/skeleton-loader/skeleton-loader.component\";\r\nimport {toSignal} from \"@angular/core/rxjs-interop\";\r\nimport {delay, of, startWith} from \"rxjs\";\r\nimport {MatTableDataSource} from \"@angular/material/table\";\r\nimport {ButtonTextComponent} from \"../../../../components/elements/buttons/button-text/button-text.component\";\r\nimport {BadgeComponent} from \"../../../../components/elements/tag/badge.component\";\r\nimport {ButtonComponent} from \"../../../../components/elements/buttons/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-billings-history',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonIconComponent,\r\n    CdkTableModule,\r\n    DatePipe,\r\n    SkeletonLoaderComponent,\r\n    ButtonTextComponent,\r\n    BadgeComponent,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './billings-history.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class BillingsHistoryComponent {\r\n  readonly isLoading = toSignal(of(false).pipe(\r\n    delay(1_000),\r\n    startWith(true)\r\n  ));\r\n  readonly displayedColumns = ['invoice', 'status', 'amount', 'createdAt', 'action'];\r\n  readonly datasource = computed(() => {\r\n    if (this.isLoading()) {\r\n      return [];\r\n    } else {\r\n      return new MatTableDataSource<{\r\n        invoice: string,\r\n        status: 'Paid' | 'Unpaid',\r\n        createdAt: Date,\r\n        amount: number\r\n      }>([\r\n        {\r\n          invoice: 'C0A0TH45-0006',\r\n          status: 'Paid',\r\n          amount: 6.54,\r\n          createdAt: new Date('01/01/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0007',\r\n          status: 'Paid',\r\n          amount: 6.01,\r\n          createdAt: new Date('01/02/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0008',\r\n          status: 'Paid',\r\n          amount: 3.53,\r\n          createdAt: new Date('01/03/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0009',\r\n          status: 'Paid',\r\n          amount: 1.94,\r\n          createdAt: new Date('01/04/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0010',\r\n          status: 'Paid',\r\n          amount: 5.75,\r\n          createdAt: new Date('01/05/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0011',\r\n          status: 'Paid',\r\n          amount: 2.09,\r\n          createdAt: new Date('01/06/2022'),\r\n        }\r\n      ])\r\n    }\r\n  });\r\n}\r\n",
+      "sourceCode": "import {ChangeDetectionStrategy, Component, computed} from '@angular/core';\r\nimport {ButtonIconComponent} from \"../../../../components/elements/buttons/button-icon/button-icon.component\";\r\nimport {CdkTableModule} from \"@angular/cdk/table\";\r\nimport {DatePipe} from \"@angular/common\";\r\nimport {\r\n  SkeletonLoaderComponent\r\n} from \"../../../../components/elements/loaders/skeleton-loader/skeleton-loader.component\";\r\nimport {toSignal} from \"@angular/core/rxjs-interop\";\r\nimport {delay, of, startWith} from \"rxjs\";\r\nimport {MatTableDataSource} from \"@angular/material/table\";\r\nimport {ButtonTextComponent} from \"../../../../components/elements/buttons/button-text/button-text.component\";\r\nimport {BadgeComponent} from \"../../../../components/elements/badge/badge.component\";\r\nimport {ButtonComponent} from \"../../../../components/elements/buttons/button/button.component\";\r\n\r\n@Component({\r\n  selector: 'app-billings-history',\r\n  standalone: true,\r\n  imports: [\r\n    ButtonIconComponent,\r\n    CdkTableModule,\r\n    DatePipe,\r\n    SkeletonLoaderComponent,\r\n    ButtonTextComponent,\r\n    BadgeComponent,\r\n    ButtonComponent\r\n  ],\r\n  templateUrl: './billings-history.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class BillingsHistoryComponent {\r\n  readonly isLoading = toSignal(of(false).pipe(\r\n    delay(1_000),\r\n    startWith(true)\r\n  ));\r\n  readonly displayedColumns = ['invoice', 'status', 'amount', 'createdAt', 'action'];\r\n  readonly datasource = computed(() => {\r\n    if (this.isLoading()) {\r\n      return [];\r\n    } else {\r\n      return new MatTableDataSource<{\r\n        invoice: string,\r\n        status: 'Paid' | 'Unpaid',\r\n        createdAt: Date,\r\n        amount: number\r\n      }>([\r\n        {\r\n          invoice: 'C0A0TH45-0006',\r\n          status: 'Paid',\r\n          amount: 6.54,\r\n          createdAt: new Date('01/01/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0007',\r\n          status: 'Paid',\r\n          amount: 6.01,\r\n          createdAt: new Date('01/02/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0008',\r\n          status: 'Paid',\r\n          amount: 3.53,\r\n          createdAt: new Date('01/03/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0009',\r\n          status: 'Paid',\r\n          amount: 1.94,\r\n          createdAt: new Date('01/04/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0010',\r\n          status: 'Paid',\r\n          amount: 5.75,\r\n          createdAt: new Date('01/05/2022'),\r\n        },\r\n        {\r\n          invoice: 'C0A0TH45-0011',\r\n          status: 'Paid',\r\n          amount: 2.09,\r\n          createdAt: new Date('01/06/2022'),\r\n        }\r\n      ])\r\n    }\r\n  });\r\n}\r\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": ":host {@apply flex flex-col w-full h-full}\n",
@@ -1933,7 +1933,7 @@
     },
     {
       "name": "BillingsPreferencesComponent",
-      "id": "component-BillingsPreferencesComponent-bea077d850f6e0963a6f9cb91e5b5f42ef8c920f78055fbe38d86ebd0d3aa562a86b6ca3a0552f64ef89f4f0894381cbf0436c35b5bd41e3851df3a170f84849",
+      "id": "component-BillingsPreferencesComponent-dce515c313f06125f9fbd94820791b41c5d54ce2f7934a7f03f240c92aa3f70e3c6e9311a4209e8a0b41e80a4e42874123ca8e249d3acb79e53cdd3f05fa3c9d",
       "file": "src/app/pages/account/billings/billings-preferences/billings-preferences.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -2007,7 +2007,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {ChangeDetectionStrategy, Component} from '@angular/core';\r\nimport {BadgeComponent} from \"../../../../components/elements/tag/badge.component\";\r\nimport {ButtonTextComponent} from \"../../../../components/elements/buttons/button-text/button-text.component\";\r\nimport {CdkTableModule} from \"@angular/cdk/table\";\r\nimport {DatePipe} from \"@angular/common\";\r\nimport {\r\n  SkeletonLoaderComponent\r\n} from \"../../../../components/elements/loaders/skeleton-loader/skeleton-loader.component\";\r\nimport {InputTextComponent} from \"../../../../components/elements/inputs/input-text/input-text.component\";\r\nimport {FormControl, ReactiveFormsModule} from \"@angular/forms\";\r\n\r\n@Component({\r\n  selector: 'app-billings-preferences',\r\n  standalone: true,\r\n  imports: [\r\n    BadgeComponent,\r\n    ButtonTextComponent,\r\n    CdkTableModule,\r\n    DatePipe,\r\n    SkeletonLoaderComponent,\r\n    InputTextComponent,\r\n    ReactiveFormsModule\r\n  ],\r\n  templateUrl: './billings-preferences.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class BillingsPreferencesComponent {\r\n  readonly companyNameForm = new FormControl('John Doe Corp.')\r\n}\r\n",
+      "sourceCode": "import {ChangeDetectionStrategy, Component} from '@angular/core';\r\nimport {BadgeComponent} from \"../../../../components/elements/badge/badge.component\";\r\nimport {ButtonTextComponent} from \"../../../../components/elements/buttons/button-text/button-text.component\";\r\nimport {CdkTableModule} from \"@angular/cdk/table\";\r\nimport {DatePipe} from \"@angular/common\";\r\nimport {\r\n  SkeletonLoaderComponent\r\n} from \"../../../../components/elements/loaders/skeleton-loader/skeleton-loader.component\";\r\nimport {InputTextComponent} from \"../../../../components/elements/inputs/input-text/input-text.component\";\r\nimport {FormControl, ReactiveFormsModule} from \"@angular/forms\";\r\n\r\n@Component({\r\n  selector: 'app-billings-preferences',\r\n  standalone: true,\r\n  imports: [\r\n    BadgeComponent,\r\n    ButtonTextComponent,\r\n    CdkTableModule,\r\n    DatePipe,\r\n    SkeletonLoaderComponent,\r\n    InputTextComponent,\r\n    ReactiveFormsModule\r\n  ],\r\n  templateUrl: './billings-preferences.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class BillingsPreferencesComponent {\r\n  readonly companyNameForm = new FormControl('John Doe Corp.')\r\n}\r\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": ":host {@apply flex flex-col w-full h-full}\n",
@@ -6003,7 +6003,7 @@
           }
         }
       },
-      "templateData": "<app-label\n  [description]=\"description\"\n  [label]=\"label\"\n  [required]=\"required\">\n  <div [appMenuFor]=\"optionsMenu\"\n       [class.border-gray-400]=\"!isInputEnabled()\"\n       [class.border-green-700]=\"isInputEnabled()\"\n       [class.h-8]=\"size === 'sm'\"\n       [class.h-9]=\"size === 'md'\"\n       [class.text-gray-400]=\"!isInputEnabled()\"\n       appMenu appMenuDirection=\"bottom\" class=\"flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative text-gray-900\"\n  >\n    @if (!!_value()) {\n      {{ _value() }}\n    } @else if (placeholder) {\n      <span class=\"text-gray-400\">{{ placeholder }}</span>\n    }\n    <div [class.text-gray-400]=\"!isInputEnabled()\"\n         class=\"text-sm absolute rounded-lg h-full top-0 right-0 group-focus:opacity-0 w-8 flex items-center justify-center\"\n    >\n      <app-icon class=\"group-hover:text-gray-500 text-gray-400\" svgIcon=\"dropdown\"/>\n    </div>\n  </div>\n</app-label>\n<ng-template #optionsMenu>\n  <div class=\"flex flex-col pt-1 pb-1 w-full text-sm\">\n    @for (option of options;track option) {\n      <div class=\"flex flex-col gap-0.5 px-4 py-2 cursor-pointer\" (mouseup)=\"selectOption(option)\"\n           [class.bg-green-700]=\"_value() === option.label\"\n           [class.text-white]=\"_value() === option.label\"\n           [class.text-gray-700]=\"_value() !== option.label\"\n           [class.hover:bg-green-50]=\"_value() !== option.label\"\n      >\n        <div class=\"text-sm\">{{ option.label }}</div>\n        <div class=\"text-xs\"\n             [class.text-green-200]=\"_value() === option.label\"\n             [class.text-gray-600]=\"_value() !== option.label\"\n        >{{ option.description }}\n        </div>\n      </div>\n    }\n  </div>\n</ng-template>\n"
+      "templateData": "<app-label\n  [description]=\"description\"\n  [label]=\"label\"\n  [required]=\"required\">\n  <div [appMenuFor]=\"optionsMenu\"\n       [class.border-gray-400]=\"!isInputEnabled()\"\n       [class.border-green-700]=\"isInputEnabled()\"\n       [class.h-8]=\"size === 'sm'\"\n       [class.h-9]=\"size === 'md'\"\n       [class.text-gray-400]=\"!isInputEnabled()\"\n       appMenu appMenuDirection=\"bottom\"\n       class=\"flex items-center pl-3 pr-1 group justify-between group border rounded-lg w-full relative text-gray-900\"\n  >\n    @if (!!_value()) {\n      {{ _value() }}\n    } @else if (placeholder) {\n      <span class=\"text-gray-400\">{{ placeholder }}</span>\n    }\n    <div [class.text-gray-400]=\"!isInputEnabled()\"\n         class=\"text-sm absolute rounded-lg h-full top-0 right-0 group-focus:opacity-0 w-8 flex items-center justify-center\"\n    >\n      <app-icon class=\"group-hover:text-gray-500 text-gray-400\" svgIcon=\"dropdown\"/>\n    </div>\n  </div>\n</app-label>\n<ng-template #optionsMenu>\n  <div class=\"flex flex-col pt-1 pb-1 w-full text-sm\">\n    @for (option of options;track option) {\n      <div class=\"flex flex-col gap-0.5 px-4 py-2 cursor-pointer\" (mouseup)=\"selectOption(option)\"\n           [class.bg-green-700]=\"_value() === option.label\"\n           [class.text-white]=\"_value() === option.label\"\n           [class.text-gray-700]=\"_value() !== option.label\"\n           [class.hover:bg-green-50]=\"_value() !== option.label\"\n      >\n        <div class=\"text-sm\">{{ option.label }}</div>\n        <div class=\"text-xs\"\n             [class.text-green-200]=\"_value() === option.label\"\n             [class.text-gray-600]=\"_value() !== option.label\"\n        >{{ option.description }}\n        </div>\n      </div>\n    }\n  </div>\n</ng-template>\n"
     },
     {
       "name": "SidenavComponent",
@@ -6465,7 +6465,7 @@
     {
       "name": "TagComponent",
       "id": "component-TagComponent-8a42f1b3937044ae1e536e55efa20d0031d12d5515d7e9dc3fff8c6e3e26e33dcd7b354b5cd26d9ed5b10f06bf12a32a86f45d8fab44b9eb071a9c33633bf746",
-      "file": "src/app/components/elements/badge/tag.component.ts",
+      "file": "src/app/components/elements/tag/tag.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [
         "ViewEncapsulation.None"
@@ -6516,7 +6516,7 @@
     },
     {
       "name": "TeamComponent",
-      "id": "component-TeamComponent-d0653e50ec5bcc29365675257398eff55034d95079f574cc750e4fe33cf8e7f89e7231fe37cc2d9d8fdad3ce18f27b3d6606a63e83c2af4e6b4526e716e2705d",
+      "id": "component-TeamComponent-af35903f22588e2ccb4f9deec56ec9a83518e0ae3134435fc4a528094afa5227449abbeee63626e0edc9a6d1d366c8dca33b39ac48c48d5b5057f0fa5debd67c",
       "file": "src/app/pages/account/team/team.component.ts",
       "changeDetection": "ChangeDetectionStrategy.OnPush",
       "encapsulation": [],
@@ -6636,7 +6636,7 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import {ChangeDetectionStrategy, Component, signal} from '@angular/core';\r\nimport {HeaderComponent} from \"../../../components/elements/headers/header/header.component\";\r\nimport {ButtonComponent} from \"../../../components/elements/buttons/button/button.component\";\r\nimport {MatIconModule} from \"@angular/material/icon\";\r\nimport {InputTextComponent} from \"../../../components/elements/inputs/input-text/input-text.component\";\r\nimport {AutocompleteComponent} from \"../../../components/elements/inputs/autocomplete/autocomplete.component\";\r\nimport {ProfilePictureComponent} from \"../../../components/elements/user/profil-picture/profile-picture.component\";\r\nimport {TagComponent} from \"../../../components/elements/badge/tag.component\";\r\nimport {SelectComponent, SelectOption} from \"../../../components/elements/inputs/select/select.component\";\r\n\r\n@Component({\r\n  selector: 'app-team',\r\n  standalone: true,\r\n  imports: [\r\n    HeaderComponent,\r\n    ButtonComponent,\r\n    MatIconModule,\r\n    InputTextComponent,\r\n    AutocompleteComponent,\r\n    ProfilePictureComponent,\r\n    TagComponent,\r\n    SelectComponent\r\n  ],\r\n  templateUrl: './team.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TeamComponent {\r\n  readonly value = signal<string>('Owner');\r\n  readonly options: SelectOption[] = [{\r\n    label: 'Owner',\r\n    description: 'Can modify billing and team settings'\r\n  }, {\r\n    label: 'Reader',\r\n    description: 'Can make standard requests'\r\n  }];\r\n\r\n  changeValue($event: string): void {\r\n    this.value.set($event)\r\n  }\r\n}\r\n",
+      "sourceCode": "import {ChangeDetectionStrategy, Component, signal} from '@angular/core';\r\nimport {HeaderComponent} from \"../../../components/elements/headers/header/header.component\";\r\nimport {ButtonComponent} from \"../../../components/elements/buttons/button/button.component\";\r\nimport {MatIconModule} from \"@angular/material/icon\";\r\nimport {InputTextComponent} from \"../../../components/elements/inputs/input-text/input-text.component\";\r\nimport {AutocompleteComponent} from \"../../../components/elements/inputs/autocomplete/autocomplete.component\";\r\nimport {ProfilePictureComponent} from \"../../../components/elements/user/profil-picture/profile-picture.component\";\r\nimport {TagComponent} from \"../../../components/elements/tag/tag.component\";\r\nimport {SelectComponent, SelectOption} from \"../../../components/elements/inputs/select/select.component\";\r\n\r\n@Component({\r\n  selector: 'app-team',\r\n  standalone: true,\r\n  imports: [\r\n    HeaderComponent,\r\n    ButtonComponent,\r\n    MatIconModule,\r\n    InputTextComponent,\r\n    AutocompleteComponent,\r\n    ProfilePictureComponent,\r\n    TagComponent,\r\n    SelectComponent\r\n  ],\r\n  templateUrl: './team.component.html',\r\n  styles: [':host {@apply flex flex-col w-full h-full}'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class TeamComponent {\r\n  readonly value = signal<string>('Owner');\r\n  readonly options: SelectOption[] = [{\r\n    label: 'Owner',\r\n    description: 'Can modify billing and team settings'\r\n  }, {\r\n    label: 'Reader',\r\n    description: 'Can make standard requests'\r\n  }];\r\n\r\n  changeValue($event: string): void {\r\n    this.value.set($event)\r\n  }\r\n}\r\n",
       "assetsDirs": [],
       "styleUrlsData": "",
       "stylesData": ":host {@apply flex flex-col w-full h-full}\n",
@@ -7346,7 +7346,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story",
-        "defaultValue": "(args) => ({\n  template: `\n  <app-badge\n    [size]=\"size\"\n    >{{ label }}</app-badge>\n  `,\n  props: args\n})"
+        "defaultValue": "(args) => ({\n  template: `\n  <app-badge class=\"inline-block\"\n    [size]=\"size\"\n    >{{ label }}</app-badge>\n  `,\n  props: args\n})"
       },
       {
         "name": "barColor",
@@ -7466,7 +7466,17 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Story",
-        "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {\n    ...args,\n    title: 'Header with tabs',\n    tabs: [{name: 'tab 1', route: []}, {name: 'tab 2', route: []}, {name: 'tab 3', route: []}]\n  }\n})"
+        "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {\n    ...args,\n    title: 'Header with tabs',\n    tabs: [{name: 'tab 1', route: ['a']}, {name: 'tab 2', route: ['b']}, {name: 'tab 3', route: ['c']}]\n  }\n})"
+      },
+      {
+        "name": "HeaderWithTabs",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/tabs-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-header-tab [tabs]=\"tabs\">\n    {{ content }}\n</app-header-tab>\n  `,\n  props: {\n    ...args,\n    tabs: [{name: 'tab 1', route: ['a']}, {name: 'tab 2', route: ['b']}, {name: 'tab 3', route: ['c']}]\n  }\n})"
       },
       {
         "name": "HighlightWithLink",
@@ -7542,6 +7552,16 @@
         "name": "meta",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/tag.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Meta<TagComponent>",
+        "defaultValue": "{\n  title: 'Components/tag',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        TagComponent\n      ]\n    })\n  ],\n  args: {\n    size: 'md',\n    label: 'Custom badge'\n  },\n  argTypes: {\n    label: {\n      description: 'The content of the badge.',\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+      },
+      {
+        "name": "meta",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/buttons/button-group.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
@@ -7566,7 +7586,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Meta<ButtonTextComponent>",
-        "defaultValue": "{\n  title: 'Components/buttons/buttonText',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        ButtonTextComponent\n      ]\n    })\n  ],\n  args: {\n    label:'Button',\n    size: 'md',\n    isLoading: false,\n    disabled: false,\n  },\n  argTypes: {\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n    color: {\n      description: 'Theme color palette for the button.',\n      options: ['primary', 'neutral'],\n      control: {type: 'select'}\n    },\n    disabled: {\n      description: 'Whether the button is disabled.',\n    },\n    isLoading: {\n      description: 'Whether the button is loading.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        "defaultValue": "{\n  title: 'Components/buttons/buttonText',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        ButtonTextComponent\n      ]\n    })\n  ],\n  args: {\n    label: 'Button',\n    size: 'md',\n    isLoading: false,\n    disabled: false,\n  },\n  argTypes: {\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n    color: {\n      description: 'Theme color palette for the button.',\n      options: ['primary', 'neutral'],\n      control: {type: 'select'}\n    },\n    disabled: {\n      description: 'Whether the button is disabled.',\n    },\n    isLoading: {\n      description: 'Whether the button is loading.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
       },
       {
         "name": "meta",
@@ -7592,11 +7612,31 @@
         "name": "meta",
         "ctype": "miscellaneous",
         "subtype": "variable",
+        "file": "src/stories/headers/header-with-sub-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Meta<HeaderWithSubHeaderComponent>",
+        "defaultValue": "{\n  title: 'Components/headers/sub-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderWithSubHeaderComponent,\n        RouterTestingModule\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: 'Sub title of the header',\n    titleTooltip: 'custom tooltip'\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    titleTooltip: {\n      description: 'Content of the tooltip (optional).',\n    }\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+      },
+      {
+        "name": "meta",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
         "file": "src/stories/headers/simple-header.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Meta<HeaderComponent>",
-        "defaultValue": "{\n  title: 'Components/headers/simple-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderComponent,\n        RouterModule.forRoot([]),\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        "defaultValue": "{\n  title: 'Components/headers/simple-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderComponent,\n        RouterTestingModule\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+      },
+      {
+        "name": "meta",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/tabs-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Meta<HeaderTabComponent>",
+        "defaultValue": "{\n  title: 'Components/headers/tabs-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderTabComponent,\n        RouterTestingModule\n      ]\n    })\n  ],\n  args: {\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
       },
       {
         "name": "meta",
@@ -7626,7 +7666,7 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Meta<InputDateComponent>",
-        "defaultValue": "{\n  title: 'Components/inputs/date',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule,BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        InputDateComponent,\n        SvgIconModule,\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom Label',\n    description: 'Custom Description',\n    placeholder: 'Custom Placeholder',\n    required: true,\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        "defaultValue": "{\n  title: 'Components/inputs/date',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        InputDateComponent,\n        SvgIconModule,\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom Label',\n    description: 'Custom Description',\n    placeholder: 'Custom Placeholder',\n    required: true,\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
       },
       {
         "name": "meta",
@@ -7799,6 +7839,16 @@
         "defaultValue": "(args) => ({\n  template: `\n  <div class=\"inline-block\" appHighlight [highlightLink]=\"highlightLink\" [appHighlightTooltip]=\"appHighlightTooltip\" [appHighlightDisabled]=\"appHighlightDisabled\">Simple highlighted text</div>\n  `,\n  props: {...args}\n})"
       },
       {
+        "name": "SubHeader",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/headers/header-with-sub-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-header-with-sub-header [title]=\"title\" [titleTooltip]=\"titleTooltip\">{{ content }}</app-header-with-sub-header>\n  `,\n  props: {...args}\n})"
+      },
+      {
         "name": "SvgIcon",
         "ctype": "miscellaneous",
         "subtype": "variable",
@@ -7807,6 +7857,16 @@
         "deprecationMessage": "",
         "type": "Story",
         "defaultValue": "(args) => ({\n  template: `\n  <app-button-icon\n    [disabled]=\"disabled\"\n    [fontIcon]=\"fontIcon\"\n    [svgIcon]=\"svgIcon\"\n    >{{ label }}</app-button-icon>\n  `,\n  props: {\n    ...args,\n    svgIcon: 'playground',\n    fontIcon: undefined,\n  },\n})"
+      },
+      {
+        "name": "Tag",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/stories/tag.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story",
+        "defaultValue": "(args) => ({\n  template: `\n  <app-tag class=\"inline-block\"\n    [size]=\"size\"\n    >{{ label }}</app-tag>\n  `,\n  props: args\n})"
       },
       {
         "name": "Text",
@@ -8020,6 +8080,17 @@
         "name": "Story",
         "ctype": "miscellaneous",
         "subtype": "typealias",
+        "rawtype": "StoryFn<TagComponent>",
+        "file": "src/stories/tag.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 183
+      },
+      {
+        "name": "Story",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
         "rawtype": "StoryFn<ButtonGroupComponent>",
         "file": "src/stories/buttons/button-group.stories.ts",
         "deprecated": false,
@@ -8075,8 +8146,30 @@
         "name": "Story",
         "ctype": "miscellaneous",
         "subtype": "typealias",
+        "rawtype": "StoryFn<HeaderWithSubHeaderComponent>",
+        "file": "src/stories/headers/header-with-sub-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 183
+      },
+      {
+        "name": "Story",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
         "rawtype": "StoryFn<HeaderComponent>",
         "file": "src/stories/headers/simple-header.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 183
+      },
+      {
+        "name": "Story",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
+        "rawtype": "StoryFn<HeaderTabComponent>",
+        "file": "src/stories/headers/tabs-header.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "description": "",
@@ -8264,7 +8357,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Story",
-          "defaultValue": "(args) => ({\n  template: `\n  <app-badge\n    [size]=\"size\"\n    >{{ label }}</app-badge>\n  `,\n  props: args\n})"
+          "defaultValue": "(args) => ({\n  template: `\n  <app-badge class=\"inline-block\"\n    [size]=\"size\"\n    >{{ label }}</app-badge>\n  `,\n  props: args\n})"
         },
         {
           "name": "meta",
@@ -8522,7 +8615,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Story",
-          "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {\n    ...args,\n    title: 'Header with tabs',\n    tabs: [{name: 'tab 1', route: []}, {name: 'tab 2', route: []}, {name: 'tab 3', route: []}]\n  }\n})"
+          "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">\n    {{ content }}\n</app-header>\n  `,\n  props: {\n    ...args,\n    title: 'Header with tabs',\n    tabs: [{name: 'tab 1', route: ['a']}, {name: 'tab 2', route: ['b']}, {name: 'tab 3', route: ['c']}]\n  }\n})"
         },
         {
           "name": "meta",
@@ -8532,7 +8625,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Meta<HeaderComponent>",
-          "defaultValue": "{\n  title: 'Components/headers/simple-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderComponent,\n        RouterModule.forRoot([]),\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+          "defaultValue": "{\n  title: 'Components/headers/simple-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderComponent,\n        RouterTestingModule\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         },
         {
           "name": "SimpleHeader",
@@ -8543,6 +8636,28 @@
           "deprecationMessage": "",
           "type": "Story",
           "defaultValue": "(args) => ({\n  template: `\n  <app-header [title]=\"title\" [tabs]=\"tabs\">  {{ content }}</app-header>\n  `,\n  props: args\n})"
+        }
+      ],
+      "src/stories/headers/tabs-header.stories.ts": [
+        {
+          "name": "HeaderWithTabs",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/tabs-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-header-tab [tabs]=\"tabs\">\n    {{ content }}\n</app-header-tab>\n  `,\n  props: {\n    ...args,\n    tabs: [{name: 'tab 1', route: ['a']}, {name: 'tab 2', route: ['b']}, {name: 'tab 3', route: ['c']}]\n  }\n})"
+        },
+        {
+          "name": "meta",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/tabs-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Meta<HeaderTabComponent>",
+          "defaultValue": "{\n  title: 'Components/headers/tabs-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderTabComponent,\n        RouterTestingModule\n      ]\n    })\n  ],\n  args: {\n    content: undefined,\n    tabs: undefined\n  },\n  argTypes: {\n\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    tabs: {\n      description: 'Tabs of the header (optional).',\n      control: {type: 'object'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         }
       ],
       "src/stories/transformations/hightlight.stories.ts": [
@@ -8606,7 +8721,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Meta<InputDateComponent>",
-          "defaultValue": "{\n  title: 'Components/inputs/date',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule,BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        InputDateComponent,\n        SvgIconModule,\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom Label',\n    description: 'Custom Description',\n    placeholder: 'Custom Placeholder',\n    required: true,\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+          "defaultValue": "{\n  title: 'Components/inputs/date',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule, BrowserAnimationsModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        InputDateComponent,\n        SvgIconModule,\n      ]\n    })\n  ],\n  args: {\n    label: 'Custom Label',\n    description: 'Custom Description',\n    placeholder: 'Custom Placeholder',\n    required: true,\n  },\n  argTypes: {\n    label: {\n      defaultValue: '',\n      description: 'The label.',\n      control: {type: 'text'}\n    },\n    description: {\n      defaultValue: '',\n      description: 'The description.',\n      control: {type: 'text'}\n    },\n    placeholder: {\n      defaultValue: '',\n      description: 'The placeholder.',\n      control: {type: 'text'}\n    },\n    required: {\n      description: 'Whether the input is required.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         }
       ],
       "src/stories/inputs/input-text.stories.ts": [
@@ -8673,6 +8788,28 @@
           "defaultValue": "{\n  title: 'Components/transformations/menu',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(HttpClientModule)]\n    }),\n    moduleMetadata({\n      imports: [\n        MenuDirective,\n      ]\n    })\n  ],\n  args: {\n    direction: 'bottom',\n  },\n  argTypes: {\n    direction: {\n      description: 'The direction of the menu.',\n      options: ['top', 'bottom', 'left', 'right'],\n      control: {type: 'select'}\n    },\n\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         }
       ],
+      "src/stories/tag.stories.ts": [
+        {
+          "name": "meta",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/tag.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Meta<TagComponent>",
+          "defaultValue": "{\n  title: 'Components/tag',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        TagComponent\n      ]\n    })\n  ],\n  args: {\n    size: 'md',\n    label: 'Custom badge'\n  },\n  argTypes: {\n    label: {\n      description: 'The content of the badge.',\n    },\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        },
+        {
+          "name": "Tag",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/tag.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-tag class=\"inline-block\"\n    [size]=\"size\"\n    >{{ label }}</app-tag>\n  `,\n  props: args\n})"
+        }
+      ],
       "src/stories/buttons/button-text.stories.ts": [
         {
           "name": "meta",
@@ -8682,7 +8819,7 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Meta<ButtonTextComponent>",
-          "defaultValue": "{\n  title: 'Components/buttons/buttonText',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        ButtonTextComponent\n      ]\n    })\n  ],\n  args: {\n    label:'Button',\n    size: 'md',\n    isLoading: false,\n    disabled: false,\n  },\n  argTypes: {\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n    color: {\n      description: 'Theme color palette for the button.',\n      options: ['primary', 'neutral'],\n      control: {type: 'select'}\n    },\n    disabled: {\n      description: 'Whether the button is disabled.',\n    },\n    isLoading: {\n      description: 'Whether the button is loading.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+          "defaultValue": "{\n  title: 'Components/buttons/buttonText',\n  decorators: [\n    applicationConfig({\n      providers: []\n    }),\n    moduleMetadata({\n      imports: [\n        ButtonTextComponent\n      ]\n    })\n  ],\n  args: {\n    label: 'Button',\n    size: 'md',\n    isLoading: false,\n    disabled: false,\n  },\n  argTypes: {\n    size: {\n      description: 'The size to use.',\n      options: ['sm', 'md',],\n      control: {type: 'select'}\n    },\n    color: {\n      description: 'Theme color palette for the button.',\n      options: ['primary', 'neutral'],\n      control: {type: 'select'}\n    },\n    disabled: {\n      description: 'Whether the button is disabled.',\n    },\n    isLoading: {\n      description: 'Whether the button is loading.',\n    },\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
         },
         {
           "name": "TextButton",
@@ -8715,6 +8852,28 @@
           "deprecationMessage": "",
           "type": "Story",
           "defaultValue": "(args) => ({\n  template: `\n  <app-button-toggle\n    [size]=\"size\"\n    [color]=\"color\"\n    [buttons]=\"buttons\"\n   />\n  `,\n  props: args\n})"
+        }
+      ],
+      "src/stories/headers/header-with-sub-header.stories.ts": [
+        {
+          "name": "meta",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/header-with-sub-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Meta<HeaderWithSubHeaderComponent>",
+          "defaultValue": "{\n  title: 'Components/headers/sub-header',\n  decorators: [\n    applicationConfig({\n      providers: [importProvidersFrom(ActivatedRoute)]\n    }),\n    moduleMetadata({\n      imports: [\n        HeaderWithSubHeaderComponent,\n        RouterTestingModule\n      ]\n    })\n  ],\n  args: {\n    title: 'Title of the header',\n    content: 'Sub title of the header',\n    titleTooltip: 'custom tooltip'\n  },\n  argTypes: {\n    title: {\n      description: 'Title of the header.',\n    },\n    content: {\n      description: 'Content on the right side of the header (optional).',\n    },\n    titleTooltip: {\n      description: 'Content of the tooltip (optional).',\n    }\n  },\n  parameters: {\n    controls: {expanded: true}\n  }\n} as Meta"
+        },
+        {
+          "name": "SubHeader",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/stories/headers/header-with-sub-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story",
+          "defaultValue": "(args) => ({\n  template: `\n  <app-header-with-sub-header [title]=\"title\" [titleTooltip]=\"titleTooltip\">{{ content }}</app-header-with-sub-header>\n  `,\n  props: {...args}\n})"
         }
       ],
       "src/stories/inputs/multi-input-select.stories.ts": [
@@ -9019,6 +9178,19 @@
           "kind": 183
         }
       ],
+      "src/stories/tag.stories.ts": [
+        {
+          "name": "Story",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "StoryFn<TagComponent>",
+          "file": "src/stories/tag.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 183
+        }
+      ],
       "src/stories/buttons/button-group.stories.ts": [
         {
           "name": "Story",
@@ -9084,6 +9256,19 @@
           "kind": 183
         }
       ],
+      "src/stories/headers/header-with-sub-header.stories.ts": [
+        {
+          "name": "Story",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "StoryFn<HeaderWithSubHeaderComponent>",
+          "file": "src/stories/headers/header-with-sub-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 183
+        }
+      ],
       "src/stories/headers/simple-header.stories.ts": [
         {
           "name": "Story",
@@ -9091,6 +9276,19 @@
           "subtype": "typealias",
           "rawtype": "StoryFn<HeaderComponent>",
           "file": "src/stories/headers/simple-header.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 183
+        }
+      ],
+      "src/stories/headers/tabs-header.stories.ts": [
+        {
+          "name": "Story",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "StoryFn<HeaderTabComponent>",
+          "file": "src/stories/headers/tabs-header.stories.ts",
           "deprecated": false,
           "deprecationMessage": "",
           "description": "",
@@ -9287,10 +9485,10 @@
         "status": "low"
       },
       {
-        "filePath": "src/app/components/elements/badge/tag.component.ts",
+        "filePath": "src/app/components/elements/badge/badge.component.ts",
         "type": "component",
         "linktype": "component",
-        "name": "TagComponent",
+        "name": "BadgeComponent",
         "coveragePercent": 0,
         "coverageCount": "0/2",
         "status": "low"
@@ -9647,10 +9845,10 @@
         "status": "low"
       },
       {
-        "filePath": "src/app/components/elements/tag/badge.component.ts",
+        "filePath": "src/app/components/elements/tag/tag.component.ts",
         "type": "component",
         "linktype": "component",
-        "name": "BadgeComponent",
+        "name": "TagComponent",
         "coveragePercent": 0,
         "coverageCount": "0/2",
         "status": "low"
@@ -10109,6 +10307,26 @@
         "status": "low"
       },
       {
+        "filePath": "src/stories/headers/header-with-sub-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "meta",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/header-with-sub-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "SubHeader",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
         "filePath": "src/stories/headers/simple-header.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
@@ -10144,6 +10362,26 @@
         "linktype": "miscellaneous",
         "linksubtype": "variable",
         "name": "SimpleHeader",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/tabs-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "HeaderWithTabs",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/headers/tabs-header.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "meta",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
@@ -10314,6 +10552,26 @@
         "linktype": "miscellaneous",
         "linksubtype": "variable",
         "name": "TextAreaExample",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/tag.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "meta",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/stories/tag.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Tag",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"

@@ -1,27 +1,23 @@
 import {applicationConfig, Meta, moduleMetadata, StoryFn} from '@storybook/angular';
-import {BadgeComponent} from "../app/components/elements/badge/badge.component";
+import {SpinnerComponent} from "../../app/components/elements/loaders/spinner/spinner.component";
 
 
-const meta: Meta<BadgeComponent> = {
-  title: 'Components/badge',
+const meta: Meta<SpinnerComponent> = {
+  title: 'Components/loaders/spinner',
   decorators: [
     applicationConfig({
       providers: []
     }),
     moduleMetadata({
       imports: [
-        BadgeComponent
+        SpinnerComponent
       ]
     })
   ],
   args: {
     size: 'md',
-    label: 'Custom badge'
   },
   argTypes: {
-    label: {
-      description: 'The content of the badge.',
-    },
     size: {
       description: 'The size to use.',
       options: ['sm', 'md',],
@@ -34,13 +30,13 @@ const meta: Meta<BadgeComponent> = {
 } as Meta;
 
 export default meta;
-type Story = StoryFn<BadgeComponent>;
+type Story = StoryFn<SpinnerComponent>;
 
-export const Badge: Story = (args) => ({
+export const Spinner: Story = (args) => ({
   template: `
-  <app-badge class="inline-block"
+  <app-spinner
     [size]="size"
-    >{{ label }}</app-badge>
+    />
   `,
   props: args
 });
