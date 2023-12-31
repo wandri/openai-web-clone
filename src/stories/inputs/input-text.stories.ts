@@ -72,11 +72,11 @@ export const Text: Story = (args) => ({
   template: `
   <app-input-text
     [label]="label"
-    [placeholder]="placeholder"
+    [required]="required"
     [description]="description"
+    [placeholder]="placeholder"
     [type]="type"
     [icon]="icon"
-    [required]="required"
     [isLoading]="isLoading"
     >{{ label }}</app-input-text>
   `,
