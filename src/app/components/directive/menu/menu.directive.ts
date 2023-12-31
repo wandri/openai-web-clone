@@ -20,7 +20,7 @@ import {MenuComponent} from "./menu.component";
   selector: '[appMenu]'
 })
 export class MenuDirective implements OnInit {
-  @Input({required: true, alias: "appMenuFor"}) dropdownPanel!: TemplateRef<HTMLElement>;
+  @Input({required: true, alias: "appMenuFor"}) dropdownPanel: TemplateRef<HTMLElement>|null = null;
   @Input({alias: "appMenuDirection"}) appMenuDirection: 'top' | 'bottom' | 'left' | 'right' = 'bottom';
   @Input() appMenuDisabled: boolean = false;
   private elementRef: ElementRef = inject(ElementRef);

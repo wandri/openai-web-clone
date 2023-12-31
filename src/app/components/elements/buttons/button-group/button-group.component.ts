@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatIconModule} from "@angular/material/icon";
-import {MatMenuModule} from "@angular/material/menu";
 import {IconComponent} from "../../icon/icon.component";
+import {MenuDirective} from "../../../directive/menu/menu.directive";
 
 export interface OptionButton {
   fontIcon?: string;
@@ -18,7 +17,7 @@ export interface MultiButton extends OptionButton {
 @Component({
   selector: 'app-button-group',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatMenuModule, IconComponent],
+  imports: [CommonModule, IconComponent, MenuDirective],
   templateUrl: './button-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

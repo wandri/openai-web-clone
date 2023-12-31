@@ -14,7 +14,9 @@
       [class.border-l]="first"
       [class.rounded-l-lg]="first"
       [class.rounded-r-lg]="last"
-      [matMenuTriggerFor]='button.options ? menu : null'
+      appMenu
+      [appMenuFor]="button.options ? menu : null"
+      appMenuDirection="bottom"
       (click)='button.callback && !disabled ? button.callback(argument) : null'
       class="py-1.5 px-3 font-medium transition-colors border-t border-r border-b">
       <span
@@ -32,21 +34,23 @@
         }
       </span>
     </button>
-    <mat-menu #menu='matMenu'>
-      @for (option of button?.options || [];track option) {
-        <div
-          (click)='option.callback ? option.callback(argument) : null'
-          class="flex justify-between h-10 px-4 py-2 items-center cursor-pointer hover:bg-gray-100 transition-colors hover:text-gray-900"
-        >
-          @if (option.svgIcon) {
-            <app-icon [svgIcon]='option.svgIcon'/>
-          }
-          @if (option.fontIcon) {
-            <app-icon [fontIcon]='option.fontIcon'/>
-          }
-          {{ option.text }}
-        </div>
-      }
-    </mat-menu>
+    <ng-template #menu>
+      <div class="flex flex-col w-full">
+        @for (option of button?.options || [];track option) {
+          <div
+            (click)='option.callback ? option.callback(argument) : null'
+            class="flex justify-between h-10 px-4 py-2 items-center cursor-pointer hover:bg-gray-100 transition-colors hover:text-gray-900 w-full"
+          >
+            @if (option.svgIcon) {
+              <app-icon [svgIcon]='option.svgIcon'/>
+            }
+            @if (option.fontIcon) {
+              <app-icon [fontIcon]='option.fontIcon'/>
+            }
+            {{ option.text }}
+          </div>
+        }
+      </div>
+    </ng-template>
   }
 </div>
