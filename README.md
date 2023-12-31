@@ -2,6 +2,8 @@
 
 This project is written with Typescript, Angular, React and Tailwind.
 
+Storybook: [Link](https://storybook-openai-web.web.app/)
+
 ## Demo
 
 The demo is available [here](https://wandri.github.io/openai-web-clone/playground).
