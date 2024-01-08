@@ -36,7 +36,8 @@ const meta: Meta<HeaderComponent> = {
     },
   },
   parameters: {
-    controls: {expanded: true}
+    controls: {expanded: true},
+    layout: 'fullscreen',
   }
 } as Meta;
 

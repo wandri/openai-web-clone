@@ -1,9 +1,16 @@
-<div class='flex border-b border-gray-500 text-gray-700 w-full font-semibold px-8'>
-  @for (selection of selections;track selection) {
-    <div class='hover:text-gray-900 py-2 px-4  cursor-pointer hover:border-b-2 border-gray-900 transition-colors'
+<div [class.justify-center]='position === "center"'
+     [class.justify-end]='position === "right"'
+     [class.justify-start]='position === "left"'
+     class='flex border-b border-gray-200 gap-5 w-full text-sm px-6 text-gray-600 items-end h-full'
+>
+  @for (selection of selections; track selection) {
+    <div class='pt-2 pb-3 border-b cursor-pointer transition-colors'
          (click)='changeSelection.emit(selection)'
-         [class.border-b-2]='selectedSelection === selection'
+         [class.border-transparent]='selectedSelection !== selection'
+         [class.hover:border-gray-400]='selectedSelection !== selection'
          [class.text-gray-900]='selectedSelection === selection'
+         [class.border-gray-900]='selectedSelection === selection'
+         [class.font-bold]='selectedSelection === selection'
     >{{ selection }}
     </div>
   }

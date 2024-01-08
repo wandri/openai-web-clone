@@ -1,5 +1,9 @@
-<div class='flex border-b border-gray-200 gap-5 w-full text-sm px-6 text-gray-600'>
-  @for (selection of selections;track selection) {
+<div [class.justify-center]='position === "center"'
+     [class.justify-end]='position === "right"'
+     [class.justify-start]='position === "left"'
+     class='flex border-b border-gray-200 gap-5 w-full text-sm px-6 text-gray-600'
+>
+  @for (selection of selections; track selection) {
     <div class='pt-2 pb-3 hover:border-b hover:border-gray-400 cursor-pointer transition-colors'
          [routerLink]='selection.route'
          routerLinkActive

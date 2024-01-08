@@ -11,6 +11,7 @@ import {CommonModule} from '@angular/common';
 })
 export class TabComponent {
   @Input() selections: string[] = [];
-  @Output() changeSelection = new EventEmitter<string>();
+  @Input() position?: 'left' | 'center' | 'right' = 'left';
   @Input() selectedSelection?: string;
+  @Output() changeSelection = new EventEmitter<string>();
 }

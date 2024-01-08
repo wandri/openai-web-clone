@@ -11,5 +11,6 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabRouteComponent {
+  @Input() position?: 'left' | 'center' | 'right' = 'left';
   @Input() selections: { name: string; route: string[] }[] = [];
 }

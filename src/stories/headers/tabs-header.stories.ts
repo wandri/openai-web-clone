@@ -3,13 +3,14 @@ import {importProvidersFrom} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HeaderTabComponent} from "../../app/components/elements/headers/header-tab/header-tab.component";
+import {mockedRoutes} from "../mock/mock-routing";
 
 
 const meta: Meta<HeaderTabComponent> = {
   title: 'Components/headers/tabs-header',
   decorators: [
     applicationConfig({
-      providers: [importProvidersFrom(ActivatedRoute)]
+      providers: [importProvidersFrom(RouterTestingModule.withRoutes(mockedRoutes), ActivatedRoute)]
     }),
     moduleMetadata({
       imports: [
@@ -33,7 +34,8 @@ const meta: Meta<HeaderTabComponent> = {
     },
   },
   parameters: {
-    controls: {expanded: true}
+    controls: {expanded: true},
+    layout: 'fullscreen',
   }
 } as Meta;
 
